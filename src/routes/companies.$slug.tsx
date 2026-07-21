@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { companies } from "@/lib/companies";
+import { companies, type Company } from "@/lib/companies";
 
 export const Route = createFileRoute("/companies/$slug")({
   loader: ({ params }) => {
@@ -43,7 +43,7 @@ function NotFound() {
 }
 
 function CompanyPage() {
-  const { company } = Route.useLoaderData();
+  const { company } = Route.useLoaderData() as { company: Company };
   const idx = companies.findIndex((c) => c.slug === company.slug);
   const next = companies[(idx + 1) % companies.length];
   const nameWords = company.name.split(" ");
