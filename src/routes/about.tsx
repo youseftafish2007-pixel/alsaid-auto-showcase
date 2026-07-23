@@ -33,7 +33,7 @@ function AboutPage() {
   return (
     <>
       <section className="border-b border-rule">
-        <div className="container-editorial py-20 md:py-32">
+        <div className="container-editorial py-14 md:py-20">
           <div className="eyebrow">01 · The Group</div>
           <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1] tracking-[-0.02em] text-ink md:text-8xl">
             A long-held enterprise, <em className="text-crimson">built to endure.</em>
@@ -42,7 +42,7 @@ function AboutPage() {
       </section>
 
       <section className="border-b border-rule">
-        <div className="container-editorial grid gap-16 py-20 md:grid-cols-12 md:py-28">
+        <div className="container-editorial grid gap-12 py-14 md:grid-cols-12 md:py-28">
           <div className="md:col-span-7 md:col-start-1 space-y-6 text-base leading-relaxed text-ink/80">
             <p>
               Alsaid Group is a privately held international conglomerate with
@@ -86,7 +86,7 @@ function AboutPage() {
       </section>
 
       <section className="border-b border-rule bg-ink text-paper">
-        <div className="container-editorial py-24 md:py-32">
+        <div className="container-editorial py-16 md:py-24">
           <p className="max-w-4xl font-display text-4xl italic leading-[1.1] tracking-tight text-paper md:text-6xl">
             "We prefer to build sectors <span className="text-crimson">deeply</span>{" "}
             rather than chase trends."

@@ -8,7 +8,17 @@ export type Company = {
   location: string;
   facts: { label: string; value: string }[];
   paragraphs: string[];
+  /** Hex accent color for the company's own identity. */
+  accent: string;
+  /** Soft background tint used in company pages. */
+  accentSoft: string;
+  /** Optional imported logo asset URL. */
+  logo?: string;
+  /** Short monogram used when no logo is available. */
+  monogram: string;
 };
+
+import alsaidAutoLogo from "@/assets/alsaid-auto-logo.jpg.asset.json";
 
 export const companies: Company[] = [
   {
@@ -31,6 +41,10 @@ export const companies: Company[] = [
       "Founded in Amman in 1999, Alsaid Automotive represents the founding pillar of the Group and remains at the centre of its long-standing presence within the international automotive industry. Established through a vision centred on accessibility and regional mobility, the company developed into a recognised platform with reach across multiple international markets.",
       "The company has built its reputation through the sourcing, distribution, and supply of vehicles from international markets — serving both individual consumers and commercial sectors with a focus on reliability, operational continuity, and market adaptability.",
     ],
+    accent: "#C8102E",
+    accentSoft: "#FDECEE",
+    logo: alsaidAutoLogo.url,
+    monogram: "AA",
   },
   {
     slug: "gac-motor",
@@ -51,6 +65,9 @@ export const companies: Company[] = [
       "In 2025, Alsaid Group established an exclusive partnership with GAC Motor — becoming the exclusive partner across Amman, Libya, and Syria for selected vehicle categories, including pickup vehicles and larger automotive platforms.",
       "The agreement continues the Group's longstanding engagement with Asian automotive manufacturers, having previously worked with manufacturers including Great Wall Motors.",
     ],
+    accent: "#111827",
+    accentSoft: "#F3F4F6",
+    monogram: "GAC",
   },
   {
     slug: "greenviro-energy",
@@ -71,6 +88,9 @@ export const companies: Company[] = [
       "Established in 2013, Greenviro Energy reflects an early recognition of the region's evolving energy landscape and the global transition toward sustainable infrastructure. The company was developed with a long-term vision centred on sustainability, operational efficiency, and future-oriented investment.",
       "Focused on solar energy, renewable technologies, and energy development, Greenviro has advanced renewable accessibility through solar solutions and environmentally conscious infrastructure — work recognised through its mention within the United Nations Global Compact framework.",
     ],
+    accent: "#2F7D4F",
+    accentSoft: "#ECF5EF",
+    monogram: "GV",
   },
   {
     slug: "river-auto",
@@ -90,6 +110,9 @@ export const companies: Company[] = [
       "River Auto Sales & Transportation operates within the Group's international automotive and mobility network. Established to support cross-border transportation, the company plays a key role in connecting automotive markets between the United States, the Middle East, and other international destinations.",
       "Specialising in vehicle transportation, shipping coordination, and logistics operations, River Auto facilitates the movement of vehicles and commercial cargo through reliable and streamlined logistics solutions.",
     ],
+    accent: "#1E4E8C",
+    accentSoft: "#EAF1F9",
+    monogram: "RA",
   },
   {
     slug: "speed-travel",
@@ -109,6 +132,9 @@ export const companies: Company[] = [
       "Speed Travel & Tourism supports both individual and group travel through a broad range of services — travel coordination, airline ticketing, tourism services, and structured travel programmes — alongside working relationships with airlines and tourism operators across international destinations.",
       "The company has developed particular strength in religious and cultural travel, maintaining an active role in organising journeys to the Holy Lands and Mecca through coordinated group programmes.",
     ],
+    accent: "#0B7C86",
+    accentSoft: "#E8F4F5",
+    monogram: "ST",
   },
   {
     slug: "gma-everett",
@@ -128,6 +154,9 @@ export const companies: Company[] = [
       "Based in the United States, GMA of Everett represents an extension of Alsaid Group's automotive operations — focused on vehicle sales and automotive market services within the U.S. sector. The company specialises in providing a diverse range of vehicles through a customer-focused, quality-driven approach.",
       "Through market experience, sourcing capabilities, and operational coordination, GMA of Everett contributes to the Group's expanding automotive presence across international markets.",
     ],
+    accent: "#7A1F2B",
+    accentSoft: "#F5EBED",
+    monogram: "GMA",
   },
   {
     slug: "zain-farm",
@@ -148,6 +177,9 @@ export const companies: Company[] = [
       "Established in 2018, Zain Farm is designed to host large-scale celebrations and refined social gatherings, recognised for delivering elevated event experiences through atmosphere, service, and operational excellence. The venue specialises in weddings, private celebrations, and curated gatherings.",
       "Zain Farm is distinguished by its in-house culinary operations, where food is freshly prepared onsite. It also maintains a comprehensive inventory of professional event infrastructure — staging, lighting, and production solutions — available for hire at external venues.",
     ],
+    accent: "#8A6A2E",
+    accentSoft: "#F5EFE1",
+    monogram: "ZF",
   },
   {
     slug: "alsaid-foundation",
@@ -168,6 +200,9 @@ export const companies: Company[] = [
       "Established in Washington, D.C. in 2019, Alsaid Foundation is driven by the belief that meaningful progress begins through opportunity and access. The Foundation focuses on youth initiatives, educational development, community engagement, and programmes designed to assist underserved communities.",
       "The Foundation works alongside international partners, institutions, and governmental entities — supporting initiatives, awareness campaigns, and community-centred projects across educational, developmental, and sustainability-focused efforts.",
     ],
+    accent: "#334155",
+    accentSoft: "#EEF1F5",
+    monogram: "AF",
   },
 ];
 

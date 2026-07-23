@@ -14,8 +14,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-rule bg-paper/85 backdrop-blur-md">
       <div className="container-editorial flex h-16 items-center justify-between gap-6">
         <Link to="/" className="group flex items-center gap-3">
-          <span className="grid h-8 w-8 place-items-center border border-ink text-[10px] font-semibold tracking-[0.16em] text-ink">
-            AG
+          <span className="grid h-8 w-9 place-items-center border border-ink text-[10px] font-semibold tracking-[0.14em] text-ink">
+            ASG
           </span>
           <span className="flex flex-col leading-none">
             <span className="font-display text-[15px] font-medium tracking-tight text-ink">

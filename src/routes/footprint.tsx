@@ -25,7 +25,7 @@ function FootprintPage() {
   return (
     <>
       <section className="border-b border-rule">
-        <div className="container-editorial py-20 md:py-28">
+        <div className="container-editorial py-14 md:py-20">
           <div className="eyebrow">03 · Reference</div>
           <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1] tracking-[-0.02em] text-ink md:text-8xl">
             Global <em className="text-crimson">footprint.</em>
