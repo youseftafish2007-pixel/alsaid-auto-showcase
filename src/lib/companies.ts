@@ -8,7 +8,17 @@ export type Company = {
   location: string;
   facts: { label: string; value: string }[];
   paragraphs: string[];
+  /** Hex accent color for the company's own identity. */
+  accent: string;
+  /** Soft background tint used in company pages. */
+  accentSoft: string;
+  /** Optional imported logo asset URL. */
+  logo?: string;
+  /** Short monogram used when no logo is available. */
+  monogram: string;
 };
+
+import alsaidAutoLogo from "@/assets/alsaid-auto-logo.jpg.asset.json";
 
 export const companies: Company[] = [
   {
