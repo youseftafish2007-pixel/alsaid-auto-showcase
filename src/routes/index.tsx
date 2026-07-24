@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 
+const partnerLogos = companies.filter((c) => c.logo);
+
 export const Route = createFileRoute("/")({
   component: Index,
 });
@@ -89,6 +91,40 @@ function Index() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-b border-rule bg-paper-2/60">
+        <div className="container-editorial py-10 md:py-12">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              Group companies & partnerships
+            </div>
+            <Link
+              to="/companies"
+              className="text-[10px] font-semibold uppercase tracking-[0.22em] text-crimson hover:underline"
+            >
+              All eight →
+            </Link>
+          </div>
+          <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
+            {partnerLogos.map((c) => (
+              <Link
+                key={c.slug}
+                to="/companies/$slug"
+                params={{ slug: c.slug }}
+                className="group flex h-14 items-center justify-center"
+                aria-label={c.name}
+              >
+                <img
+                  src={c.logo}
+                  alt={`${c.name} logo`}
+                  className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                  loading="lazy"
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
