@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 
+const partnerLogos = companies.filter((c) => c.logo);
+
 export const Route = createFileRoute("/")({
   component: Index,
 });
@@ -9,7 +11,32 @@ function Index() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-rule">
-        <div className="container-editorial py-16 md:py-24">
+        {/* Depth layers: soft crimson bleed + faint diagonal rule pattern */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(200,16,46,0.09), transparent 65%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 bottom-[-160px] h-[420px] w-[420px] rounded-full blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(30,30,45,0.06), transparent 60%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-multiply"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, #1a1a2e 0, #1a1a2e 1px, transparent 1px, transparent 44px)",
+          }}
+        />
+        <div className="relative container-editorial py-16 md:py-24">
           <h1 className="font-display text-[clamp(2.75rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
             Where legacy
             <br />
@@ -64,6 +91,40 @@ function Index() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="border-b border-rule bg-paper-2/60">
+        <div className="container-editorial py-10 md:py-12">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+              Group companies & partnerships
+            </div>
+            <Link
+              to="/companies"
+              className="text-[10px] font-semibold uppercase tracking-[0.22em] text-crimson hover:underline"
+            >
+              All eight →
+            </Link>
+          </div>
+          <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
+            {partnerLogos.map((c) => (
+              <Link
+                key={c.slug}
+                to="/companies/$slug"
+                params={{ slug: c.slug }}
+                className="group flex h-14 items-center justify-center"
+                aria-label={c.name}
+              >
+                <img
+                  src={c.logo}
+                  alt={`${c.name} logo`}
+                  className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                  loading="lazy"
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

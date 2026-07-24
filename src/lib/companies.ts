@@ -18,7 +18,14 @@ export type Company = {
   monogram: string;
 };
 
-import alsaidAutoLogo from "@/assets/alsaid-auto-logo.jpg.asset.json";
+import alsaidAutoLogo from "@/assets/alsaid-auto.png.asset.json";
+import gacLogo from "@/assets/gac-motor.png.asset.json";
+import greenviroLogo from "@/assets/greenviro.png.asset.json";
+import riverLogo from "@/assets/river-auto.png.asset.json";
+import speedLogo from "@/assets/speed-travel.png.asset.json";
+import gmaLogo from "@/assets/gma-everett.png.asset.json";
+import zainLogo from "@/assets/zain-farm.png.asset.json";
+import foundationLogo from "@/assets/alsaid-foundation.png.asset.json";
 
 export const companies: Company[] = [
   {
@@ -67,6 +74,7 @@ export const companies: Company[] = [
     ],
     accent: "#111827",
     accentSoft: "#F3F4F6",
+    logo: gacLogo.url,
     monogram: "GAC",
   },
   {
@@ -90,6 +98,7 @@ export const companies: Company[] = [
     ],
     accent: "#2F7D4F",
     accentSoft: "#ECF5EF",
+    logo: greenviroLogo.url,
     monogram: "GV",
   },
   {
@@ -112,6 +121,7 @@ export const companies: Company[] = [
     ],
     accent: "#1E4E8C",
     accentSoft: "#EAF1F9",
+    logo: riverLogo.url,
     monogram: "RA",
   },
   {
@@ -134,6 +144,7 @@ export const companies: Company[] = [
     ],
     accent: "#0B7C86",
     accentSoft: "#E8F4F5",
+    logo: speedLogo.url,
     monogram: "ST",
   },
   {
@@ -156,6 +167,7 @@ export const companies: Company[] = [
     ],
     accent: "#7A1F2B",
     accentSoft: "#F5EBED",
+    logo: gmaLogo.url,
     monogram: "GMA",
   },
   {
@@ -179,6 +191,7 @@ export const companies: Company[] = [
     ],
     accent: "#8A6A2E",
     accentSoft: "#F5EFE1",
+    logo: zainLogo.url,
     monogram: "ZF",
   },
   {
@@ -202,6 +215,7 @@ export const companies: Company[] = [
     ],
     accent: "#334155",
     accentSoft: "#EEF1F5",
+    logo: foundationLogo.url,
     monogram: "AF",
   },
 ];
