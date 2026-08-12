@@ -17,7 +17,7 @@ function Index() {
           className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
           style={{
             background:
-              "radial-gradient(circle at center, rgba(200,16,46,0.09), transparent 65%)",
+              "radial-gradient(circle at center, rgba(166,25,46,0.10), transparent 65%)",
           }}
         />
         <div
