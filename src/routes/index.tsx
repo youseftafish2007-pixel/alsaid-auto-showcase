@@ -30,11 +30,12 @@ function Index() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-multiply"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, #1a1a2e 0, #1a1a2e 1px, transparent 1px, transparent 44px)",
-          }}
+          className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-1/3 pattern-diagonal opacity-[0.35]"
+          style={{ maskImage: "linear-gradient(to left, #000, transparent)" }}
         />
         <div className="relative container-editorial py-16 md:py-24">
           <h1 className="font-display text-[clamp(2.75rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
