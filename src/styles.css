@@ -77,8 +77,9 @@
   --paper-2: oklch(0.955 0.012 78);
   --ink: oklch(0.19 0.015 40);
   --rule: oklch(0.86 0.012 70);
-  --crimson: oklch(0.505 0.195 25);
-  --crimson-deep: oklch(0.4 0.18 25);
+  /* Masterpiece Red */
+  --crimson: oklch(0.47 0.173 20.4);
+  --crimson-deep: oklch(0.412 0.153 19.7);
   --background: var(--paper);
   --foreground: var(--ink);
   --card: oklch(1 0 0);
@@ -202,4 +203,48 @@
   background-repeat: no-repeat;
   transition: background-size 0.3s ease;
   &:hover { background-size: 100% 2px; }
+}
+
+/* Faint engraved grid — editorial paper texture */
+@utility pattern-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--ink) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Diagonal hairline rules */
+@utility pattern-diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    color-mix(in oklab, var(--ink) 10%, transparent) 0,
+    color-mix(in oklab, var(--ink) 10%, transparent) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
+/* Fine dot matrix */
+@utility pattern-dots {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--ink) 22%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+
+@utility drop-cap {
+  &::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.6em;
+    line-height: 0.82;
+    padding-right: 0.09em;
+    padding-top: 0.06em;
+    color: var(--crimson);
+  }
 }

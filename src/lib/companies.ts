@@ -48,7 +48,7 @@ export const companies: Company[] = [
       "Founded in Amman in 1999, Alsaid Automotive represents the founding pillar of the Group and remains at the centre of its long-standing presence within the international automotive industry. Established through a vision centred on accessibility and regional mobility, the company developed into a recognised platform with reach across multiple international markets.",
       "The company has built its reputation through the sourcing, distribution, and supply of vehicles from international markets — serving both individual consumers and commercial sectors with a focus on reliability, operational continuity, and market adaptability.",
     ],
-    accent: "#C8102E",
+    accent: "#A6192E",
     accentSoft: "#FDECEE",
     logo: alsaidAutoLogo.url,
     monogram: "AA",
