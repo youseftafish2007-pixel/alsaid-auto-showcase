@@ -228,7 +228,7 @@ function CompanyPage() {
       </section>
 
       <section className="border-b border-rule">
-        <div className="container-editorial grid gap-px bg-rule py-0 md:grid-cols-2">
+        <div className="container-editorial grid border-b border-rule md:grid-cols-2 md:divide-x md:divide-rule">
           <Link
             to="/companies/$slug"
             params={{ slug: prev.slug }}
