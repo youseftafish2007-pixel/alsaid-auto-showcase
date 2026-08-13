@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import asgLogo from "@/assets/asg-logo.png";
 
 const nav = [
   { to: "/", label: "Group" },
@@ -11,12 +12,16 @@ const nav = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-paper/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-ink/15 bg-paper/90 backdrop-blur-md">
       <div className="container-editorial flex h-16 items-center justify-between gap-6">
         <Link to="/" className="group flex items-center gap-3">
-          <span className="grid h-8 w-9 place-items-center border border-ink text-[10px] font-semibold tracking-[0.14em] text-ink">
-            ASG
-          </span>
+          <img
+            src={asgLogo}
+            alt="Alsaid Group"
+            width={40}
+            height={40}
+            className="h-9 w-auto object-contain"
+          />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[15px] font-medium tracking-tight text-ink">
               Alsaid Group
@@ -32,7 +37,7 @@ export function SiteHeader() {
             <Link
               key={n.to}
               to={n.to}
-              className="text-[13px] font-medium tracking-wide text-ink/70 transition-colors hover:text-crimson"
+              className="relative text-[13px] font-medium tracking-wide text-ink/70 transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-full after:origin-right after:scale-x-0 after:bg-crimson after:transition-transform after:duration-300 hover:text-crimson hover:after:origin-left hover:after:scale-x-100"
               activeProps={{ className: "text-crimson" }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -43,7 +48,7 @@ export function SiteHeader() {
 
         <a
           href="mailto:partnerships@alsaidgroup.com"
-          className="hidden items-center gap-2 border border-ink px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:bg-ink hover:text-paper md:inline-flex"
+          className="hidden items-center gap-2 border border-ink bg-ink px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-colors hover:border-crimson hover:bg-crimson md:inline-flex"
         >
           Partnerships
         </a>
