@@ -22,7 +22,7 @@ const projection = geoNaturalEarth1().fitExtent(
 const path = geoPath(projection);
 
 /** Manual label nudges so the dense MENA cluster stays legible. */
-const labelOffsets: Record<string, [number, number, string]> = {
+const labelOffsets: Record<string, [number, number, "start" | "end"]> = {
   Amman: [9, -6, "start"],
   Damascus: [-9, -12, "end"],
   Sharjah: [9, 8, "start"],
@@ -60,7 +60,7 @@ export function WorldMap() {
           const p = projection([row.lng, row.lat]);
           if (!p) return null;
           const [x, y] = p;
-          const [dx, dy, anchor] = labelOffsets[row.city] ?? [9, 3.5, "start"];
+          const [dx, dy, anchor] = labelOffsets[row.city] ?? ([9, 3.5, "start"] as const);
           return (
             <g key={row.city} className="map-pin">
               <circle cx={x} cy={y} r={12} fill="var(--crimson)" opacity={0.14} className="map-ping" />
