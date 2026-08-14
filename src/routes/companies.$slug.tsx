@@ -146,7 +146,7 @@ function CompanyPage() {
 
       {/* Fact ticker */}
       <section className="border-b border-ink/15 bg-ink text-paper">
-        <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-5">
+        <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
           {company.facts.map((f) => (
             <div key={f.label} className="bg-ink px-5 py-6">
               <div className="num text-2xl leading-none text-paper">{f.value}</div>
