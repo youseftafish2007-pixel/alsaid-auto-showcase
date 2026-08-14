@@ -64,7 +64,7 @@ export function WorldMap() {
               >
                 {row.city}
               </text>
-              <title>{`${row.city} — ${row.region}`}</title>
+              <title>{`${row.city} · ${row.region}`}</title>
             </g>
           );
         })}

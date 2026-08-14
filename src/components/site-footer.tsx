@@ -11,7 +11,7 @@ export function SiteFooter() {
             For partnerships, <em className="not-italic text-crimson">write to us.</em>
           </h2>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-paper/70">
-            A privately held international conglomerate — held for the long term, built
+            A privately held international conglomerate, held for the long term, built
             across two generations. Established 1999 in Amman, Jordan.
           </p>
           <div className="mt-8 space-y-2">
@@ -60,7 +60,7 @@ export function SiteFooter() {
 
       <div className="border-t border-paper/10">
         <div className="container-editorial flex flex-col gap-2 py-6 text-[11px] uppercase tracking-[0.22em] text-paper/50 md:flex-row md:items-center md:justify-between">
-          <span>© 1999 — 2026 Alsaid Group · All rights reserved</span>
+          <span>© 1999 to 2026 Alsaid Group · All rights reserved</span>
           <span>Corporate Profile · Vol. I</span>
         </div>
       </div>
