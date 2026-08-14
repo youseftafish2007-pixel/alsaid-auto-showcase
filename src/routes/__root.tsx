@@ -79,14 +79,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Alsaid Group — Where legacy leads." },
+      { title: "Alsaid Group | Where legacy leads." },
       {
         name: "description",
         content:
-          "Alsaid Group is a privately held international conglomerate — eight operating companies across mobility, energy, travel, hospitality, and social impact. Established 1999, Amman.",
+          "Alsaid Group is a privately held international conglomerate of eight operating companies across mobility, energy, travel, hospitality, and social impact. Established 1999, Amman.",
       },
       { name: "author", content: "Alsaid Group" },
-      { property: "og:title", content: "Alsaid Group — Where legacy leads." },
+      { property: "og:title", content: "Alsaid Group | Where legacy leads." },
       {
         property: "og:description",
         content:
@@ -100,7 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

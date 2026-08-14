@@ -21,6 +21,16 @@ const projection = geoNaturalEarth1().fitExtent(
 );
 const path = geoPath(projection);
 
+/** Manual label nudges so the dense MENA cluster stays legible. */
+const labelOffsets: Record<string, [number, number, "start" | "end"]> = {
+  Amman: [9, -6, "start"],
+  Damascus: [-9, -12, "end"],
+  Sharjah: [9, 8, "start"],
+  Dubai: [9, 20, "start"],
+  Mecca: [-9, 12, "end"],
+  Tripoli: [-9, 0, "end"],
+};
+
 export function WorldMap() {
   return (
     <div className="relative overflow-hidden border border-ink/15 bg-paper-2/50">
@@ -50,13 +60,15 @@ export function WorldMap() {
           const p = projection([row.lng, row.lat]);
           if (!p) return null;
           const [x, y] = p;
+          const [dx, dy, anchor] = labelOffsets[row.city] ?? ([9, 3.5, "start"] as const);
           return (
             <g key={row.city} className="map-pin">
               <circle cx={x} cy={y} r={12} fill="var(--crimson)" opacity={0.14} className="map-ping" />
               <circle cx={x} cy={y} r={4} fill="var(--crimson)" stroke="var(--paper)" strokeWidth={1.2} />
               <text
-                x={x + 9}
-                y={y + 3.5}
+                x={x + dx}
+                y={y + dy}
+                textAnchor={anchor}
                 fontSize={11}
                 fill="var(--ink)"
                 className="font-sans"
@@ -64,7 +76,7 @@ export function WorldMap() {
               >
                 {row.city}
               </text>
-              <title>{`${row.city} — ${row.region}`}</title>
+              <title>{`${row.city} · ${row.region}`}</title>
             </g>
           );
         })}

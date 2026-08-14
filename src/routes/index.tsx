@@ -1,17 +1,36 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
+import heroGroup from "@/assets/hero-group.jpg";
+import aboutLeadership from "@/assets/about-leadership.jpg";
 
 const partnerLogos = companies.filter((c) => c.logo);
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Alsaid Group | Where Legacy Leads" },
+      {
+        name: "description",
+        content:
+          "A privately held international group of eight companies across automotive, energy, logistics, travel, hospitality, and social impact. Founded in Amman, 1999.",
+      },
+      { property: "og:title", content: "Alsaid Group | Where Legacy Leads" },
+      {
+        property: "og:description",
+        content:
+          "Eight operating companies across nine markets and four continents, built and led across two generations.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
 function Index() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-rule">
-        {/* Depth layers: soft crimson bleed + faint diagonal rule pattern */}
+      <section className="relative overflow-hidden border-b border-ink/15">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
@@ -22,44 +41,29 @@ function Index() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 bottom-[-160px] h-[420px] w-[420px] rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(30,30,45,0.06), transparent 60%)",
-          }}
-        />
-        <div
-          aria-hidden
           className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
         />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-1/3 pattern-diagonal opacity-[0.35]"
-          style={{ maskImage: "linear-gradient(to left, #000, transparent)" }}
-        />
-        <div className="relative container-editorial py-16 md:py-24">
-          <h1 className="font-display text-[clamp(2.75rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
-            Where legacy
-            <br />
-            <em className="not-italic text-crimson">leads.</em>
-          </h1>
-          <div className="mt-8 grid gap-8 md:grid-cols-12">
-            <p className="md:col-span-6 max-w-xl text-lg leading-relaxed text-ink/80">
-              A privately held international group with operations across automotive,
-              energy, logistics, travel, hospitality, and social impact — built and
-              led across two generations.
-            </p>
-            <div className="md:col-span-5 md:col-start-8">
-              <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                Eight operating companies
+        <div className="relative container-editorial py-12 md:py-16">
+          <div className="grid gap-10 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-7">
+              <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
+                <span aria-hidden className="h-[2px] w-8 bg-crimson" />
+                Established 1999 · Amman
+              </div>
+              <h1 className="mt-5 font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
+                Where legacy
+                <br />
+                <em className="not-italic text-crimson">leads.</em>
+              </h1>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
+                A privately held international group with operations across automotive,
+                energy, logistics, travel, hospitality, and social impact, built and
+                led across two generations.
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                Nine markets · Four continents
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   to="/companies"
-                  className="inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-colors hover:bg-crimson hover:border-crimson"
+                  className="inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-colors hover:border-crimson hover:bg-crimson"
                 >
                   Explore the companies
                 </Link>
@@ -71,23 +75,34 @@ function Index() {
                 </Link>
               </div>
             </div>
+            <div className="md:col-span-5">
+              <div className="image-frame aspect-[4/5] md:aspect-[3/4]">
+                <img
+                  src={heroGroup}
+                  alt="Alsaid Group operations"
+                  width={1200}
+                  height={1500}
+                />
+                <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px] bg-crimson" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-rule">
-        <div className="container-editorial grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:py-12">
+      <section className="border-b border-ink/15 bg-ink text-paper">
+        <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
           {[
             { n: "1999", l: "Founded in Amman" },
             { n: "8", l: "Operating companies" },
             { n: "9", l: "International markets" },
             { n: "4", l: "Continents of operation" },
           ].map((s) => (
-            <div key={s.l} className="border-l border-rule pl-5">
-              <div className="num text-4xl font-light leading-none text-ink md:text-5xl">
+            <div key={s.l} className="bg-ink px-6 py-8">
+              <div className="num text-4xl font-light leading-none text-paper md:text-5xl">
                 {s.n}
               </div>
-              <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+              <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-paper/55">
                 {s.l}
               </div>
             </div>
@@ -95,10 +110,10 @@ function Index() {
         </div>
       </section>
 
-      <section className="border-b border-rule bg-paper-2/60">
-        <div className="container-editorial py-10 md:py-12">
+      <section className="border-b border-ink/15 bg-paper-2/60">
+        <div className="container-editorial py-8 md:py-10">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-ink">
               Group companies & partnerships
             </div>
             <Link
@@ -129,33 +144,49 @@ function Index() {
         </div>
       </section>
 
-      <section className="border-b border-rule">
-        <div className="container-editorial grid gap-10 py-14 md:grid-cols-12 md:py-20">
-          <div className="md:col-span-4">
-            <div className="eyebrow">The Group · A statement</div>
+      <section className="border-b border-ink/15">
+        <div className="container-editorial grid gap-10 py-12 md:grid-cols-12 md:items-center md:py-16">
+          <div className="md:col-span-5">
+            <div className="image-frame aspect-[4/3]">
+              <img
+                src={aboutLeadership}
+                alt="Two generations of Alsaid Group leadership"
+                loading="lazy"
+                width={1200}
+                height={900}
+              />
+              <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-crimson" />
+            </div>
           </div>
-          <div className="md:col-span-8">
-            <p className="font-display text-3xl leading-[1.15] tracking-tight text-ink md:text-5xl">
+          <div className="md:col-span-6 md:col-start-7">
+            <div className="eyebrow text-crimson">The Group · A statement</div>
+            <p className="mt-5 font-display text-3xl leading-[1.12] tracking-tight text-ink md:text-5xl">
               We measure our work in <em className="text-crimson">decades</em>, not
               quarters.
             </p>
-            <p className="mt-8 max-w-2xl text-base leading-relaxed text-ink/70">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink/70">
               What began as a single automotive business in Amman has grown, over
               twenty-six years, into a diversified platform of eight companies across
-              four continents — held privately, governed for the long term, and built
+              four continents. Held privately, governed for the long term, and built
               to endure beyond any single market or cycle.
             </p>
+            <Link
+              to="/about"
+              className="link-underline mt-6 inline-block pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink"
+            >
+              Read the group history
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-rule">
-        <div className="container-editorial py-14 md:py-20">
+      <section className="border-b border-ink/15">
+        <div className="container-editorial py-12 md:py-16">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <div className="eyebrow">01 · The Group</div>
+              <div className="eyebrow text-crimson">One group, four sectors</div>
               <h2 className="mt-4 font-display text-4xl leading-tight md:text-6xl">
-                One group, <em className="text-crimson">four sectors.</em>
+                Built across <em className="text-crimson">four disciplines.</em>
               </h2>
             </div>
             <Link to="/companies" className="link-underline pb-1 text-sm font-medium text-ink">
@@ -163,14 +194,17 @@ function Index() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-px overflow-hidden border border-rule bg-rule md:grid-cols-4">
+          <div className="mt-8 grid gap-px overflow-hidden border border-ink/15 bg-rule md:grid-cols-4">
             {[
-              { name: "Mobility", count: "Four companies", note: "Alsaid Auto · GAC · River Auto · GMA", color: "#C8102E" },
+              { name: "Mobility", count: "Four companies", note: "Alsaid Auto · GAC · GMA · River Auto", color: "#A6192E" },
               { name: "Energy", count: "One company", note: "Greenviro Energy · Solar", color: "#2F7D4F" },
               { name: "Travel & Hospitality", count: "Two companies", note: "Speed Travel · Zain Farm", color: "#0B7C86" },
               { name: "Social Impact", count: "One organisation", note: "Alsaid Foundation · 501(c)(3)", color: "#334155" },
             ].map((s) => (
-              <div key={s.name} className="relative bg-paper p-8">
+              <div
+                key={s.name}
+                className="group relative bg-paper p-8 transition-colors hover:bg-paper-2"
+              >
                 <span className="absolute inset-x-0 top-0 h-[3px]" style={{ background: s.color }} />
                 <div className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: s.color }}>
                   {s.count}
@@ -183,15 +217,15 @@ function Index() {
         </div>
       </section>
 
-      <section className="border-b border-rule">
-        <div className="container-editorial py-14 md:py-20">
-          <div className="eyebrow">02 · The Companies</div>
+      <section className="border-b border-ink/15">
+        <div className="container-editorial py-12 md:py-16">
+          <div className="eyebrow text-crimson">The Companies</div>
           <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
             Eight operating companies, each with its own{" "}
             <em className="text-crimson">mandate.</em>
           </h2>
 
-          <ul className="mt-10 divide-y divide-rule border-y border-rule">
+          <ul className="mt-8 divide-y divide-rule border-y border-ink/15">
             {companies.map((c) => (
               <li key={c.slug}>
                 <Link
@@ -199,17 +233,14 @@ function Index() {
                   params={{ slug: c.slug }}
                   className="group grid grid-cols-12 items-center gap-4 py-5 transition-colors hover:bg-paper-2"
                 >
-                  <span
-                    className="col-span-2 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted-foreground md:col-span-1"
-                  >
+                  <span className="col-span-1 flex items-center">
                     <span
-                      className="inline-block h-2.5 w-2.5 rounded-full"
+                      className="inline-block h-2.5 w-2.5 rounded-full transition-transform group-hover:scale-125"
                       style={{ background: c.accent }}
                       aria-hidden
                     />
-                    <span className="num">{c.number.split(" ")[1]}</span>
                   </span>
-                  <span className="col-span-10 font-display text-2xl leading-tight text-ink md:col-span-5 md:text-3xl">
+                  <span className="col-span-11 font-display text-2xl leading-tight text-ink transition-colors group-hover:text-crimson md:col-span-5 md:text-3xl">
                     {c.name}
                   </span>
                   <span className="col-span-8 text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-4">
