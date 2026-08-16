@@ -45,15 +45,15 @@ function CompaniesIndex() {
       <section>
         <div className="container-editorial py-8 md:py-10">
           <div className="grid gap-px overflow-hidden border border-ink/15 bg-rule md:grid-cols-2">
-            {companies.map((c) => (
+            {companies.map((c, i) => (
+              <Reveal key={c.slug} delay={Math.min(i, 4) * 90} from="up" className="flex">
               <Link
-                key={c.slug}
                 to="/companies/$slug"
                 params={{ slug: c.slug }}
-                className="group relative flex flex-col bg-paper transition-colors hover:bg-paper-2"
+                className="group relative flex w-full flex-col bg-paper transition-colors duration-500 hover:bg-paper-2"
               >
                 <span
-                  className="absolute inset-y-0 left-0 z-10 w-[3px]"
+                  className="absolute inset-y-0 left-0 z-10 w-[3px] origin-top transition-transform duration-500 group-hover:scale-x-[2.5]"
                   style={{ background: c.accent }}
                   aria-hidden
                 />
@@ -91,13 +91,14 @@ function CompaniesIndex() {
                     <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/70">
                       {c.tagline}
                     </p>
-                    <div className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-transform group-hover:translate-x-1">
+                    <div className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-transform duration-300 group-hover:translate-x-1">
                       <span>Read profile</span>
-                      <span style={{ color: c.accent }}>→</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1" style={{ color: c.accent }}>→</span>
                     </div>
                   </div>
                 </div>
               </Link>
+              </Reveal>
             ))}
           </div>
         </div>
