@@ -54,7 +54,7 @@ function Index() {
           className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
         />
         <div className="relative container-editorial pb-10 pt-5 md:pb-14 md:pt-7">
-          <div className="grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="grid gap-10 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
               <div className="anim-sweep flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
                 <span aria-hidden className="anim-rule h-[2px] w-8 bg-crimson" />
@@ -62,8 +62,7 @@ function Index() {
               </div>
               <h1 className="mt-4 font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
                 <span className="anim-rise d-1 block">Where legacy</span>
-                <br />
-                <em className="anim-rise d-2 not-italic text-crimson">leads.</em>
+                <em className="anim-rise d-2 block not-italic text-crimson">leads.</em>
               </h1>
               <p className="anim-rise d-3 mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
                 A privately held international group with operations across automotive,
@@ -89,7 +88,7 @@ function Index() {
               </div>
             </div>
             <div className="md:col-span-5">
-              <div className="image-frame anim-rise d-3 aspect-[4/5] md:aspect-[3/4]">
+              <div className="image-frame anim-rise d-3 aspect-[4/3] md:aspect-[4/5]">
                 <img
                   src={heroGroup}
                   alt="Alsaid Group operations"
