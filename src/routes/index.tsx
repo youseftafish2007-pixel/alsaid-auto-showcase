@@ -60,7 +60,7 @@ function Index() {
                 <span aria-hidden className="anim-rule h-[2px] w-8 bg-crimson" />
                 Established 1999 · Amman
               </div>
-              <h1 className="mt-4 font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
+              <h1 className="mt-4 flex flex-col font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
                 <span className="anim-rise d-1 block">Where legacy</span>
                 <em className="anim-rise d-2 block not-italic text-crimson">leads.</em>
               </h1>
