@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
+import { Reveal } from "@/components/reveal";
 import heroGroup from "@/assets/hero-group.jpg";
 import aboutLeadership from "@/assets/about-leadership.jpg";
 
@@ -33,7 +34,7 @@ function Index() {
       <section className="relative overflow-hidden border-b border-ink/15">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
+          className="anim-drift pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
           style={{
             background:
               "radial-gradient(circle at center, rgba(166,25,46,0.10), transparent 65%)",
@@ -41,42 +42,53 @@ function Index() {
         />
         <div
           aria-hidden
+          className="anim-drift pointer-events-none absolute -left-56 bottom-[-14rem] h-[560px] w-[560px] rounded-full blur-3xl"
+          style={{
+            animationDelay: "-6s",
+            background:
+              "radial-gradient(circle at center, color-mix(in oklab, var(--ink) 14%, transparent), transparent 68%)",
+          }}
+        />
+        <div
+          aria-hidden
           className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
         />
-        <div className="relative container-editorial py-12 md:py-16">
-          <div className="grid gap-10 md:grid-cols-12 md:items-end">
+        <div className="relative container-editorial pb-10 pt-5 md:pb-14 md:pt-7">
+          <div className="grid gap-10 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
-              <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                <span aria-hidden className="h-[2px] w-8 bg-crimson" />
+              <div className="anim-sweep flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
+                <span aria-hidden className="anim-rule h-[2px] w-8 bg-crimson" />
                 Established 1999 · Amman
               </div>
-              <h1 className="mt-5 font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
-                Where legacy
-                <br />
-                <em className="not-italic text-crimson">leads.</em>
+              <h1 className="mt-4 flex flex-col font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
+                <span className="anim-rise d-1 block">Where legacy</span>
+                <em className="anim-rise d-2 block not-italic text-crimson">leads.</em>
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
+              <p className="anim-rise d-3 mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
                 A privately held international group with operations across automotive,
                 energy, logistics, travel, hospitality, and social impact, built and
                 led across two generations.
               </p>
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="anim-rise d-4 mt-7 flex flex-wrap gap-3">
                 <Link
                   to="/companies"
-                  className="inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-colors hover:border-crimson hover:bg-crimson"
+                  className="group inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson hover:bg-crimson"
                 >
                   Explore the companies
+                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 border border-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                  className="inline-flex items-center gap-2 border border-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
                 >
                   About the group
                 </Link>
               </div>
             </div>
             <div className="md:col-span-5">
-              <div className="image-frame aspect-[4/5] md:aspect-[3/4]">
+              <div className="image-frame anim-rise d-3 aspect-[4/3] md:aspect-[4/5]">
                 <img
                   src={heroGroup}
                   alt="Alsaid Group operations"
@@ -97,15 +109,24 @@ function Index() {
             { n: "8", l: "Operating companies" },
             { n: "9", l: "International markets" },
             { n: "4", l: "Continents of operation" },
-          ].map((s) => (
-            <div key={s.l} className="bg-ink px-6 py-8">
+          ].map((s, i) => (
+            <Reveal
+              key={s.l}
+              delay={i * 90}
+              from="up"
+              className="group relative bg-ink px-6 py-8 transition-colors duration-500 hover:bg-crimson"
+            >
+              <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-crimson transition-transform duration-500 group-hover:scale-x-100 group-hover:bg-paper"
+              />
               <div className="num text-4xl font-light leading-none text-paper md:text-5xl">
                 {s.n}
               </div>
               <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-paper/55">
                 {s.l}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -118,27 +139,28 @@ function Index() {
             </div>
             <Link
               to="/companies"
-              className="text-[10px] font-semibold uppercase tracking-[0.22em] text-crimson hover:underline"
+              className="link-underline pb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-crimson"
             >
               All eight →
             </Link>
           </div>
           <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
-            {partnerLogos.map((c) => (
-              <Link
-                key={c.slug}
+            {partnerLogos.map((c, i) => (
+              <Reveal key={c.slug} delay={i * 60} from="scale">
+                <Link
                 to="/companies/$slug"
                 params={{ slug: c.slug }}
-                className="group flex h-14 items-center justify-center"
+                className="group flex h-14 items-center justify-center transition-transform duration-300 hover:scale-110"
                 aria-label={c.name}
-              >
+                >
                 <img
                   src={c.logo}
                   alt={`${c.name} logo`}
                   className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                   loading="lazy"
                 />
-              </Link>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -146,7 +168,7 @@ function Index() {
 
       <section className="border-b border-ink/15">
         <div className="container-editorial grid gap-10 py-12 md:grid-cols-12 md:items-center md:py-16">
-          <div className="md:col-span-5">
+          <Reveal from="left" className="md:col-span-5">
             <div className="image-frame aspect-[4/3]">
               <img
                 src={aboutLeadership}
@@ -157,8 +179,8 @@ function Index() {
               />
               <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-crimson" />
             </div>
-          </div>
-          <div className="md:col-span-6 md:col-start-7">
+          </Reveal>
+          <Reveal from="right" delay={120} className="md:col-span-6 md:col-start-7">
             <div className="eyebrow text-crimson">The Group · A statement</div>
             <p className="mt-5 font-display text-3xl leading-[1.12] tracking-tight text-ink md:text-5xl">
               We measure our work in <em className="text-crimson">decades</em>, not
@@ -176,42 +198,49 @@ function Index() {
             >
               Read the group history
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="border-b border-ink/15">
+      <section className="border-b border-ink/15 bg-ink text-paper">
         <div className="container-editorial py-12 md:py-16">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <div className="eyebrow text-crimson">One group, four sectors</div>
-              <h2 className="mt-4 font-display text-4xl leading-tight md:text-6xl">
+              <h2 className="mt-4 font-display text-4xl leading-tight text-paper md:text-6xl">
                 Built across <em className="text-crimson">four disciplines.</em>
               </h2>
             </div>
-            <Link to="/companies" className="link-underline pb-1 text-sm font-medium text-ink">
+            <Link to="/companies" className="link-underline pb-1 text-sm font-medium text-paper">
               View all companies →
             </Link>
-          </div>
+          </Reveal>
 
-          <div className="mt-8 grid gap-px overflow-hidden border border-ink/15 bg-rule md:grid-cols-4">
+          <div className="mt-8 grid gap-px overflow-hidden border border-paper/15 bg-paper/15 md:grid-cols-4">
             {[
               { name: "Mobility", count: "Four companies", note: "Alsaid Auto · GAC · GMA · River Auto", color: "#A6192E" },
               { name: "Energy", count: "One company", note: "Greenviro Energy · Solar", color: "#2F7D4F" },
               { name: "Travel & Hospitality", count: "Two companies", note: "Speed Travel · Zain Farm", color: "#0B7C86" },
               { name: "Social Impact", count: "One organisation", note: "Alsaid Foundation · 501(c)(3)", color: "#334155" },
-            ].map((s) => (
-              <div
+            ].map((s, i) => (
+              <Reveal
                 key={s.name}
-                className="group relative bg-paper p-8 transition-colors hover:bg-paper-2"
+                delay={i * 90}
+                from="up"
+                className="group relative overflow-hidden bg-ink p-8 transition-colors duration-500 hover:bg-paper/[0.06]"
               >
-                <span className="absolute inset-x-0 top-0 h-[3px]" style={{ background: s.color }} />
+                <span
+                  className="absolute inset-x-0 top-0 h-[3px] origin-left transition-transform duration-500 group-hover:scale-y-[2]"
+                  style={{ background: s.color }}
+                />
                 <div className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: s.color }}>
                   {s.count}
                 </div>
-                <div className="mt-6 font-display text-2xl leading-tight text-ink">{s.name}</div>
-                <div className="mt-6 text-xs leading-relaxed text-muted-foreground">{s.note}</div>
-              </div>
+                <div className="mt-6 font-display text-2xl leading-tight text-paper transition-transform duration-500 group-hover:-translate-y-0.5">
+                  {s.name}
+                </div>
+                <div className="mt-6 text-xs leading-relaxed text-paper/55">{s.note}</div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -219,38 +248,40 @@ function Index() {
 
       <section className="border-b border-ink/15">
         <div className="container-editorial py-12 md:py-16">
-          <div className="eyebrow text-crimson">The Companies</div>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
+          <Reveal>
+            <div className="eyebrow text-crimson">The Companies</div>
+            <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
             Eight operating companies, each with its own{" "}
             <em className="text-crimson">mandate.</em>
-          </h2>
+            </h2>
+          </Reveal>
 
           <ul className="mt-8 divide-y divide-rule border-y border-ink/15">
-            {companies.map((c) => (
-              <li key={c.slug}>
+            {companies.map((c, i) => (
+              <Reveal as="li" key={c.slug} delay={Math.min(i, 6) * 60} from="up">
                 <Link
                   to="/companies/$slug"
                   params={{ slug: c.slug }}
-                  className="group grid grid-cols-12 items-center gap-4 py-5 transition-colors hover:bg-paper-2"
+                  className="group relative grid grid-cols-12 items-center gap-4 py-5 transition-all duration-300 hover:bg-ink hover:px-4"
                 >
                   <span className="col-span-1 flex items-center">
                     <span
-                      className="inline-block h-2.5 w-2.5 rounded-full transition-transform group-hover:scale-125"
+                      className="inline-block h-2.5 w-2.5 rounded-full transition-transform duration-300 group-hover:scale-[1.8]"
                       style={{ background: c.accent }}
                       aria-hidden
                     />
                   </span>
-                  <span className="col-span-11 font-display text-2xl leading-tight text-ink transition-colors group-hover:text-crimson md:col-span-5 md:text-3xl">
+                  <span className="col-span-11 font-display text-2xl leading-tight text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper md:col-span-5 md:text-3xl">
                     {c.name}
                   </span>
-                  <span className="col-span-8 text-xs uppercase tracking-[0.18em] text-muted-foreground md:col-span-4">
+                  <span className="col-span-8 text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 group-hover:text-paper/60 md:col-span-4">
                     {c.sector}
                   </span>
-                  <span className="col-span-4 text-right text-xs uppercase tracking-[0.18em] text-crimson transition-transform group-hover:translate-x-1 md:col-span-2">
+                  <span className="col-span-4 text-right text-xs uppercase tracking-[0.18em] text-crimson transition-transform duration-300 group-hover:translate-x-1 md:col-span-2">
                     Read →
                   </span>
                 </Link>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
