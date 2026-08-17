@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { companies, type Company } from "@/lib/companies";
 import { CompanyMotif } from "@/components/company-motif";
+import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/companies/$slug")({
   loader: ({ params }) => {
@@ -81,14 +82,14 @@ function CompanyPage() {
           className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-60"
         />
 
-        <div className="relative container-editorial py-10 md:py-14">
-          <div className="flex flex-wrap items-center gap-4 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+        <div className="relative container-editorial py-8 md:py-12">
+          <div className="anim-sweep flex flex-wrap items-center gap-4 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
             <span
-              className="inline-flex items-center gap-2 border px-3 py-1"
+              className="inline-flex items-center gap-2 border px-3 py-1 transition-transform duration-300 hover:-translate-y-0.5"
               style={{ borderColor: company.accent, color: company.accent }}
             >
               <span
-                className="inline-block h-1.5 w-1.5 rounded-full"
+                className="motif-pulse inline-block h-1.5 w-1.5 rounded-full"
                 style={{ background: company.accent }}
               />
               {company.sector}
@@ -97,23 +98,23 @@ function CompanyPage() {
             <span>{company.location}</span>
           </div>
 
-          <div className="mt-6 grid gap-8 md:grid-cols-12 md:items-end">
+          <div className="mt-5 grid gap-8 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
-              <h1 className="max-w-4xl font-display text-5xl leading-[0.98] tracking-[-0.025em] text-ink md:text-7xl">
+              <h1 className="anim-rise d-1 max-w-4xl font-display text-5xl leading-[0.98] tracking-[-0.025em] text-ink md:text-7xl">
                 {nameLead ? <>{nameLead} </> : null}
                 <em style={{ color: company.accent, fontStyle: "italic" }}>{nameTail}.</em>
               </h1>
               <span
                 aria-hidden
-                className="mt-6 block h-[3px] w-24"
+                className="anim-rule d-2 mt-5 block h-[3px] w-24"
                 style={{ background: company.accent }}
               />
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
+              <p className="anim-rise d-3 mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">
                 {company.tagline}
               </p>
             </div>
             <div className="md:col-span-5">
-              <div className="image-frame aspect-[4/3]">
+              <div className="image-frame anim-rise d-3 aspect-[4/3]">
                 <img
                   src={company.hero}
                   alt={`${company.name}`}
@@ -127,7 +128,7 @@ function CompanyPage() {
                   style={{ background: company.accent }}
                 />
                 {company.logo ? (
-                  <span className="absolute left-4 top-4 inline-flex items-center bg-paper/95 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.6)]">
+                  <span className="absolute left-4 top-4 inline-flex items-center border border-paper/60 bg-paper/80 px-3 py-2 backdrop-blur-md transition-transform duration-500 hover:scale-105">
                     <img
                       src={company.logo}
                       alt={`${company.name} logo`}
@@ -147,20 +148,26 @@ function CompanyPage() {
       {/* Fact ticker */}
       <section className="border-b border-ink/15 bg-ink text-paper">
         <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
-          {company.facts.map((f) => (
-            <div key={f.label} className="bg-ink px-5 py-6">
-              <div className="num text-2xl leading-none text-paper">{f.value}</div>
+          {company.facts.map((f, i) => (
+            <Reveal
+              key={f.label}
+              delay={i * 80}
+              className="group bg-ink px-5 py-6 transition-colors duration-500 hover:bg-paper/[0.07]"
+            >
+              <div className="num text-2xl leading-none text-paper transition-transform duration-500 group-hover:-translate-y-0.5">
+                {f.value}
+              </div>
               <div className="mt-3 text-[10px] uppercase tracking-[0.2em] text-paper/55">
                 {f.label}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       <section className="border-b border-ink/15">
-        <div className="container-editorial grid gap-12 py-12 md:grid-cols-12 md:py-16">
-          <div className="md:col-span-7">
+        <div className="container-editorial grid gap-10 py-10 md:grid-cols-12 md:py-14">
+          <Reveal from="left" className="md:col-span-7">
             <div
               className="text-[10px] font-semibold uppercase tracking-[0.24em]"
               style={{ color: company.accent }}
@@ -174,9 +181,9 @@ function CompanyPage() {
                 </p>
               ))}
             </div>
-          </div>
-          <aside className="md:col-span-4 md:col-start-9">
-            <div className="sticky top-24 border border-ink/15 bg-paper-2/60 p-6">
+          </Reveal>
+          <Reveal from="right" delay={120} className="md:col-span-4 md:col-start-9">
+            <aside className="sticky top-24 border border-ink/15 bg-paper-2/60 p-6 transition-shadow duration-500 hover:shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)]">
               <div className="eyebrow" style={{ color: company.accent }}>
                 In the group
               </div>
@@ -189,13 +196,13 @@ function CompanyPage() {
               </div>
               <a
                 href="mailto:partnerships@alsaidgroup.com"
-                className="mt-6 inline-flex w-full items-center justify-center border px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-opacity hover:opacity-90"
+                className="mt-6 inline-flex w-full items-center justify-center border px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:opacity-90"
                 style={{ background: company.accent, borderColor: company.accent }}
               >
                 Enquire about {nameTail}
               </a>
-            </div>
-          </aside>
+            </aside>
+          </Reveal>
         </div>
       </section>
 
@@ -208,13 +215,13 @@ function CompanyPage() {
           >
             <span
               aria-hidden
-              className="absolute inset-y-0 left-0 w-[3px]"
+              className="absolute inset-y-0 left-0 w-[3px] transition-transform duration-500 group-hover:scale-x-[2.5]"
               style={{ background: prev.accent }}
             />
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               Previous
             </div>
-            <div className="mt-2 font-display text-2xl text-ink transition-colors group-hover:text-crimson md:text-3xl">
+            <div className="mt-2 font-display text-2xl text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:text-crimson md:text-3xl">
               {prev.name}
             </div>
           </Link>
@@ -225,13 +232,13 @@ function CompanyPage() {
           >
             <span
               aria-hidden
-              className="absolute inset-y-0 right-0 w-[3px]"
+              className="absolute inset-y-0 right-0 w-[3px] transition-transform duration-500 group-hover:scale-x-[2.5]"
               style={{ background: next.accent }}
             />
             <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
               Next
             </div>
-            <div className="mt-2 font-display text-2xl text-ink transition-colors group-hover:text-crimson md:text-3xl">
+            <div className="mt-2 font-display text-2xl text-ink transition-all duration-300 group-hover:-translate-x-1 group-hover:text-crimson md:text-3xl">
               {next.name}
             </div>
           </Link>
