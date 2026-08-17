@@ -69,7 +69,7 @@ function CompaniesIndex() {
                     }}
                   />
                   {c.logo ? (
-                    <span className="absolute bottom-4 left-5 inline-flex items-center bg-paper/95 px-2.5 py-1.5">
+                    <span className="absolute bottom-4 left-5 inline-flex items-center border border-paper/50 bg-paper/80 px-2.5 py-1.5 backdrop-blur-md transition-all duration-500 group-hover:scale-105 group-hover:bg-paper">
                       <img
                         src={c.logo}
                         alt={`${c.name} logo`}

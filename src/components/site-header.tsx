@@ -20,10 +20,10 @@ export function SiteHeader() {
             alt="Alsaid Group"
             width={40}
             height={40}
-            className="h-9 w-auto object-contain"
+            className="h-9 w-auto object-contain transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110"
           />
           <span className="flex flex-col leading-none">
-            <span className="font-display text-[15px] font-medium tracking-tight text-ink">
+            <span className="font-display text-[15px] font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-crimson">
               Alsaid Group
             </span>
             <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.24em] text-muted-foreground">
@@ -48,7 +48,7 @@ export function SiteHeader() {
 
         <a
           href="mailto:partnerships@alsaidgroup.com"
-          className="hidden items-center gap-2 border border-ink bg-ink px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-colors hover:border-crimson hover:bg-crimson md:inline-flex"
+          className="hidden items-center gap-2 border border-ink bg-ink px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson hover:bg-crimson hover:shadow-[0_10px_24px_-14px_rgba(0,0,0,0.8)] md:inline-flex"
         >
           Partnerships
         </a>
@@ -62,7 +62,7 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-rule bg-paper md:hidden">
+        <div className="anim-rise border-t border-rule bg-paper md:hidden">
           <div className="container-editorial flex flex-col py-4">
             {nav.map((n) => (
               <Link
