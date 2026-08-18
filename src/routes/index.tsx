@@ -253,7 +253,7 @@ function Index() {
 
           <div className="mt-9 grid gap-px bg-rule md:grid-cols-6">
             {companies.map((c, i) => {
-              const wide = i === 0 || i === 3 || i === 4 || i === 7;
+              const wide = i < 2;
               return (
                 <Reveal
                   key={c.slug}
