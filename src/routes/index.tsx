@@ -1,10 +1,65 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
+import { HeroCarousel, type Slide } from "@/components/hero-carousel";
 import heroGroup from "@/assets/hero-group.jpg";
 import aboutLeadership from "@/assets/about-leadership.jpg";
 
 const partnerLogos = companies.filter((c) => c.logo);
+
+const bySlug = (slug: string) => companies.find((c) => c.slug === slug)!;
+
+const slides: Slide[] = [
+  {
+    image: heroGroup,
+    eyebrow: "Alsaid Group · Established 1999 · Amman",
+    title: "Where legacy",
+    emphasis: "leads.",
+    copy: "A privately held international group of eight companies across automotive, energy, logistics, travel, hospitality, and social impact, built and led across two generations.",
+    to: "/companies",
+    cta: "Explore the companies",
+  },
+  {
+    image: bySlug("alsaid-automotive").hero,
+    eyebrow: "Automotive · Mobility",
+    title: "The founding",
+    emphasis: "pillar.",
+    copy: bySlug("alsaid-automotive").tagline,
+    to: "/companies/$slug",
+    params: { slug: "alsaid-automotive" },
+    cta: "Alsaid Automotive",
+  },
+  {
+    image: bySlug("greenviro").hero ?? heroGroup,
+    eyebrow: "Energy",
+    title: "Power for the",
+    emphasis: "long term.",
+    copy: bySlug("greenviro").tagline,
+    to: "/companies/$slug",
+    params: { slug: "greenviro" },
+    cta: "Greenviro Energy",
+  },
+  {
+    image: bySlug("speed-travel").hero,
+    eyebrow: "Travel & Hospitality",
+    title: "Moving people",
+    emphasis: "across borders.",
+    copy: bySlug("speed-travel").tagline,
+    to: "/companies/$slug",
+    params: { slug: "speed-travel" },
+    cta: "Speed Travel",
+  },
+  {
+    image: bySlug("alsaid-foundation").hero,
+    eyebrow: "Social Impact",
+    title: "Giving back, by",
+    emphasis: "design.",
+    copy: bySlug("alsaid-foundation").tagline,
+    to: "/companies/$slug",
+    params: { slug: "alsaid-foundation" },
+    cta: "Alsaid Foundation",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,76 +86,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-ink/15">
-        <div
-          aria-hidden
-          className="anim-drift pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(166,25,46,0.10), transparent 65%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="anim-drift pointer-events-none absolute -left-56 bottom-[-14rem] h-[560px] w-[560px] rounded-full blur-3xl"
-          style={{
-            animationDelay: "-6s",
-            background:
-              "radial-gradient(circle at center, color-mix(in oklab, var(--ink) 14%, transparent), transparent 68%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
-        />
-        <div className="relative container-editorial pb-10 pt-5 md:pb-14 md:pt-7">
-          <div className="grid gap-10 md:grid-cols-12 md:items-center">
-            <div className="md:col-span-7">
-              <div className="anim-sweep flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                <span aria-hidden className="anim-rule h-[2px] w-8 bg-crimson" />
-                Established 1999 · Amman
-              </div>
-              <h1 className="mt-4 flex flex-col font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
-                <span className="anim-rise d-1 block">Where legacy</span>
-                <em className="anim-rise d-2 block not-italic text-crimson">leads.</em>
-              </h1>
-              <p className="anim-rise d-3 mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
-                A privately held international group with operations across automotive,
-                energy, logistics, travel, hospitality, and social impact, built and
-                led across two generations.
-              </p>
-              <div className="anim-rise d-4 mt-7 flex flex-wrap gap-3">
-                <Link
-                  to="/companies"
-                  className="group inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson hover:bg-crimson"
-                >
-                  Explore the companies
-                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 border border-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
-                >
-                  About the group
-                </Link>
-              </div>
-            </div>
-            <div className="md:col-span-5">
-              <div className="image-frame anim-rise d-3 aspect-[4/3] md:aspect-[4/5]">
-                <img
-                  src={heroGroup}
-                  alt="Alsaid Group operations"
-                  width={1200}
-                  height={1500}
-                />
-                <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px] bg-crimson" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroCarousel slides={slides} />
 
       <section className="border-b border-ink/15 bg-ink text-paper">
         <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
