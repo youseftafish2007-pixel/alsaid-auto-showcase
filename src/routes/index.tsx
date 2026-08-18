@@ -36,7 +36,7 @@ const slides: Slide[] = [
     emphasis: "long term.",
     copy: bySlug("greenviro-energy").tagline,
     to: "/companies/$slug",
-    params: { slug: "greenviro" },
+    params: { slug: "greenviro-energy" },
     cta: "Greenviro Energy",
   },
   {
