@@ -17,7 +17,7 @@ const DURATION = 6500;
 export function HeroCarousel({ slides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const go = useCallback(
     (next: number) => setIndex((next + slides.length) % slides.length),
@@ -26,11 +26,22 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
 
   useEffect(() => {
     if (paused) return;
-    timer.current = setInterval(() => setIndex((i) => (i + 1) % slides.length), DURATION);
+    timer.current = setTimeout(
+      () => setIndex((i) => (i + 1) % slides.length),
+      DURATION,
+    );
     return () => {
-      if (timer.current) clearInterval(timer.current);
+      if (timer.current) clearTimeout(timer.current);
     };
-  }, [paused, slides.length]);
+  }, [paused, slides.length, index]);
+
+  // Pause only when the tab is hidden, never on hover (hover-pause made the
+  // carousel appear frozen for desktop users resting the cursor on the hero).
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -48,8 +59,6 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
       className="relative isolate w-full overflow-hidden bg-ink text-paper"
       aria-roledescription="carousel"
       aria-label="Alsaid Group featured work"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="relative h-[68vh] min-h-[420px] w-full md:h-[82vh] md:min-h-[560px]">
         {slides.map((s, i) => (
