@@ -354,3 +354,12 @@
   }
   &:hover img { transform: scale(1.035); }
 }
+
+/* Hero carousel ken-burns */
+@keyframes ken-burns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="ken-burns"] { animation: none !important; }
+}
