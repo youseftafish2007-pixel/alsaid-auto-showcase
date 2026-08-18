@@ -1,10 +1,65 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
+import { HeroCarousel, type Slide } from "@/components/hero-carousel";
 import heroGroup from "@/assets/hero-group.jpg";
 import aboutLeadership from "@/assets/about-leadership.jpg";
 
 const partnerLogos = companies.filter((c) => c.logo);
+
+const bySlug = (slug: string) => companies.find((c) => c.slug === slug)!;
+
+const slides: Slide[] = [
+  {
+    image: heroGroup,
+    eyebrow: "Alsaid Group · Established 1999 · Amman",
+    title: "Where legacy",
+    emphasis: "leads.",
+    copy: "A privately held international group of eight companies across automotive, energy, logistics, travel, hospitality, and social impact, built and led across two generations.",
+    to: "/companies",
+    cta: "Explore the companies",
+  },
+  {
+    image: bySlug("alsaid-automotive").hero,
+    eyebrow: "Automotive · Mobility",
+    title: "The founding",
+    emphasis: "pillar.",
+    copy: bySlug("alsaid-automotive").tagline,
+    to: "/companies/$slug",
+    params: { slug: "alsaid-automotive" },
+    cta: "Alsaid Automotive",
+  },
+  {
+    image: bySlug("greenviro-energy").hero ?? heroGroup,
+    eyebrow: "Energy",
+    title: "Power for the",
+    emphasis: "long term.",
+    copy: bySlug("greenviro-energy").tagline,
+    to: "/companies/$slug",
+    params: { slug: "greenviro-energy" },
+    cta: "Greenviro Energy",
+  },
+  {
+    image: bySlug("speed-travel").hero,
+    eyebrow: "Travel & Hospitality",
+    title: "Moving people",
+    emphasis: "across borders.",
+    copy: bySlug("speed-travel").tagline,
+    to: "/companies/$slug",
+    params: { slug: "speed-travel" },
+    cta: "Speed Travel",
+  },
+  {
+    image: bySlug("alsaid-foundation").hero,
+    eyebrow: "Social Impact",
+    title: "Giving back, by",
+    emphasis: "design.",
+    copy: bySlug("alsaid-foundation").tagline,
+    to: "/companies/$slug",
+    params: { slug: "alsaid-foundation" },
+    cta: "Alsaid Foundation",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,76 +86,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-ink/15">
-        <div
-          aria-hidden
-          className="anim-drift pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(166,25,46,0.10), transparent 65%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="anim-drift pointer-events-none absolute -left-56 bottom-[-14rem] h-[560px] w-[560px] rounded-full blur-3xl"
-          style={{
-            animationDelay: "-6s",
-            background:
-              "radial-gradient(circle at center, color-mix(in oklab, var(--ink) 14%, transparent), transparent 68%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 pattern-grid mask-fade-b opacity-70"
-        />
-        <div className="relative container-editorial pb-10 pt-5 md:pb-14 md:pt-7">
-          <div className="grid gap-10 md:grid-cols-12 md:items-center">
-            <div className="md:col-span-7">
-              <div className="anim-sweep flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                <span aria-hidden className="anim-rule h-[2px] w-8 bg-crimson" />
-                Established 1999 · Amman
-              </div>
-              <h1 className="mt-4 flex flex-col font-display text-[clamp(2.75rem,7.5vw,6.25rem)] font-light leading-[0.95] tracking-[-0.03em] text-ink">
-                <span className="anim-rise d-1 block">Where legacy</span>
-                <em className="anim-rise d-2 block not-italic text-crimson">leads.</em>
-              </h1>
-              <p className="anim-rise d-3 mt-6 max-w-xl text-lg leading-relaxed text-ink/80">
-                A privately held international group with operations across automotive,
-                energy, logistics, travel, hospitality, and social impact, built and
-                led across two generations.
-              </p>
-              <div className="anim-rise d-4 mt-7 flex flex-wrap gap-3">
-                <Link
-                  to="/companies"
-                  className="group inline-flex items-center gap-2 border border-ink bg-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson hover:bg-crimson"
-                >
-                  Explore the companies
-                  <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </Link>
-                <Link
-                  to="/about"
-                  className="inline-flex items-center gap-2 border border-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
-                >
-                  About the group
-                </Link>
-              </div>
-            </div>
-            <div className="md:col-span-5">
-              <div className="image-frame anim-rise d-3 aspect-[4/3] md:aspect-[4/5]">
-                <img
-                  src={heroGroup}
-                  alt="Alsaid Group operations"
-                  width={1200}
-                  height={1500}
-                />
-                <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px] bg-crimson" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroCarousel slides={slides} />
 
       <section className="border-b border-ink/15 bg-ink text-paper">
         <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
@@ -246,44 +232,127 @@ function Index() {
         </div>
       </section>
 
+      {/* Featured work */}
       <section className="border-b border-ink/15">
         <div className="container-editorial py-12 md:py-16">
-          <Reveal>
-            <div className="eyebrow text-crimson">The Companies</div>
-            <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
-            Eight operating companies, each with its own{" "}
-            <em className="text-crimson">mandate.</em>
-            </h2>
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <div className="eyebrow text-crimson">The Companies</div>
+              <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
+                Eight operating companies, each with its own{" "}
+                <em className="text-crimson">mandate.</em>
+              </h2>
+            </div>
+            <Link
+              to="/companies"
+              className="link-underline pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink"
+            >
+              View the portfolio →
+            </Link>
           </Reveal>
 
-          <ul className="mt-8 divide-y divide-rule border-y border-ink/15">
-            {companies.map((c, i) => (
-              <Reveal as="li" key={c.slug} delay={Math.min(i, 6) * 60} from="up">
-                <Link
-                  to="/companies/$slug"
-                  params={{ slug: c.slug }}
-                  className="group relative grid grid-cols-12 items-center gap-4 py-5 transition-all duration-300 hover:bg-ink hover:px-4"
+          <div className="mt-9 grid gap-px bg-rule md:grid-cols-6">
+            {companies.map((c, i) => {
+              const wide = i < 2;
+              return (
+                <Reveal
+                  key={c.slug}
+                  delay={Math.min(i, 5) * 70}
+                  from="up"
+                  className={wide ? "md:col-span-3" : "md:col-span-2"}
                 >
-                  <span className="col-span-1 flex items-center">
+                  <Link
+                    to="/companies/$slug"
+                    params={{ slug: c.slug }}
+                    className="group relative block h-full overflow-hidden bg-ink"
+                  >
+                    <div className={wide ? "aspect-[16/9]" : "aspect-[4/3]"}>
+                      <img
+                        src={c.hero}
+                        alt={c.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover opacity-80 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100"
+                      />
+                    </div>
                     <span
-                      className="inline-block h-2.5 w-2.5 rounded-full transition-transform duration-300 group-hover:scale-[1.8]"
-                      style={{ background: c.accent }}
                       aria-hidden
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(14,12,12,0.05) 30%, rgba(14,12,12,0.82) 100%)",
+                      }}
                     />
-                  </span>
-                  <span className="col-span-11 font-display text-2xl leading-tight text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper md:col-span-5 md:text-3xl">
-                    {c.name}
-                  </span>
-                  <span className="col-span-8 text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 group-hover:text-paper/60 md:col-span-4">
-                    {c.sector}
-                  </span>
-                  <span className="col-span-4 text-right text-xs uppercase tracking-[0.18em] text-crimson transition-transform duration-300 group-hover:translate-x-1 md:col-span-2">
-                    Read →
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ul>
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                      style={{ background: c.accent }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-6">
+                      <div
+                        className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                        style={{ color: c.accent }}
+                      >
+                        {c.sector}
+                      </div>
+                      <div className="mt-2 flex items-end justify-between gap-4">
+                        <h3 className="font-display text-2xl leading-tight text-paper transition-transform duration-500 group-hover:-translate-y-0.5 md:text-3xl">
+                          {c.name}
+                        </h3>
+                        <span
+                          aria-hidden
+                          className="text-paper/70 transition-transform duration-500 group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to action */}
+      <section className="relative overflow-hidden border-b border-ink/15 bg-crimson text-paper">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 42px)",
+          }}
+        />
+        <div className="relative container-editorial grid gap-8 py-14 md:grid-cols-12 md:items-end md:py-20">
+          <Reveal from="left" className="md:col-span-7">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-paper/70">
+              Partnerships & enquiries
+            </div>
+            <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight md:text-6xl">
+              Build something that outlasts the cycle.
+            </h2>
+          </Reveal>
+          <Reveal from="right" delay={120} className="md:col-span-5">
+            <p className="max-w-md text-base leading-relaxed text-paper/85">
+              We work with manufacturers, distributors, and institutional partners
+              across nine markets and four continents.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="mailto:partnerships@alsaidgroup.com"
+                className="inline-flex items-center gap-2 border border-paper bg-paper px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
+              >
+                Write to us
+              </a>
+              <Link
+                to="/footprint"
+                className="inline-flex items-center border border-paper/50 px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:bg-paper/10"
+              >
+                See the footprint
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
