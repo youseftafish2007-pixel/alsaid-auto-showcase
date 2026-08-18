@@ -30,11 +30,11 @@ const slides: Slide[] = [
     cta: "Alsaid Automotive",
   },
   {
-    image: bySlug("greenviro").hero ?? heroGroup,
+    image: bySlug("greenviro-energy").hero ?? heroGroup,
     eyebrow: "Energy",
     title: "Power for the",
     emphasis: "long term.",
-    copy: bySlug("greenviro").tagline,
+    copy: bySlug("greenviro-energy").tagline,
     to: "/companies/$slug",
     params: { slug: "greenviro" },
     cta: "Greenviro Energy",
