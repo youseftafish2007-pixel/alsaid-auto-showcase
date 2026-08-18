@@ -232,44 +232,127 @@ function Index() {
         </div>
       </section>
 
+      {/* Featured work */}
       <section className="border-b border-ink/15">
         <div className="container-editorial py-12 md:py-16">
-          <Reveal>
-            <div className="eyebrow text-crimson">The Companies</div>
-            <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
-            Eight operating companies, each with its own{" "}
-            <em className="text-crimson">mandate.</em>
-            </h2>
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <div className="eyebrow text-crimson">The Companies</div>
+              <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
+                Eight operating companies, each with its own{" "}
+                <em className="text-crimson">mandate.</em>
+              </h2>
+            </div>
+            <Link
+              to="/companies"
+              className="link-underline pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink"
+            >
+              View the portfolio →
+            </Link>
           </Reveal>
 
-          <ul className="mt-8 divide-y divide-rule border-y border-ink/15">
-            {companies.map((c, i) => (
-              <Reveal as="li" key={c.slug} delay={Math.min(i, 6) * 60} from="up">
-                <Link
-                  to="/companies/$slug"
-                  params={{ slug: c.slug }}
-                  className="group relative grid grid-cols-12 items-center gap-4 py-5 transition-all duration-300 hover:bg-ink hover:px-4"
+          <div className="mt-9 grid gap-px bg-rule md:grid-cols-6">
+            {companies.map((c, i) => {
+              const wide = i === 0 || i === 3 || i === 4 || i === 7;
+              return (
+                <Reveal
+                  key={c.slug}
+                  delay={Math.min(i, 5) * 70}
+                  from="up"
+                  className={wide ? "md:col-span-3" : "md:col-span-2"}
                 >
-                  <span className="col-span-1 flex items-center">
+                  <Link
+                    to="/companies/$slug"
+                    params={{ slug: c.slug }}
+                    className="group relative block h-full overflow-hidden bg-ink"
+                  >
+                    <div className={wide ? "aspect-[16/9]" : "aspect-[4/3]"}>
+                      <img
+                        src={c.hero}
+                        alt={c.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover opacity-80 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100"
+                      />
+                    </div>
                     <span
-                      className="inline-block h-2.5 w-2.5 rounded-full transition-transform duration-300 group-hover:scale-[1.8]"
-                      style={{ background: c.accent }}
                       aria-hidden
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(14,12,12,0.05) 30%, rgba(14,12,12,0.82) 100%)",
+                      }}
                     />
-                  </span>
-                  <span className="col-span-11 font-display text-2xl leading-tight text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:text-paper md:col-span-5 md:text-3xl">
-                    {c.name}
-                  </span>
-                  <span className="col-span-8 text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 group-hover:text-paper/60 md:col-span-4">
-                    {c.sector}
-                  </span>
-                  <span className="col-span-4 text-right text-xs uppercase tracking-[0.18em] text-crimson transition-transform duration-300 group-hover:translate-x-1 md:col-span-2">
-                    Read →
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ul>
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                      style={{ background: c.accent }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 p-6">
+                      <div
+                        className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                        style={{ color: c.accent }}
+                      >
+                        {c.sector}
+                      </div>
+                      <div className="mt-2 flex items-end justify-between gap-4">
+                        <h3 className="font-display text-2xl leading-tight text-paper transition-transform duration-500 group-hover:-translate-y-0.5 md:text-3xl">
+                          {c.name}
+                        </h3>
+                        <span
+                          aria-hidden
+                          className="text-paper/70 transition-transform duration-500 group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to action */}
+      <section className="relative overflow-hidden border-b border-ink/15 bg-crimson text-paper">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, rgba(255,255,255,0.6) 0, rgba(255,255,255,0.6) 1px, transparent 1px, transparent 42px)",
+          }}
+        />
+        <div className="relative container-editorial grid gap-8 py-14 md:grid-cols-12 md:items-end md:py-20">
+          <Reveal from="left" className="md:col-span-7">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-paper/70">
+              Partnerships & enquiries
+            </div>
+            <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight md:text-6xl">
+              Build something that outlasts the cycle.
+            </h2>
+          </Reveal>
+          <Reveal from="right" delay={120} className="md:col-span-5">
+            <p className="max-w-md text-base leading-relaxed text-paper/85">
+              We work with manufacturers, distributors, and institutional partners
+              across nine markets and four continents.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="mailto:partnerships@alsaidgroup.com"
+                className="inline-flex items-center gap-2 border border-paper bg-paper px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
+              >
+                Write to us
+              </a>
+              <Link
+                to="/footprint"
+                className="inline-flex items-center border border-paper/50 px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper transition-all duration-300 hover:-translate-y-0.5 hover:bg-paper/10"
+              >
+                See the footprint
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
