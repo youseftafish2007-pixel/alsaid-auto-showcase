@@ -2,10 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
 import { HeroCarousel, type Slide } from "@/components/hero-carousel";
+import { CompanyOrbit } from "@/components/company-orbit";
 import heroGroup from "@/assets/hero-group.jpg";
 import aboutLeadership from "@/assets/about-leadership.jpg";
-
-const partnerLogos = companies.filter((c) => c.logo);
 
 const bySlug = (slug: string) => companies.find((c) => c.slug === slug)!;
 
@@ -109,19 +108,22 @@ function Index() {
               <div className="num text-4xl font-light leading-none text-paper md:text-5xl">
                 {s.n}
               </div>
-              <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-paper/55">
-                {s.l}
-              </div>
+              <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-paper/55">{s.l}</div>
             </Reveal>
           ))}
         </div>
       </section>
 
       <section className="border-b border-ink/15 bg-paper-2/60">
-        <div className="container-editorial py-8 md:py-10">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-ink">
-              Group companies & partnerships
+        <div className="container-editorial py-12 md:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
+                Group companies & partnerships
+              </div>
+              <h2 className="mt-4 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
+                Eight companies, <em className="not-italic text-crimson">one orbit.</em>
+              </h2>
             </div>
             <Link
               to="/companies"
@@ -130,24 +132,8 @@ function Index() {
               All eight →
             </Link>
           </div>
-          <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
-            {partnerLogos.map((c, i) => (
-              <Reveal key={c.slug} delay={i * 60} from="scale">
-                <Link
-                to="/companies/$slug"
-                params={{ slug: c.slug }}
-                className="group flex h-14 items-center justify-center transition-transform duration-300 hover:scale-110"
-                aria-label={c.name}
-                >
-                <img
-                  src={c.logo}
-                  alt={`${c.name} logo`}
-                  className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
-                  loading="lazy"
-                />
-                </Link>
-              </Reveal>
-            ))}
+          <div className="mt-10">
+            <CompanyOrbit companies={companies} />
           </div>
         </div>
       </section>
@@ -169,14 +155,12 @@ function Index() {
           <Reveal from="right" delay={120} className="md:col-span-6 md:col-start-7">
             <div className="eyebrow text-crimson">The Group · A statement</div>
             <p className="mt-5 font-display text-3xl leading-[1.12] tracking-tight text-ink md:text-5xl">
-              We measure our work in <em className="text-crimson">decades</em>, not
-              quarters.
+              We measure our work in <em className="text-crimson">decades</em>, not quarters.
             </p>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink/70">
-              What began as a single automotive business in Amman has grown, over
-              twenty-six years, into a diversified platform of eight companies across
-              four continents. Held privately, governed for the long term, and built
-              to endure beyond any single market or cycle.
+              What began as a single automotive business in Amman has grown, over twenty-six years,
+              into a diversified platform of eight companies across four continents. Held privately,
+              governed for the long term, and built to endure beyond any single market or cycle.
             </p>
             <Link
               to="/about"
@@ -204,10 +188,30 @@ function Index() {
 
           <div className="mt-8 grid gap-px overflow-hidden border border-paper/15 bg-paper/15 md:grid-cols-4">
             {[
-              { name: "Mobility", count: "Four companies", note: "Alsaid Auto · GAC · GMA · River Auto", color: "#A6192E" },
-              { name: "Energy", count: "One company", note: "Greenviro Energy · Solar", color: "#2F7D4F" },
-              { name: "Travel & Hospitality", count: "Two companies", note: "Speed Travel · Zain Farm", color: "#0B7C86" },
-              { name: "Social Impact", count: "One organisation", note: "Alsaid Foundation · 501(c)(3)", color: "#334155" },
+              {
+                name: "Mobility",
+                count: "Four companies",
+                note: "Alsaid Auto · GAC · GMA · River Auto",
+                color: "#A6192E",
+              },
+              {
+                name: "Energy",
+                count: "One company",
+                note: "Greenviro Energy · Solar",
+                color: "#2F7D4F",
+              },
+              {
+                name: "Travel & Hospitality",
+                count: "Two companies",
+                note: "Speed Travel · Zain Farm",
+                color: "#0B7C86",
+              },
+              {
+                name: "Social Impact",
+                count: "One organisation",
+                note: "Alsaid Foundation · 501(c)(3)",
+                color: "#334155",
+              },
             ].map((s, i) => (
               <Reveal
                 key={s.name}
@@ -219,7 +223,10 @@ function Index() {
                   className="absolute inset-x-0 top-0 h-[3px] origin-left transition-transform duration-500 group-hover:scale-y-[2]"
                   style={{ background: s.color }}
                 />
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: s.color }}>
+                <div
+                  className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                  style={{ color: s.color }}
+                >
                   {s.count}
                 </div>
                 <div className="mt-6 font-display text-2xl leading-tight text-paper transition-transform duration-500 group-hover:-translate-y-0.5">
@@ -335,8 +342,8 @@ function Index() {
           </Reveal>
           <Reveal from="right" delay={120} className="md:col-span-5">
             <p className="max-w-md text-base leading-relaxed text-paper/85">
-              We work with manufacturers, distributors, and institutional partners
-              across nine markets and four continents.
+              We work with manufacturers, distributors, and institutional partners across nine
+              markets and four continents.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
