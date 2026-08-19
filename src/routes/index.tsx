@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
 import { HeroCarousel, type Slide } from "@/components/hero-carousel";
-import { CompanyOrbit } from "@/components/company-orbit";
 import heroGroup from "@/assets/hero-group.jpg";
 import aboutLeadership from "@/assets/about-leadership.jpg";
+
+const partnerLogos = companies.filter((c) => c.logo);
 
 const bySlug = (slug: string) => companies.find((c) => c.slug === slug)!;
 
@@ -115,15 +116,10 @@ function Index() {
       </section>
 
       <section className="border-b border-ink/15 bg-paper-2/60">
-        <div className="container-editorial py-12 md:py-16">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
-                Group companies & partnerships
-              </div>
-              <h2 className="mt-4 font-display text-3xl leading-[1.05] text-ink md:text-4xl">
-                Eight companies, <em className="not-italic text-crimson">one orbit.</em>
-              </h2>
+        <div className="container-editorial py-8 md:py-10">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-ink">
+              Group companies & partnerships
             </div>
             <Link
               to="/companies"
@@ -132,8 +128,24 @@ function Index() {
               All eight →
             </Link>
           </div>
-          <div className="mt-10">
-            <CompanyOrbit companies={companies} />
+          <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
+            {partnerLogos.map((c, i) => (
+              <Reveal key={c.slug} delay={i * 60} from="scale">
+                <Link
+                  to="/companies/$slug"
+                  params={{ slug: c.slug }}
+                  className="group flex h-14 items-center justify-center transition-transform duration-300 hover:scale-110"
+                  aria-label={c.name}
+                >
+                  <img
+                    src={c.logo}
+                    alt={`${c.name} logo`}
+                    className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                    loading="lazy"
+                  />
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
+import { CompanyEcosystem } from "@/components/company-ecosystem";
 
 export const Route = createFileRoute("/companies/")({
   head: () => ({
@@ -28,8 +29,11 @@ function CompaniesIndex() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-ink/15 bg-ink text-paper">
-        <div aria-hidden className="pointer-events-none absolute inset-0 pattern-diagonal opacity-[0.18]" />
-        <div className="relative container-editorial py-12 md:py-16">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 pattern-diagonal opacity-[0.1]"
+        />
+        <div className="relative container-editorial pt-12 md:pt-16">
           <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-crimson">
             The portfolio
           </div>
@@ -37,68 +41,82 @@ function CompaniesIndex() {
             The <em className="not-italic text-crimson">Companies.</em>
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-paper/70">
-            Eight operating companies across mobility, energy, travel, hospitality,
-            and social impact, each with its own mandate, market, and leadership.
+            Eight operating companies across mobility, energy, travel, hospitality, and social
+            impact, each orbiting a single, founder-led center of gravity.
           </p>
+        </div>
+        <div className="relative container-editorial py-16 md:py-24">
+          <CompanyEcosystem companies={companies} />
         </div>
       </section>
 
       <section>
         <div className="container-editorial py-8 md:py-10">
-          <div className="grid gap-px overflow-hidden border border-ink/15 bg-rule md:grid-cols-2">
+          <div className="flex items-baseline justify-between gap-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-ink/50">
+              Browse all eight
+            </div>
+            <div className="h-px flex-1 bg-rule" />
+          </div>
+          <div className="mt-8 grid gap-px overflow-hidden border border-ink/15 bg-rule md:grid-cols-2">
             {companies.map((c, i) => (
               <Reveal key={c.slug} delay={Math.min(i, 4) * 90} from="up" className="flex">
-              <Link
-                to="/companies/$slug"
-                params={{ slug: c.slug }}
-                className="group relative flex w-full flex-col bg-paper transition-colors duration-500 hover:bg-paper-2"
-              >
-                <span
-                  className="absolute inset-y-0 left-0 z-10 w-[3px] origin-top transition-transform duration-500 group-hover:scale-x-[2.5]"
-                  style={{ background: c.accent }}
-                  aria-hidden
-                />
-                <div className="image-frame aspect-[16/9] border-0 border-b border-ink/10">
-                  <img src={c.hero} alt={c.name} loading="lazy" width={1200} height={675} />
+                <Link
+                  to="/companies/$slug"
+                  params={{ slug: c.slug }}
+                  className="group relative flex w-full flex-col bg-paper transition-colors duration-500 hover:bg-paper-2"
+                >
                   <span
+                    className="absolute inset-y-0 left-0 z-10 w-[3px] origin-top transition-transform duration-500 group-hover:scale-x-[2.5]"
+                    style={{ background: c.accent }}
                     aria-hidden
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, rgba(17,17,17,0) 45%, rgba(17,17,17,0.55) 100%)",
-                    }}
                   />
-                  {c.logo ? (
-                    <span className="absolute bottom-4 left-5 inline-flex items-center border border-paper/50 bg-paper/80 px-2.5 py-1.5 backdrop-blur-md transition-all duration-500 group-hover:scale-105 group-hover:bg-paper">
-                      <img
-                        src={c.logo}
-                        alt={`${c.name} logo`}
-                        className="h-7 w-auto object-contain"
-                      />
-                    </span>
-                  ) : null}
-                </div>
-                <div className="flex flex-1 flex-col justify-between p-7 md:p-8">
-                  <div
-                    className="text-[10px] font-semibold uppercase tracking-[0.22em]"
-                    style={{ color: c.accent }}
-                  >
-                    {c.sector}
+                  <div className="image-frame aspect-[16/9] border-0 border-b border-ink/10">
+                    <img src={c.hero} alt={c.name} loading="lazy" width={1200} height={675} />
+                    <span
+                      aria-hidden
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(17,17,17,0) 45%, rgba(17,17,17,0.55) 100%)",
+                      }}
+                    />
+                    {c.logo ? (
+                      <span className="absolute bottom-4 left-5 inline-flex items-center border border-paper/50 bg-paper/80 px-2.5 py-1.5 backdrop-blur-md transition-all duration-500 group-hover:scale-105 group-hover:bg-paper">
+                        <img
+                          src={c.logo}
+                          alt={`${c.name} logo`}
+                          className="h-7 w-auto object-contain"
+                        />
+                      </span>
+                    ) : null}
                   </div>
-                  <div className="mt-4">
-                    <h2 className="font-display text-3xl leading-[1.05] text-ink md:text-4xl">
-                      {c.name}
-                    </h2>
-                    <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/70">
-                      {c.tagline}
-                    </p>
-                    <div className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-transform duration-300 group-hover:translate-x-1">
-                      <span>Read profile</span>
-                      <span className="transition-transform duration-300 group-hover:translate-x-1" style={{ color: c.accent }}>→</span>
+                  <div className="flex flex-1 flex-col justify-between p-7 md:p-8">
+                    <div
+                      className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                      style={{ color: c.accent }}
+                    >
+                      {c.sector}
+                    </div>
+                    <div className="mt-4">
+                      <h2 className="font-display text-3xl leading-[1.05] text-ink md:text-4xl">
+                        {c.name}
+                      </h2>
+                      <p className="mt-3 max-w-md text-sm leading-relaxed text-ink/70">
+                        {c.tagline}
+                      </p>
+                      <div className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-transform duration-300 group-hover:translate-x-1">
+                        <span>Read profile</span>
+                        <span
+                          className="transition-transform duration-300 group-hover:translate-x-1"
+                          style={{ color: c.accent }}
+                        >
+                          →
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
               </Reveal>
             ))}
           </div>
