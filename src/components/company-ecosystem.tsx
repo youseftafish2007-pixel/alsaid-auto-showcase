@@ -160,8 +160,11 @@ function OrbitNode({ company, index, ring, isActive, running, onSelect }: NodePr
           )}
         </button>
         <div
-          className="eco-node-label pointer-events-none absolute left-1/2 top-full mt-2 max-w-[112px] -translate-x-1/2 truncate text-center text-[8px] font-semibold uppercase tracking-[0.14em]"
-          style={{ color: isActive ? "var(--crimson)" : `${CREAM}a6` }}
+          className="eco-node-label pointer-events-none absolute left-1/2 top-full mt-2.5 max-w-[130px] -translate-x-1/2 truncate text-center text-[10.5px] font-bold uppercase tracking-[0.1em]"
+          style={{
+            color: isActive ? "var(--crimson)" : CREAM,
+            textShadow: "0 1px 4px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6)",
+          }}
         >
           {company.name}
         </div>
@@ -369,6 +372,40 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         >
           Eight operating companies, one founder-led center of gravity.
         </p>
+        <p
+          className="mx-auto mt-6 max-w-md text-[11px] uppercase tracking-[0.16em]"
+          style={{ color: `${CREAM}66` }}
+        >
+          Choose a company below
+        </p>
+      </div>
+
+      {/* ---------- Primary selector: the clear, reliable way to pick a company ---------- */}
+      <div className="relative mx-auto mt-5 grid max-w-3xl grid-cols-2 gap-2.5 px-6 sm:grid-cols-4">
+        {companies.map((c, i) => {
+          const isActive = i === active;
+          return (
+            <button
+              key={c.slug}
+              type="button"
+              onClick={() => select(i)}
+              aria-current={isActive}
+              className="eco-legend-btn flex min-h-[46px] items-center gap-2.5 border px-3.5 py-2.5 text-left transition-all duration-300"
+              style={{
+                borderColor: isActive ? c.accent : `${CREAM}26`,
+                background: isActive ? `${c.accent}20` : `${CREAM}08`,
+              }}
+            >
+              <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: c.accent }} />
+              <span
+                className="truncate text-[11px] font-semibold uppercase tracking-[0.1em]"
+                style={{ color: isActive ? CREAM : `${CREAM}c2` }}
+              >
+                {c.name}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <div
@@ -399,7 +436,10 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
 
           <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
             <div className="eco-core-bloom" aria-hidden />
+            <div className="eco-core-ring eco-core-ring--outer" aria-hidden />
+            <div className="eco-core-ring eco-core-ring--inner" aria-hidden />
             <div className="eco-core-sphere grid place-items-center">
+              <span className="eco-core-highlight" aria-hidden />
               <span className="font-display text-2xl tracking-[0.03em]" style={{ color: CREAM }}>
                 AG
               </span>
@@ -430,7 +470,10 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         <div className="relative mx-auto aspect-square w-full max-w-[380px] py-10 md:hidden">
           <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
             <div className="eco-core-bloom eco-core-bloom--sm" aria-hidden />
+            <div className="eco-core-ring eco-core-ring--outer eco-core-ring--sm" aria-hidden />
+            <div className="eco-core-ring eco-core-ring--inner eco-core-ring--sm" aria-hidden />
             <div className="eco-core-sphere eco-core-sphere--sm grid place-items-center">
+              <span className="eco-core-highlight eco-core-highlight--sm" aria-hidden />
               <span className="font-display text-lg tracking-[0.03em]" style={{ color: CREAM }}>
                 AG
               </span>
@@ -489,8 +532,11 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                     </span>
                   </button>
                   <div
-                    className="pointer-events-none mt-1.5 max-w-[64px] truncate text-center text-[7px] font-semibold uppercase tracking-[0.12em]"
-                    style={{ color: isActive ? "var(--crimson)" : `${CREAM}a6` }}
+                    className="pointer-events-none mt-1.5 max-w-[70px] truncate text-center text-[8.5px] font-bold uppercase tracking-[0.08em]"
+                    style={{
+                      color: isActive ? "var(--crimson)" : CREAM,
+                      textShadow: "0 1px 4px rgba(0,0,0,.9), 0 0 10px rgba(0,0,0,.6)",
+                    }}
                   >
                     {c.name}
                   </div>
@@ -501,24 +547,8 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         </div>
       </div>
 
-      {/* ---------- Legend: a second, reliable way to pick a company ---------- */}
-      <div className="relative mx-auto mt-2 flex max-w-3xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-6 md:mt-4">
-        {companies.map((c, i) => (
-          <button
-            key={c.slug}
-            type="button"
-            onClick={() => select(i)}
-            aria-current={i === active}
-            className="text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300"
-            style={{ color: i === active ? "var(--crimson)" : `${CREAM}73` }}
-          >
-            {c.name}
-          </button>
-        ))}
-      </div>
-
       {/* ---------- Minimal sequence nav ---------- */}
-      <div className="relative mx-auto mt-6 flex max-w-[220px] items-center gap-5 px-6">
+      <div className="relative mx-auto mt-8 flex max-w-[220px] items-center gap-5 px-6 md:mt-10">
         <button
           type="button"
           onClick={prev}
@@ -693,6 +723,14 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         }
         @keyframes eco-mobile-ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes eco-mobile-ring-spin-reverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes eco-core-ring-spin {
+          from { transform: translate(-50%, -50%) rotate(0deg) scaleY(.82); }
+          to { transform: translate(-50%, -50%) rotate(360deg) scaleY(.82); }
+        }
+        @keyframes eco-core-ring-spin-rev {
+          from { transform: translate(-50%, -50%) rotate(360deg) scaleY(.7); }
+          to { transform: translate(-50%, -50%) rotate(0deg) scaleY(.7); }
+        }
         @keyframes eco-star-drift {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(6px, -4px); }
@@ -706,6 +744,21 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           animation: eco-core-pulse-bloom 5.5s ease-in-out infinite;
         }
         .eco-core-bloom--sm { width: 190px; height: 190px; filter: blur(24px); }
+        .eco-core-ring {
+          position: absolute; left: 50%; top: 50%; border-radius: 9999px; border-style: solid;
+        }
+        .eco-core-ring--outer {
+          width: 176px; height: 176px; border-width: 1px;
+          border-color: color-mix(in oklab, var(--crimson) 40%, transparent);
+          animation: eco-core-ring-spin 48s linear infinite;
+        }
+        .eco-core-ring--inner {
+          width: 136px; height: 136px; border-width: 1px;
+          border-color: rgba(240,237,232,.22);
+          animation: eco-core-ring-spin-rev 34s linear infinite;
+        }
+        .eco-core-ring--sm.eco-core-ring--outer { width: 108px; height: 108px; }
+        .eco-core-ring--sm.eco-core-ring--inner { width: 84px; height: 84px; }
         .eco-core-sphere {
           position: relative;
           width: 96px; height: 96px; border-radius: 9999px;
@@ -714,6 +767,12 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           animation: eco-core-pulse-scale 5.5s ease-in-out infinite;
         }
         .eco-core-sphere--sm { width: 60px; height: 60px; box-shadow: 0 0 32px 6px color-mix(in oklab, var(--crimson) 50%, transparent), inset 0 0 12px rgba(0,0,0,.4); }
+        .eco-core-highlight {
+          position: absolute; left: 20%; top: 16%; width: 38%; height: 38%; border-radius: 9999px;
+          background: radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
+          filter: blur(1px);
+        }
+        .eco-core-highlight--sm { left: 18%; top: 14%; }
 
         .eco-node-sphere {
           border-radius: 9999px;
@@ -724,6 +783,10 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           cursor: pointer;
         }
         .eco-node-sphere:hover { transform: scale(1.28); border-color: color-mix(in oklab, var(--crimson) 55%, transparent); }
+        .eco-node-sphere:focus-visible, .eco-legend-btn:focus-visible {
+          outline: 2px solid var(--crimson); outline-offset: 3px;
+        }
+        .eco-node-group:hover { animation-play-state: paused !important; }
         .eco-node-sphere--active {
           transform: scale(1.4) !important;
           border-color: color-mix(in oklab, var(--crimson) 75%, transparent);
@@ -739,7 +802,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         .delay-150 { transition-delay: 150ms; }
 
         @media (prefers-reduced-motion: reduce) {
-          .eco-core-bloom, .eco-core-sphere, .eco-mobile-spin, .eco-mobile-spin-reverse { animation: none !important; }
+          .eco-core-bloom, .eco-core-sphere, .eco-core-ring, .eco-mobile-spin, .eco-mobile-spin-reverse { animation: none !important; }
         }
       `}</style>
     </section>
