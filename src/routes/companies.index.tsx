@@ -5,13 +5,13 @@ import { CompanyEcosystem } from "@/components/company-ecosystem";
 export const Route = createFileRoute("/companies/")({
   head: () => ({
     meta: [
-      { title: "The Companies | Alsaid Group" },
+      { title: "The Alsaid Universe | Alsaid Group" },
       {
         name: "description",
         content:
           "Eight operating companies across mobility, energy, travel, hospitality, and social impact, each with its own mandate, market, and leadership.",
       },
-      { property: "og:title", content: "The Companies | Alsaid Group" },
+      { property: "og:title", content: "The Alsaid Universe | Alsaid Group" },
       {
         property: "og:description",
         content:
