@@ -17,6 +17,10 @@ const RINGS: RingConfig[] = [
   { rx: 444, ry: 190, duration: 104, tilt: -8, z: "front" },
 ];
 
+/** Slight per-node size variance so the system reads as art-directed
+ * rather than eight identical circles. */
+const NODE_SIZES = [50, 57, 47, 55, 52, 46, 58, 51];
+
 function ellipsePath(rx: number, ry: number) {
   return `M ${rx} 0 A ${rx} ${ry} 0 1 1 ${-rx} 0 A ${rx} ${ry} 0 1 1 ${rx} 0`;
 }
@@ -108,21 +112,42 @@ type NodeProps = {
   company: Company;
   index: number;
   ring: RingConfig;
+  size: number;
   isActive: boolean;
+  isHovered: boolean;
+  dimmed: boolean;
   running: boolean;
   onSelect: (i: number) => void;
+  onEnter: (i: number, el: HTMLDivElement | null) => void;
+  onLeave: () => void;
 };
 
-function OrbitNode({ company, index, ring, isActive, running, onSelect }: NodeProps) {
+function OrbitNode({
+  company,
+  index,
+  ring,
+  size,
+  isActive,
+  isHovered,
+  dimmed,
+  running,
+  onSelect,
+  onEnter,
+  onLeave,
+}: NodeProps) {
   const delay = index % 2 === 0 ? 0 : -ring.duration / 2;
+  const half = size / 2;
+  const emphasized = isActive || isHovered;
 
   const pathStyle: CSSProperties = {
     left: "50%",
     top: "50%",
     animationDuration: `${ring.duration}s`,
     animationDelay: `${delay}s`,
-    animationPlayState: running && !isActive ? "running" : "paused",
-    zIndex: isActive ? 60 : 10,
+    animationPlayState: running && !emphasized ? "running" : "paused",
+    zIndex: emphasized ? 60 : 10,
+    opacity: dimmed ? 0.38 : 1,
+    transition: "opacity 350ms ease",
   };
   const extra = pathStyle as unknown as Record<string, string>;
   extra.offsetPath = `path('${ellipsePath(ring.rx, ring.ry)}')`;
@@ -137,19 +162,23 @@ function OrbitNode({ company, index, ring, isActive, running, onSelect }: NodePr
       <div
         className="relative"
         style={{
-          width: 52,
-          height: 52,
-          marginLeft: -26,
-          marginTop: -26,
+          width: size,
+          height: size,
+          marginLeft: -half,
+          marginTop: -half,
           transform: `rotate(${-ring.tilt}deg)`,
         }}
+        onMouseEnter={(e) => onEnter(index, e.currentTarget)}
+        onMouseLeave={onLeave}
+        onFocus={(e) => onEnter(index, e.currentTarget)}
+        onBlur={onLeave}
       >
         <button
           type="button"
           onClick={() => onSelect(index)}
           aria-current={isActive}
           aria-label={`View ${company.name}`}
-          className={`eco-node-sphere absolute inset-0 grid place-items-center ${isActive ? "eco-node-sphere--active" : ""}`}
+          className={`eco-node-sphere absolute inset-0 grid place-items-center ${emphasized ? "eco-node-sphere--active" : ""}`}
         >
           {company.logo ? (
             <img src={company.logo} alt="" className="h-6 w-6 object-contain opacity-90" />
@@ -160,9 +189,11 @@ function OrbitNode({ company, index, ring, isActive, running, onSelect }: NodePr
           )}
         </button>
         <div
-          className="eco-node-label pointer-events-none absolute left-1/2 top-full mt-2.5 max-w-[130px] -translate-x-1/2 truncate text-center text-[10.5px] font-bold uppercase tracking-[0.1em]"
+          className={`eco-node-label pointer-events-none absolute left-1/2 top-full mt-2.5 -translate-x-1/2 whitespace-nowrap text-center text-[10.5px] font-bold uppercase tracking-[0.1em] transition-[max-width] duration-300 ${
+            emphasized ? "max-w-[260px]" : "max-w-[104px] overflow-hidden text-ellipsis"
+          }`}
           style={{
-            color: isActive ? "var(--crimson)" : CREAM,
+            color: emphasized ? "var(--crimson)" : CREAM,
             textShadow: "0 1px 4px rgba(0,0,0,.9), 0 0 12px rgba(0,0,0,.6)",
           }}
         >
@@ -177,14 +208,22 @@ function OrbitRing({
   ring,
   companies,
   active,
+  hoverIndex,
   running,
+  nodeSizes,
   onSelect,
+  onEnter,
+  onLeave,
 }: {
   ring: RingConfig;
   companies: [Company, Company];
   active: number;
+  hoverIndex: number | null;
   running: boolean;
+  nodeSizes: number[];
   onSelect: (i: number) => void;
+  onEnter: (i: number, el: HTMLDivElement | null) => void;
+  onLeave: () => void;
 }) {
   const ringIndex = RINGS.indexOf(ring);
   return (
@@ -216,9 +255,14 @@ function OrbitRing({
             company={c}
             index={globalIndex}
             ring={ring}
+            size={nodeSizes[globalIndex]}
             isActive={globalIndex === active}
+            isHovered={globalIndex === hoverIndex}
+            dimmed={hoverIndex !== null && globalIndex !== hoverIndex}
             running={running}
             onSelect={onSelect}
+            onEnter={onEnter}
+            onLeave={onLeave}
           />
         );
       })}
@@ -232,9 +276,12 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
   const n = companies.length;
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [linePos, setLinePos] = useState<{ x: number; y: number } | null>(null);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -315,6 +362,29 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
     [prev, next, close, expanded],
   );
 
+  // Every node's own orbit-travel animation pauses on hover (see the CSS
+  // rule below), so by the time we measure it, its position is frozen —
+  // a single getBoundingClientRect is enough to draw the connecting line
+  // and place the floating preview card accurately.
+  const handleNodeEnter = useCallback((i: number, el: HTMLDivElement | null) => {
+    setHoverIndex(i);
+    const stage = stageRef.current;
+    if (!el || !stage) return;
+    requestAnimationFrame(() => {
+      const stageRect = stage.getBoundingClientRect();
+      const nodeRect = el.getBoundingClientRect();
+      setLinePos({
+        x: nodeRect.left + nodeRect.width / 2 - stageRect.left,
+        y: nodeRect.top + nodeRect.height / 2 - stageRect.top,
+      });
+    });
+  }, []);
+
+  const handleNodeLeave = useCallback(() => {
+    setHoverIndex(null);
+    setLinePos(null);
+  }, []);
+
   const onMouseMove = useCallback(
     (e: ReactMouseEvent<HTMLElement>) => {
       if (reduceMotion) return;
@@ -340,7 +410,8 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
   }, []);
 
   const activeCompany = companies[active];
-  const running = !reduceMotion;
+  const hoveredCompany = hoverIndex !== null ? companies[hoverIndex] : null;
+  const running = !reduceMotion && hoverIndex === null;
   const mobileAngles = useMemo(() => companies.map((_, i) => (360 / n) * i), [companies, n]);
 
   return (
@@ -376,7 +447,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           className="mx-auto mt-6 max-w-md text-[11px] uppercase tracking-[0.16em]"
           style={{ color: `${CREAM}66` }}
         >
-          Choose a company below
+          Hover to explore · click to enter
         </p>
       </div>
 
@@ -414,7 +485,15 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         }`}
       >
         {/* ---------- Desktop: four-ring cinematic system ---------- */}
-        <div className="relative hidden h-[680px] w-full max-w-[1040px] md:block lg:h-[760px]">
+        <div
+          ref={stageRef}
+          className="relative hidden h-[680px] w-full max-w-[1040px] md:block lg:h-[760px]"
+        >
+          <div
+            className="pointer-events-none absolute inset-0 z-40 bg-black transition-opacity duration-500"
+            style={{ opacity: hoverIndex !== null ? 0.22 : 0 }}
+            aria-hidden
+          />
           <div
             className="absolute inset-0 z-0"
             style={{ transform: "translate3d(calc(var(--px) * 5px), calc(var(--py) * 5px), 0)" }}
@@ -428,8 +507,12 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                   companies[RINGS.indexOf(ring) * 2 + 1],
                 ]}
                 active={active}
+                hoverIndex={hoverIndex}
                 running={running}
+                nodeSizes={NODE_SIZES}
                 onSelect={select}
+                onEnter={handleNodeEnter}
+                onLeave={handleNodeLeave}
               />
             ))}
           </div>
@@ -446,6 +529,24 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
             </div>
           </div>
 
+          {linePos ? (
+            <div
+              className="eco-connect-line pointer-events-none absolute z-30"
+              style={{
+                left: "50%",
+                top: "50%",
+                width: Math.hypot(
+                  linePos.x - (stageRef.current?.clientWidth ?? 0) / 2,
+                  linePos.y - (stageRef.current?.clientHeight ?? 0) / 2,
+                ),
+                transform: `rotate(${Math.atan2(
+                  linePos.y - (stageRef.current?.clientHeight ?? 0) / 2,
+                  linePos.x - (stageRef.current?.clientWidth ?? 0) / 2,
+                )}rad)`,
+              }}
+            />
+          ) : null}
+
           <div
             className="absolute inset-0 z-20"
             style={{ transform: "translate3d(calc(var(--px) * 13px), calc(var(--py) * 13px), 0)" }}
@@ -459,11 +560,54 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                   companies[RINGS.indexOf(ring) * 2 + 1],
                 ]}
                 active={active}
+                hoverIndex={hoverIndex}
                 running={running}
+                nodeSizes={NODE_SIZES}
                 onSelect={select}
+                onEnter={handleNodeEnter}
+                onLeave={handleNodeLeave}
               />
             ))}
           </div>
+
+          {hoveredCompany && linePos ? (
+            <div
+              key={hoveredCompany.slug}
+              className="eco-hover-card pointer-events-none absolute z-50 w-56 border p-4"
+              style={{
+                left: linePos.x,
+                top: linePos.y + 46,
+                transform: "translateX(-50%)",
+                borderColor: `${hoveredCompany.accent}66`,
+                background: `${VOID}f0`,
+              }}
+            >
+              <div
+                className="text-[13px] font-bold uppercase tracking-[0.08em]"
+                style={{ color: CREAM }}
+              >
+                {hoveredCompany.name}
+              </div>
+              <div
+                className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em]"
+                style={{ color: hoveredCompany.accent }}
+              >
+                {hoveredCompany.sector}
+              </div>
+              <p
+                className="mt-2 line-clamp-2 text-[12px] leading-snug"
+                style={{ color: `${CREAM}a6` }}
+              >
+                {hoveredCompany.tagline}
+              </p>
+              <div
+                className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em]"
+                style={{ color: CREAM }}
+              >
+                Explore Company →
+              </div>
+            </div>
+          ) : null}
         </div>
 
         {/* ---------- Mobile: single rotating ring ---------- */}
@@ -656,7 +800,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                       className="eco-link pb-1 text-[11px] font-semibold uppercase tracking-[0.2em]"
                       style={{ color: `${CREAM}b3` }}
                     >
-                      Open full profile ↗
+                      Explore Company →
                     </Link>
                   </div>
                 </div>
@@ -795,6 +939,20 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
 
         .eco-link { background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 300ms ease; }
         .eco-link:hover { background-size: 0% 1px; }
+
+        .eco-connect-line {
+          height: 1px;
+          transform-origin: left center;
+          background: linear-gradient(to right, color-mix(in oklab, var(--crimson) 75%, transparent), transparent);
+        }
+        .eco-hover-card {
+          animation: eco-hover-card-in 220ms cubic-bezier(0.19,1,0.22,1) both;
+          box-shadow: 0 18px 40px -16px rgba(0,0,0,.7);
+        }
+        @keyframes eco-hover-card-in {
+          from { opacity: 0; transform: translate(-50%, -6px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
+        }
 
         .eco-mobile-spin { animation: eco-mobile-ring-spin 150s linear infinite; }
         .eco-mobile-spin-reverse { animation: eco-mobile-ring-spin-reverse 150s linear infinite; }
