@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Company } from "@/lib/companies";
+import asMonogram from "@/assets/as-monogram.png";
 
 const CREAM = "#f0ede8";
 const VOID = "#0a0a0a";
@@ -20,8 +21,11 @@ const RINGS: RingConfig[] = [
 /** Subtle size variance only — reads as depth, not decoration. */
 const NODE_SIZES = [50, 55, 47, 53, 51, 46, 56, 49];
 
-function ellipsePath(rx: number, ry: number) {
-  return `M ${rx} 0 A ${rx} ${ry} 0 1 1 ${-rx} 0 A ${rx} ${ry} 0 1 1 ${rx} 0`;
+function ellipsePath(rx: number, ry: number, tiltDeg: number) {
+  const rad = (tiltDeg * Math.PI) / 180;
+  const sx = rx * Math.cos(rad);
+  const sy = rx * Math.sin(rad);
+  return `M ${sx} ${sy} A ${rx} ${ry} ${tiltDeg} 1 1 ${-sx} ${-sy} A ${rx} ${ry} ${tiltDeg} 1 1 ${sx} ${sy}`;
 }
 
 // ---------- Starfield ----------
@@ -46,8 +50,9 @@ type StarLayer = {
 };
 
 const STAR_LAYERS: StarLayer[] = [
-  { count: 70, size: [0.6, 1.1], opacity: [0.12, 0.28], parallax: 2, duration: 150 },
-  { count: 40, size: [0.9, 1.5], opacity: [0.22, 0.42], parallax: 4, duration: 120 },
+  { count: 140, size: [0.5, 1.0], opacity: [0.1, 0.24], parallax: 2, duration: 160 },
+  { count: 85, size: [0.8, 1.4], opacity: [0.18, 0.36], parallax: 4, duration: 130 },
+  { count: 38, size: [1.2, 2.0], opacity: [0.32, 0.58], parallax: 7, duration: 100 },
 ];
 
 function buildStars(layer: StarLayer, seed: number): Star[] {
@@ -131,7 +136,7 @@ function OrbitNode({
   onLeave,
 }: NodeProps) {
   const delay = index % 2 === 0 ? 0 : -ring.duration / 2;
-  const hitSize = 88;
+  const hitSize = 72;
 
   const pathStyle: CSSProperties = {
     left: "50%",
@@ -144,7 +149,7 @@ function OrbitNode({
     transition: "opacity 400ms ease",
   };
   const extra = pathStyle as unknown as Record<string, string>;
-  extra.offsetPath = `path('${ellipsePath(ring.rx, ring.ry)}')`;
+  extra.offsetPath = `path('${ellipsePath(ring.rx, ring.ry, ring.tilt)}')`;
   extra.offsetAnchor = "50% 50%";
   extra.offsetRotate = "0deg";
   extra.animationName = "orbit-travel";
@@ -175,7 +180,7 @@ function OrbitNode({
           style={{
             width: size,
             height: size,
-            transform: `rotate(${-ring.tilt}deg) scale(${isFocused ? 1.2 : 1})`,
+            transform: `scale(${isFocused ? 1.2 : 1})`,
             transition: "transform 400ms cubic-bezier(0.19,1,0.22,1)",
           }}
         >
@@ -231,13 +236,10 @@ function OrbitRing({
   const someoneFocused = focusIndex !== null;
 
   return (
-    <div
-      className="absolute inset-0"
-      style={{ transform: `rotate(${ring.tilt}deg)`, transformOrigin: "50% 50%" }}
-    >
+    <div className="absolute inset-0">
       <svg
         viewBox="-500 -320 1000 640"
-        className="absolute inset-0 h-full w-full overflow-visible"
+        className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
         aria-hidden
       >
         <ellipse
@@ -251,6 +253,7 @@ function OrbitRing({
             ringIsFocused ? 0.5 : someoneFocused ? 0.06 : ring.z === "front" ? 0.14 : 0.09
           }
           strokeWidth={1}
+          transform={`rotate(${ring.tilt})`}
           style={{ transition: "stroke 400ms ease, stroke-opacity 400ms ease" }}
         />
       </svg>
@@ -277,25 +280,15 @@ function OrbitRing({
   );
 }
 
-// ---------- Fixed info panel ----------
+// ---------- Fixed info panel (hover preview only) ----------
 
-function InfoPanel({
-  company,
-  isLocked,
-  onBack,
-  mobile,
-}: {
-  company: Company;
-  isLocked: boolean;
-  onBack: () => void;
-  mobile?: boolean;
-}) {
+function InfoPanel({ company, mobile }: { company: Company; mobile?: boolean }) {
   return (
     <div
       className={
         mobile
-          ? "eco-panel-mobile-in absolute inset-x-0 bottom-0 z-[70] border-t px-6 pb-6 pt-5"
-          : "eco-panel-in absolute right-0 top-1/2 z-[70] w-[280px] -translate-y-1/2 border p-6"
+          ? "eco-panel-mobile-in pointer-events-none absolute inset-x-0 bottom-0 z-[70] border-t px-6 pb-6 pt-5"
+          : "eco-panel-in pointer-events-none absolute right-0 top-1/2 z-[70] w-[280px] -translate-y-1/2 border p-6"
       }
       style={{ borderColor: `${CREAM}22`, background: `${VOID}e8`, backdropFilter: "blur(10px)" }}
     >
@@ -311,25 +304,122 @@ function InfoPanel({
       <p className="mt-3 text-[13px] leading-relaxed" style={{ color: `${CREAM}99` }}>
         {company.tagline}
       </p>
-      <div className="mt-5 flex items-center gap-5">
-        <Link
-          to="/companies/$slug"
-          params={{ slug: company.slug }}
-          className="eco-link text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: CREAM }}
+      <div
+        className="mt-5 text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+        style={{ color: `${CREAM}66` }}
+      >
+        Click to view profile
+      </div>
+    </div>
+  );
+}
+
+// ---------- Expanded profile, inline below the orbit ----------
+
+function ExpandedProfile({ company, onClose }: { company: Company; onClose: () => void }) {
+  return (
+    <div className="border-t pt-8 pb-16" style={{ borderColor: `${CREAM}1f` }}>
+      <div className="flex items-start justify-between gap-4">
+        <div
+          className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.2em]"
+          style={{ color: `${CREAM}8c` }}
         >
-          Explore Company →
-        </Link>
-        {isLocked ? (
-          <button
-            type="button"
-            onClick={onBack}
-            className="text-[10.5px] font-semibold uppercase tracking-[0.16em] transition-colors duration-300"
-            style={{ color: `${CREAM}66` }}
+          <span
+            className="inline-flex items-center gap-2 border px-3 py-1"
+            style={{ borderColor: `${CREAM}33`, color: company.accent }}
           >
-            ← Back
-          </button>
-        ) : null}
+            <span
+              className="inline-block h-1.5 w-1.5 rounded-full"
+              style={{ background: company.accent }}
+            />
+            {company.sector}
+          </span>
+          {company.established ? <span>Est. {company.established}</span> : null}
+          <span>{company.location}</span>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          className="shrink-0 border px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] transition-colors duration-300"
+          style={{ borderColor: `${CREAM}33`, color: `${CREAM}99` }}
+        >
+          ← Back to Universe
+        </button>
+      </div>
+
+      <div className="mt-8 grid gap-10 md:grid-cols-12">
+        <div className="md:col-span-7">
+          <h3
+            className="font-display text-4xl leading-[1] tracking-[-0.01em] md:text-5xl"
+            style={{ color: CREAM }}
+          >
+            {company.name}
+          </h3>
+          <div
+            className="mt-5 space-y-4 text-[15px] leading-relaxed"
+            style={{ color: `${CREAM}a6` }}
+          >
+            {company.paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <a
+              href="mailto:partnerships@alsaidgroup.com"
+              className="inline-flex items-center justify-center border px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-transform duration-300 hover:-translate-y-0.5"
+              style={{ background: company.accent, borderColor: company.accent, color: VOID }}
+            >
+              Enquire
+            </a>
+            <Link
+              to="/companies/$slug"
+              params={{ slug: company.slug }}
+              className="eco-link text-[11px] font-semibold uppercase tracking-[0.2em]"
+              style={{ color: `${CREAM}b3` }}
+            >
+              Open full profile ↗
+            </Link>
+          </div>
+        </div>
+        <div className="md:col-span-5">
+          <div
+            className="relative aspect-[4/3] overflow-hidden border"
+            style={{ borderColor: `${CREAM}1f` }}
+          >
+            <img
+              src={company.hero}
+              alt={company.name}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+            {company.logo ? (
+              <span
+                className="absolute left-3 top-3 inline-flex items-center border px-2.5 py-1.5 backdrop-blur-sm"
+                style={{ borderColor: `${CREAM}40`, background: `${VOID}b3` }}
+              >
+                <img src={company.logo} alt="" className="h-5 w-auto object-contain" />
+              </span>
+            ) : null}
+          </div>
+          <div
+            className="mt-5 grid grid-cols-2 gap-px overflow-hidden border"
+            style={{ borderColor: `${CREAM}1f`, background: `${CREAM}1a` }}
+          >
+            {company.facts.map((f) => (
+              <div key={f.label} className="px-4 py-4" style={{ background: VOID }}>
+                <div className="font-display text-xl leading-none" style={{ color: CREAM }}>
+                  {f.value}
+                </div>
+                <div
+                  className="mt-2 text-[9px] uppercase tracking-[0.16em]"
+                  style={{ color: `${CREAM}73` }}
+                >
+                  {f.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -420,7 +510,6 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
   }, []);
 
   const focusIndex = hoverIndex ?? lockedIndex;
-  const focusCompany = focusIndex !== null ? companies[focusIndex] : null;
   const running = !reduceMotion;
   const mobileAngles = useMemo(() => companies.map((_, i) => (360 / n) * i), [companies, n]);
 
@@ -488,9 +577,11 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           <div className="eco-core-ring eco-core-ring--inner" aria-hidden />
           <div className="eco-core-sphere grid place-items-center">
             <span className="eco-core-highlight" aria-hidden />
-            <span className="font-display text-2xl tracking-[0.03em]" style={{ color: CREAM }}>
-              AG
-            </span>
+            <img
+              src={asMonogram}
+              alt="Alsaid Group"
+              className="relative h-10 w-10 object-contain"
+            />
           </div>
         </div>
 
@@ -516,9 +607,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           ))}
         </div>
 
-        {focusCompany ? (
-          <InfoPanel company={focusCompany} isLocked={lockedIndex !== null} onBack={back} />
-        ) : null}
+        {hoverIndex !== null ? <InfoPanel company={companies[hoverIndex]} /> : null}
       </div>
 
       {/* ---------- Mobile ---------- */}
@@ -529,9 +618,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           <div className="eco-core-ring eco-core-ring--inner eco-core-ring--sm" aria-hidden />
           <div className="eco-core-sphere eco-core-sphere--sm grid place-items-center">
             <span className="eco-core-highlight eco-core-highlight--sm" aria-hidden />
-            <span className="font-display text-lg tracking-[0.03em]" style={{ color: CREAM }}>
-              AG
-            </span>
+            <img src={asMonogram} alt="Alsaid Group" className="relative h-6 w-6 object-contain" />
           </div>
         </div>
         <div className={`absolute inset-0 z-20 ${running ? "eco-mobile-spin" : ""}`}>
@@ -598,10 +685,25 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
             );
           })}
         </div>
-        {focusCompany ? <InfoPanel company={focusCompany} isLocked mobile onBack={back} /> : null}
       </div>
 
-      <div className={focusCompany ? "h-4" : "h-14 md:h-20"} aria-hidden />
+      {/* ---------- Expanded profile, inline below — never leaves the page ---------- */}
+      <div className="relative mx-auto max-w-5xl px-6">
+        <div
+          className="grid transition-[grid-template-rows] duration-[380ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
+          style={{ gridTemplateRows: lockedIndex !== null ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
+            <div
+              className={`transition-opacity duration-300 ${lockedIndex !== null ? "opacity-100" : "opacity-0"}`}
+            >
+              <ExpandedProfile company={companies[lockedIndex ?? 0]} onClose={back} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={lockedIndex !== null ? "h-4" : "h-14 md:h-20"} aria-hidden />
 
       <style>{`
         @keyframes orbit-travel { from { offset-distance: 0%; } to { offset-distance: 100%; } }
