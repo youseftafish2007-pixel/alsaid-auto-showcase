@@ -104,7 +104,11 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
               }}
             >
               <img src={item.image} alt={item.imageAlt ?? item.title} loading="lazy" />
-              <span aria-hidden className="absolute inset-x-0 bottom-0 h-[3px]" style={{ background: accent }} />
+              <span
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-[3px]"
+                style={{ background: accent }}
+              />
               <span className="absolute left-3 top-3 border border-paper/40 bg-ink/70 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/85 backdrop-blur-sm">
                 Fig. {String(index + 1).padStart(2, "0")}
               </span>
