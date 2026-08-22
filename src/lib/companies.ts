@@ -1,4 +1,5 @@
-export type Motif = "pickup" | "solar" | "carrier" | "plane" | "showroom" | "lights" | "impact" | "fleet";
+export type Motif =
+  "pickup" | "solar" | "carrier" | "plane" | "showroom" | "lights" | "impact" | "fleet";
 
 export type Company = {
   slug: string;
@@ -252,13 +253,108 @@ export type FootprintRow = {
 };
 
 export const footprint: FootprintRow[] = [
-  { city: "Amman", region: "Jordan · MENA", role: "Founding city, Group leadership and automotive headquarters", since: "1999", lat: 31.95, lng: 35.93 },
-  { city: "Dubai", region: "UAE · MENA", role: "Gateway for international sourcing and trade", since: "2009", lat: 25.2, lng: 55.27 },
-  { city: "Sharjah", region: "UAE · MENA", role: "Automotive ecosystem and sourcing", since: "In operation", lat: 25.35, lng: 55.39 },
-  { city: "Damascus", region: "Syria · MENA", role: "Automotive activity and GAC territory", since: "In operation", lat: 33.51, lng: 36.29 },
-  { city: "Tripoli", region: "Libya · MENA", role: "GAC partnership territory", since: "2025", lat: 32.89, lng: 13.19 },
-  { city: "Abidjan", region: "Côte d'Ivoire", role: "West African automotive expansion", since: "In operation", lat: 5.36, lng: -4.01 },
-  { city: "Washington", region: "D.C. · USA", role: "Alsaid Foundation headquarters", since: "2019", lat: 38.91, lng: -77.04 },
-  { city: "Everett", region: "WA · USA", role: "GMA dealership and U.S. base", since: "In operation", lat: 47.98, lng: -122.2 },
-  { city: "Mecca", region: "Saudi Arabia", role: "Speed Travel pilgrimage programmes", since: "In operation", lat: 21.39, lng: 39.86 },
+  {
+    city: "Amman",
+    region: "Jordan · MENA",
+    role: "Founding city, Group leadership and automotive headquarters",
+    since: "1999",
+    lat: 31.95,
+    lng: 35.93,
+  },
+  {
+    city: "Dubai",
+    region: "UAE · MENA",
+    role: "Gateway for international sourcing and trade",
+    since: "2009",
+    lat: 25.2,
+    lng: 55.27,
+  },
+  {
+    city: "Sharjah",
+    region: "UAE · MENA",
+    role: "Automotive ecosystem and sourcing",
+    since: "In operation",
+    lat: 25.35,
+    lng: 55.39,
+  },
+  {
+    city: "Damascus",
+    region: "Syria · MENA",
+    role: "Automotive activity and GAC territory",
+    since: "In operation",
+    lat: 33.51,
+    lng: 36.29,
+  },
+  {
+    city: "Tripoli",
+    region: "Libya · MENA",
+    role: "GAC partnership territory",
+    since: "2025",
+    lat: 32.89,
+    lng: 13.19,
+  },
+  {
+    city: "Abidjan",
+    region: "Côte d'Ivoire",
+    role: "West African automotive expansion",
+    since: "In operation",
+    lat: 5.36,
+    lng: -4.01,
+  },
+  {
+    city: "Washington",
+    region: "D.C. · USA",
+    role: "Alsaid Foundation headquarters",
+    since: "2019",
+    lat: 38.91,
+    lng: -77.04,
+  },
+  {
+    city: "Everett",
+    region: "WA · USA",
+    role: "GMA dealership and U.S. base",
+    since: "In operation",
+    lat: 47.98,
+    lng: -122.2,
+  },
+  {
+    city: "Mecca",
+    region: "Saudi Arabia",
+    role: "Speed Travel pilgrimage programmes",
+    since: "In operation",
+    lat: 21.39,
+    lng: 39.86,
+  },
+  {
+    city: "Seoul",
+    region: "South Korea · Asia",
+    role: "Automotive sourcing and manufacturer relations",
+    since: "1999",
+    lat: 37.57,
+    lng: 126.98,
+  },
+  {
+    city: "Guangzhou",
+    region: "China · Asia",
+    role: "Automotive and retail — GAC Motor home market",
+    since: "2012",
+    lat: 23.13,
+    lng: 113.26,
+  },
+  {
+    city: "Shanghai",
+    region: "China · Asia",
+    role: "Automotive and retail operations",
+    since: "2012",
+    lat: 31.23,
+    lng: 121.47,
+  },
+  {
+    city: "Johannesburg",
+    region: "South Africa",
+    role: "Southern African automotive expansion",
+    since: "2017",
+    lat: -26.2,
+    lng: 28.05,
+  },
 ];

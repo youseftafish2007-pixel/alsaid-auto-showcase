@@ -11,13 +11,13 @@ export const Route = createFileRoute("/footprint")({
       {
         name: "description",
         content:
-          "Nine markets across four continents: Amman, Dubai, Sharjah, Damascus, Tripoli, Abidjan, Washington D.C., Everett, and Mecca.",
+          "Thirteen markets across four continents: Amman, Dubai, Sharjah, Damascus, Tripoli, Abidjan, Washington D.C., Everett, Mecca, Seoul, Guangzhou, Shanghai, and Johannesburg.",
       },
       { property: "og:title", content: "Global Footprint | Alsaid Group" },
       {
         property: "og:description",
         content:
-          "Nine international markets across four continents, from Amman to Abidjan, Washington to Mecca.",
+          "Thirteen international markets across four continents, from Amman to Johannesburg, Seoul to Washington.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -27,10 +27,10 @@ export const Route = createFileRoute("/footprint")({
 });
 
 const continents = [
-  { name: "Asia & Middle East", cities: "Amman · Dubai · Sharjah · Damascus · Mecca" },
-  { name: "Africa", cities: "Tripoli · Abidjan" },
+  { name: "Middle East", cities: "Amman · Dubai · Sharjah · Damascus · Mecca" },
+  { name: "Asia", cities: "Seoul · Guangzhou · Shanghai" },
+  { name: "Africa", cities: "Tripoli · Abidjan · Johannesburg" },
   { name: "North America", cities: "Washington D.C. · Everett" },
-  { name: "Europe", cities: "Sourcing & trade corridors" },
 ];
 
 function FootprintPage() {
@@ -54,7 +54,7 @@ function FootprintPage() {
             Global <em className="not-italic text-crimson">footprint.</em>
           </h1>
           <p className="anim-rise d-3 mt-5 max-w-2xl text-lg leading-relaxed text-paper/70">
-            Nine markets, four continents, one group.
+            Thirteen markets, four continents, one group.
           </p>
         </div>
       </section>

@@ -38,6 +38,10 @@ const labelOffsets: Record<string, { dx: number; dy: number; anchor: "start" | "
   Abidjan: { dx: 12, dy: 4, anchor: "start" },
   Washington: { dx: -12, dy: -2, anchor: "end" },
   Everett: { dx: 12, dy: 4, anchor: "start" },
+  Seoul: { dx: 12, dy: -8, anchor: "start" },
+  Guangzhou: { dx: -12, dy: 11, anchor: "end" },
+  Shanghai: { dx: 12, dy: -8, anchor: "start" },
+  Johannesburg: { dx: 12, dy: 10, anchor: "start" },
 };
 
 function arcPath(x1: number, y1: number, x2: number, y2: number) {
@@ -154,7 +158,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
         if (e.target === e.currentTarget) onSelect(null);
       }}
       role="group"
-      aria-label="Interactive map of Alsaid Group's nine locations"
+      aria-label="Interactive map of Alsaid Group's thirteen locations"
     >
       {/* Blueprint-style ground */}
       <div
