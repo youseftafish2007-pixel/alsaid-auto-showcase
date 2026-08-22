@@ -133,9 +133,14 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
     });
   };
 
-  const zoomed = Boolean(activePoint) && !reducedMotion;
-  const originPct = activePoint
-    ? { x: (activePoint.x / WIDTH) * 100, y: (activePoint.y / HEIGHT) * 100 }
+  // Camera zoom follows the committed selection only — hover previews the
+  // info card and dims the rest without yanking the whole map around,
+  // which is what made hovering a second city while one was selected feel
+  // broken (the view would jump, but the HQ connection arc stayed put).
+  const zoomed = Boolean(selected) && !reducedMotion;
+  const zoomPoint = selected ? (points.find((p) => p.city === selected) ?? null) : null;
+  const originPct = zoomPoint
+    ? { x: (zoomPoint.x / WIDTH) * 100, y: (zoomPoint.y / HEIGHT) * 100 }
     : { x: 50, y: 50 };
 
   const parallax =
@@ -154,9 +159,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
       className="group/map relative overflow-hidden border-y border-ink/12 bg-paper-2/60"
       onMouseMove={handlePointerMove}
       onMouseLeave={() => setPointer(null)}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onSelect(null);
-      }}
+      onClick={() => onSelect(null)}
       role="group"
       aria-label="Interactive map of Alsaid Group's thirteen locations"
     >
@@ -272,6 +275,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                 style={{
                   left: `${xPct}%`,
                   top: `${yPct}%`,
+                  zIndex: isHQ ? 30 : isActive ? 20 : 10,
                   opacity: entered ? 1 : 0,
                   transform: `scale(${entered ? 1 : 0.4})`,
                   transition: reducedMotion
@@ -281,7 +285,9 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
               >
                 <button
                   type="button"
-                  className="group pointer-events-auto absolute left-0 top-0 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full outline-none"
+                  className={`group pointer-events-auto absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full outline-none ${
+                    isHQ ? "h-11 w-11" : "h-8 w-8"
+                  }`}
                   aria-label={`${p.city}${isHQ ? " — Group headquarters" : ""}, ${p.region} — ${p.role}, since ${p.since}`}
                   aria-pressed={isSelected}
                   onMouseEnter={() => onHover(p.city)}
