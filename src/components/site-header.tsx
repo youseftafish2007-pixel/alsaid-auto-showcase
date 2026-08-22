@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import asgLogo from "@/assets/asg-logo.png";
+import asMonogram from "@/assets/as-monogram-ink.png";
 
 const nav = [
   { to: "/", label: "Group" },
@@ -16,7 +16,7 @@ export function SiteHeader() {
       <div className="container-editorial flex h-16 items-center justify-between gap-6">
         <Link to="/" className="group flex items-center gap-3">
           <img
-            src={asgLogo}
+            src={asMonogram}
             alt="Alsaid Group"
             width={40}
             height={40}

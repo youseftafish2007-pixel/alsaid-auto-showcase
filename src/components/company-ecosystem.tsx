@@ -549,30 +549,9 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         className="relative mx-auto hidden h-[640px] w-full max-w-[1100px] px-4 md:block lg:h-[720px]"
         onClick={onStageClick}
       >
-        <div
-          className="absolute inset-0 z-0"
-          style={{ transform: "translate3d(calc(var(--px) * 4px), calc(var(--py) * 4px), 0)" }}
-        >
-          {RINGS.filter((r) => r.z === "back").map((ring) => (
-            <OrbitRing
-              key={ring.rx}
-              ring={ring}
-              companies={[
-                companies[RINGS.indexOf(ring) * 2],
-                companies[RINGS.indexOf(ring) * 2 + 1],
-              ]}
-              lockedIndex={lockedIndex}
-              focusIndex={focusIndex}
-              running={running}
-              onSelect={select}
-              onEnter={handleEnter}
-              onLeave={handleLeave}
-            />
-          ))}
-        </div>
-
-        <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2">
           <div className="eco-core-bloom" aria-hidden />
+          <div className="eco-core-corona" aria-hidden />
           <div className="eco-core-ring eco-core-ring--outer" aria-hidden />
           <div className="eco-core-ring eco-core-ring--inner" aria-hidden />
           <div className="eco-core-sphere grid place-items-center">
@@ -585,11 +564,15 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           </div>
         </div>
 
+        {/* All rings and nodes share one flat stacking context — this is
+            deliberate: any per-ring transform here would silently create a
+            new stacking context and make z-index incomparable across
+            rings, which is what broke click targeting before. */}
         <div
-          className="absolute inset-0 z-20"
-          style={{ transform: "translate3d(calc(var(--px) * 10px), calc(var(--py) * 10px), 0)" }}
+          className="absolute inset-0 z-10"
+          style={{ transform: "translate3d(calc(var(--px) * 8px), calc(var(--py) * 8px), 0)" }}
         >
-          {RINGS.filter((r) => r.z === "front").map((ring) => (
+          {RINGS.map((ring) => (
             <OrbitRing
               key={ring.rx}
               ring={ring}
@@ -614,6 +597,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
       <div className="relative mx-auto aspect-square w-full max-w-[380px] py-10 md:hidden">
         <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
           <div className="eco-core-bloom eco-core-bloom--sm" aria-hidden />
+          <div className="eco-core-corona eco-core-corona--sm" aria-hidden />
           <div className="eco-core-ring eco-core-ring--outer eco-core-ring--sm" aria-hidden />
           <div className="eco-core-ring eco-core-ring--inner eco-core-ring--sm" aria-hidden />
           <div className="eco-core-sphere eco-core-sphere--sm grid place-items-center">
@@ -711,6 +695,10 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           0%, 100% { opacity: .35; transform: translate(-50%, -50%) scale(1); }
           50% { opacity: .55; transform: translate(-50%, -50%) scale(1.05); }
         }
+        @keyframes eco-core-pulse-corona {
+          0%, 100% { opacity: .3; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: .5; transform: translate(-50%, -50%) scale(1.1); }
+        }
         @keyframes eco-core-pulse-scale {
           0%, 100% { transform: translate(-50%, -50%) scale(1); }
           50% { transform: translate(-50%, -50%) scale(1.025); }
@@ -743,12 +731,20 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
 
         .eco-core-bloom {
           position: absolute; left: 50%; top: 50%;
-          width: 300px; height: 300px; border-radius: 9999px;
-          background: radial-gradient(circle, var(--crimson) 0%, transparent 72%);
-          filter: blur(40px);
-          animation: eco-core-pulse-bloom 6s ease-in-out infinite;
+          width: 280px; height: 280px; border-radius: 9999px;
+          background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+          filter: blur(34px);
+          animation: eco-core-pulse-bloom 5s ease-in-out infinite;
         }
-        .eco-core-bloom--sm { width: 180px; height: 180px; filter: blur(26px); }
+        .eco-core-bloom--sm { width: 170px; height: 170px; filter: blur(22px); }
+        .eco-core-corona {
+          position: absolute; left: 50%; top: 50%;
+          width: 460px; height: 460px; border-radius: 9999px;
+          background: radial-gradient(circle, color-mix(in oklab, var(--crimson) 55%, transparent) 0%, transparent 62%);
+          filter: blur(56px);
+          animation: eco-core-pulse-corona 7s ease-in-out infinite;
+        }
+        .eco-core-corona--sm { width: 260px; height: 260px; filter: blur(34px); }
         .eco-core-ring { position: absolute; left: 50%; top: 50%; border-radius: 9999px; border-style: solid; }
         .eco-core-ring--outer { width: 176px; height: 176px; border-width: 1px; border-color: color-mix(in oklab, var(--crimson) 35%, transparent); animation: eco-core-ring-spin 60s linear infinite; }
         .eco-core-ring--inner { width: 136px; height: 136px; border-width: 1px; border-color: rgba(240,237,232,.18); animation: eco-core-ring-spin-rev 44s linear infinite; }
@@ -756,13 +752,13 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         .eco-core-ring--sm.eco-core-ring--inner { width: 84px; height: 84px; }
         .eco-core-sphere {
           position: relative; width: 92px; height: 92px; border-radius: 9999px;
-          background: radial-gradient(circle at 34% 30%, color-mix(in oklab, var(--crimson) 50%, white) 0%, var(--crimson) 46%, var(--crimson-deep) 100%);
-          box-shadow: 0 0 44px 6px color-mix(in oklab, var(--crimson) 40%, transparent), inset 0 0 16px rgba(0,0,0,.4);
-          animation: eco-core-pulse-scale 6s ease-in-out infinite;
+          background: radial-gradient(circle at 36% 32%, #fff2df 0%, color-mix(in oklab, var(--crimson) 55%, white) 14%, var(--crimson) 52%, var(--crimson-deep) 100%);
+          box-shadow: 0 0 60px 10px color-mix(in oklab, var(--crimson) 55%, transparent), 0 0 120px 28px color-mix(in oklab, var(--crimson) 22%, transparent), inset 0 0 20px rgba(0,0,0,.35);
+          animation: eco-core-pulse-scale 5s ease-in-out infinite;
         }
-        .eco-core-sphere--sm { width: 58px; height: 58px; box-shadow: 0 0 28px 5px color-mix(in oklab, var(--crimson) 40%, transparent), inset 0 0 10px rgba(0,0,0,.4); }
-        .eco-core-highlight { position: absolute; left: 20%; top: 16%; width: 36%; height: 36%; border-radius: 9999px; background: radial-gradient(circle, rgba(255,255,255,.5), transparent 70%); filter: blur(1px); }
-        .eco-core-highlight--sm { left: 18%; top: 14%; }
+        .eco-core-sphere--sm { width: 58px; height: 58px; box-shadow: 0 0 38px 7px color-mix(in oklab, var(--crimson) 55%, transparent), 0 0 76px 18px color-mix(in oklab, var(--crimson) 22%, transparent), inset 0 0 12px rgba(0,0,0,.35); }
+        .eco-core-highlight { position: absolute; left: 18%; top: 14%; width: 40%; height: 40%; border-radius: 9999px; background: radial-gradient(circle, rgba(255,255,255,.75), transparent 68%); filter: blur(1px); }
+        .eco-core-highlight--sm { left: 16%; top: 12%; }
 
         .eco-node-sphere {
           background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.42), rgba(255,255,255,.05) 42%, rgba(10,10,10,.72) 78%);
@@ -783,7 +779,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         .eco-mobile-spin-reverse { animation: eco-mobile-ring-spin-reverse 200s linear infinite; }
 
         @media (prefers-reduced-motion: reduce) {
-          .eco-core-bloom, .eco-core-sphere, .eco-core-ring, .eco-mobile-spin, .eco-mobile-spin-reverse { animation: none !important; }
+          .eco-core-bloom, .eco-core-corona, .eco-core-sphere, .eco-core-ring, .eco-mobile-spin, .eco-mobile-spin-reverse { animation: none !important; }
         }
       `}</style>
     </section>
