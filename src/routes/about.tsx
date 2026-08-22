@@ -7,7 +7,6 @@ import heroGroup from "@/assets/hero-group.jpg";
 import heroAlsaidAuto from "@/assets/hero-alsaid-automotive.jpg";
 import heroGreenviro from "@/assets/hero-greenviro.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
-import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 
@@ -51,7 +50,7 @@ const timeline: TimelineItem[] = [
     title: "A gateway to Dubai",
     description:
       "The Group opens in Dubai, UAE — establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
-    plaque: { heading: "25.2048° N, 55.2708° E", sub: "Dubai, UAE — Sourcing & Trade" },
+    plaque: { heading: "DUBAI, UAE", sub: "Sourcing & Trade Gateway" },
     accent: "#A6192E",
   },
   {
@@ -80,8 +79,7 @@ const timeline: TimelineItem[] = [
     title: "Alsaid Foundation is established",
     description:
       "A 501(c)(3) non-profit is founded in Washington, D.C., driven by the belief that meaningful progress begins through opportunity and access — education, sustainability, and youth empowerment.",
-    image: heroFoundation,
-    imageAlt: "Alsaid Foundation community work",
+    plaque: { heading: "WASHINGTON, D.C.", sub: "501(c)(3) · Foundation HQ" },
     accent: "#334155",
   },
   {
@@ -108,7 +106,16 @@ const timeline: TimelineItem[] = [
 
 /** Mirrors the Group's real sector structure — same four disciplines
  * shown on the homepage, given their own full-bleed moment here. */
-const sectors = [
+type Sector = {
+  index: string;
+  name: string;
+  sub: string;
+  note: string;
+  accent: string;
+  image?: string;
+};
+
+const sectors: Sector[] = [
   {
     index: "01",
     name: "Automotive",
@@ -139,20 +146,43 @@ const sectors = [
     sub: "501(c)(3) · Washington, D.C.",
     note: "Alsaid Foundation · Education, sustainability, youth",
     accent: "#334155",
-    image: heroFoundation,
   },
 ];
 
-function SectorBlock({ sector }: { sector: (typeof sectors)[number] }) {
+function SectorBlock({ sector }: { sector: Sector }) {
   return (
     <Reveal from="scale" className="group relative overflow-hidden border-b border-paper/10">
       <div className="relative h-[70vh] min-h-[420px] w-full overflow-hidden md:h-[82vh]">
-        <img
-          src={sector.image}
-          alt={sector.name}
-          loading="lazy"
-          className="anim-drift absolute inset-0 h-full w-full object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
-        />
+        {sector.image ? (
+          <img
+            src={sector.image}
+            alt={sector.name}
+            loading="lazy"
+            className="anim-drift absolute inset-0 h-full w-full object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
+          />
+        ) : (
+          <div aria-hidden className="absolute inset-0 bg-ink">
+            {/* Original graphic treatment — an enlarged reading of the Foundation's
+                own ripple motif, standing in for a photo we won't reuse site-wide. */}
+            <svg viewBox="0 0 800 700" className="absolute inset-0 h-full w-full opacity-[0.5]">
+              {[90, 165, 240, 320, 405].map((r, i) => (
+                <circle
+                  key={r}
+                  cx="560"
+                  cy="330"
+                  r={r}
+                  fill="none"
+                  stroke={sector.accent}
+                  strokeWidth={1}
+                  className="motif-pulse"
+                  style={{ animationDelay: `${i * 0.5}s`, opacity: 0.55 - i * 0.08 }}
+                />
+              ))}
+              <circle cx="560" cy="330" r="7" fill={sector.accent} />
+            </svg>
+            <div aria-hidden className="pattern-dots absolute inset-0 opacity-[0.15]" />
+          </div>
+        )}
         <span
           aria-hidden
           className="absolute inset-0"
@@ -242,10 +272,9 @@ function AboutPage() {
 
         {/* Blueprint annotation strip — spec-sheet reading of the Group */}
         <div className="anim-rise d-5 relative border-t border-paper/10">
-          <div className="container-editorial grid grid-cols-2 divide-x divide-paper/10 sm:grid-cols-3 md:grid-cols-6">
+          <div className="container-editorial grid grid-cols-2 divide-x divide-paper/10 sm:grid-cols-3 md:grid-cols-5">
             {[
               { l: "Founded", v: "1999" },
-              { l: "Coordinates", v: "31.95°N 35.93°E" },
               { l: "Ownership", v: "Private" },
               { l: "Companies", v: "Eight" },
               { l: "Sectors", v: "Four" },

@@ -127,7 +127,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
               <span aria-hidden className="pattern-dots absolute inset-0 opacity-[0.5]" />
               <div className="relative flex items-start justify-between">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/45">
-                  Coordinates · Ref {String(index + 1).padStart(2, "0")}
+                  Field note · Ref {String(index + 1).padStart(2, "0")}
                 </span>
                 <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: accent }} />
               </div>
