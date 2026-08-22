@@ -19,7 +19,7 @@ const RINGS: RingConfig[] = [
 ];
 
 /** Subtle size variance only — reads as depth, not decoration. */
-const NODE_SIZES = [50, 55, 47, 53, 51, 46, 56, 49];
+const NODE_SIZES = [58, 64, 55, 62, 59, 54, 65, 57];
 
 function ellipsePath(rx: number, ry: number, tiltDeg: number) {
   const rad = (tiltDeg * Math.PI) / 180;
@@ -136,7 +136,7 @@ function OrbitNode({
   onLeave,
 }: NodeProps) {
   const delay = index % 2 === 0 ? 0 : -ring.duration / 2;
-  const hitSize = 72;
+  const hitSize = 80;
 
   const pathStyle: CSSProperties = {
     left: "50%",
@@ -187,8 +187,17 @@ function OrbitNode({
           <span
             className={`eco-node-sphere absolute inset-0 rounded-full ${isFocused ? "eco-node-sphere--focused" : ""}`}
           />
+          <span className="eco-node-highlight pointer-events-none absolute" aria-hidden />
+          <span
+            className={`eco-node-sheen pointer-events-none absolute inset-0 rounded-full ${isFocused ? "eco-node-sheen--active" : ""}`}
+            aria-hidden
+          />
           {company.logo ? (
-            <img src={company.logo} alt="" className="relative h-6 w-6 object-contain opacity-90" />
+            <img
+              src={company.logo}
+              alt=""
+              className="relative h-8 w-8 object-contain opacity-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
+            />
           ) : (
             <span className="relative font-display text-[10px]" style={{ color: CREAM }}>
               {company.monogram}
@@ -635,10 +644,10 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                 style={{
                   left: "50%",
                   top: "50%",
-                  width: 60,
-                  height: 60,
-                  marginLeft: x - 30,
-                  marginTop: y - 30,
+                  width: 64,
+                  height: 64,
+                  marginLeft: x - 32,
+                  marginTop: y - 32,
                   zIndex: isLocked ? 60 : 10,
                 }}
               >
@@ -649,15 +658,25 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                   <span
                     className={`eco-node-sphere relative rounded-full ${isLocked ? "eco-node-sphere--focused" : ""}`}
                     style={{
-                      width: 44,
-                      height: 44,
+                      width: 50,
+                      height: 50,
                       transform: isLocked ? "scale(1.15)" : "scale(1)",
                       transition: "transform 400ms cubic-bezier(0.19,1,0.22,1)",
                     }}
-                  />
+                  >
+                    <span className="eco-node-highlight pointer-events-none absolute" aria-hidden />
+                    <span
+                      className={`eco-node-sheen pointer-events-none absolute inset-0 rounded-full ${isLocked ? "eco-node-sheen--active" : ""}`}
+                      aria-hidden
+                    />
+                  </span>
                   <span className="pointer-events-none absolute inset-0 grid place-items-center">
                     {c.logo ? (
-                      <img src={c.logo} alt="" className="h-6 w-6 object-contain opacity-90" />
+                      <img
+                        src={c.logo}
+                        alt=""
+                        className="h-7 w-7 object-contain opacity-95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.35)]"
+                      />
                     ) : (
                       <span className="font-display text-[10px]" style={{ color: CREAM }}>
                         {c.monogram}
@@ -772,6 +791,23 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         }
         .eco-node-group button:focus-visible .eco-node-sphere { outline: 2px solid var(--crimson); outline-offset: 3px; }
 
+        .eco-node-highlight {
+          left: 20%; top: 15%; width: 34%; height: 34%; border-radius: 9999px;
+          background: radial-gradient(circle, rgba(255,255,255,.85), transparent 68%);
+          filter: blur(0.5px);
+        }
+        .eco-node-sheen { overflow: hidden; }
+        .eco-node-sheen::after {
+          content: ""; position: absolute; top: -60%; left: -160%; width: 55%; height: 220%;
+          background: linear-gradient(75deg, transparent, rgba(255,255,255,.65), transparent);
+          transform: rotate(0deg);
+        }
+        .eco-node-sheen--active::after { animation: eco-node-sheen-sweep 1s cubic-bezier(0.25,0.46,0.45,0.94); }
+        @keyframes eco-node-sheen-sweep {
+          from { left: -160%; }
+          to { left: 160%; }
+        }
+
         .eco-link { background-image: linear-gradient(currentColor, currentColor); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 300ms ease; }
         .eco-link:hover { background-size: 0% 1px; }
 
@@ -779,7 +815,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
         .eco-mobile-spin-reverse { animation: eco-mobile-ring-spin-reverse 200s linear infinite; }
 
         @media (prefers-reduced-motion: reduce) {
-          .eco-core-bloom, .eco-core-corona, .eco-core-sphere, .eco-core-ring, .eco-mobile-spin, .eco-mobile-spin-reverse { animation: none !important; }
+          .eco-core-bloom, .eco-core-corona, .eco-core-sphere, .eco-core-ring, .eco-mobile-spin, .eco-mobile-spin-reverse, .eco-node-sheen--active::after { animation: none !important; }
         }
       `}</style>
     </section>
