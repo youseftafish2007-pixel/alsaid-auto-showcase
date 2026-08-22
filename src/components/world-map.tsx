@@ -8,7 +8,7 @@ import type { FootprintRow } from "@/lib/companies";
 const WIDTH = 1100;
 const HEIGHT = 560;
 /** Founding city — every connection arc reads back to here. */
-const HQ_CITY = "Amman";
+export const HQ_CITY = "Amman";
 
 const world = feature(
   worldTopo as never,
@@ -263,6 +263,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
             const xPct = (p.x / WIDTH) * 100;
             const yPct = (p.y / HEIGHT) * 100;
             const inLowerHalf = p.y / HEIGHT > 0.55;
+            const isHQ = p.city === HQ_CITY;
 
             return (
               <div
@@ -281,7 +282,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                 <button
                   type="button"
                   className="group pointer-events-auto absolute left-0 top-0 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full outline-none"
-                  aria-label={`${p.city}, ${p.region} — ${p.role}, since ${p.since}`}
+                  aria-label={`${p.city}${isHQ ? " — Group headquarters" : ""}, ${p.region} — ${p.role}, since ${p.since}`}
                   aria-pressed={isSelected}
                   onMouseEnter={() => onHover(p.city)}
                   onMouseLeave={() => onHover(null)}
@@ -295,35 +296,65 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                   {/* idle ambient pulse */}
                   <span
                     aria-hidden
-                    className="map-ping absolute h-2.5 w-2.5 rounded-full bg-crimson"
-                    style={{ opacity: dim ? 0.25 : 0.7 }}
+                    className="map-ping absolute rounded-full bg-crimson"
+                    style={{
+                      width: isHQ ? 14 : 10,
+                      height: isHQ ? 14 : 10,
+                      opacity: dim ? 0.25 : 0.7,
+                    }}
                   />
                   {/* active ripple */}
                   {isActive ? (
                     <span
                       aria-hidden
-                      className="absolute h-2.5 w-2.5 rounded-full border border-crimson"
+                      className="absolute rounded-full border border-crimson"
                       style={{
+                        width: isHQ ? 14 : 10,
+                        height: isHQ ? 14 : 10,
                         animation: reducedMotion ? "none" : "hover-ripple 1.4s ease-out infinite",
                       }}
                     />
                   ) : null}
-                  {/* core dot */}
-                  <span
-                    aria-hidden
-                    className="relative rounded-full border transition-all duration-300 ease-out"
-                    style={{
-                      width: isActive ? 11 : 6,
-                      height: isActive ? 11 : 6,
-                      background: "var(--crimson)",
-                      borderColor: "var(--paper)",
-                      borderWidth: isActive ? 2 : 1.2,
-                      opacity: dim ? 0.35 : 1,
-                      boxShadow: isSelected
-                        ? "0 0 0 3px color-mix(in oklab, var(--crimson) 20%, transparent)"
-                        : "none",
-                    }}
-                  />
+                  {/* core mark — Amman gets a capital-city star, everyone else a dot */}
+                  {isHQ ? (
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      className="relative transition-all duration-300 ease-out"
+                      style={{
+                        width: isActive ? 23 : 16,
+                        height: isActive ? 23 : 16,
+                        opacity: dim ? 0.4 : 1,
+                        filter: isSelected
+                          ? "drop-shadow(0 0 2px color-mix(in oklab, var(--crimson) 75%, transparent)) drop-shadow(0 0 7px color-mix(in oklab, var(--crimson) 45%, transparent))"
+                          : "drop-shadow(0 1px 1.5px rgba(0,0,0,0.3))",
+                      }}
+                    >
+                      <path
+                        d="M12 1.3l2.98 6.6 7.27.9-5.44 4.94 1.6 7.16L12 17.24l-6.41 3.66 1.6-7.16-5.44-4.94 7.27-.9L12 1.3z"
+                        fill="var(--crimson)"
+                        stroke="var(--paper)"
+                        strokeWidth="1.1"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <span
+                      aria-hidden
+                      className="relative rounded-full border transition-all duration-300 ease-out"
+                      style={{
+                        width: isActive ? 11 : 6,
+                        height: isActive ? 11 : 6,
+                        background: "var(--crimson)",
+                        borderColor: "var(--paper)",
+                        borderWidth: isActive ? 2 : 1.2,
+                        opacity: dim ? 0.35 : 1,
+                        boxShadow: isSelected
+                          ? "0 0 0 3px color-mix(in oklab, var(--crimson) 20%, transparent)"
+                          : "none",
+                      }}
+                    />
+                  )}
                   {/* keyboard focus ring */}
                   <span
                     aria-hidden
@@ -387,7 +418,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
       </div>
 
       {/* Blueprint coordinate readout */}
-      <div className="pointer-events-none absolute bottom-3 left-4 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 sm:bottom-4 sm:left-5">
+      <div className="pointer-events-none absolute bottom-3 left-4 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 sm:bottom-4 sm:left-5">
         {activePoint ? (
           <span className="text-ink/70">
             {activePoint.city} · {activePoint.lat.toFixed(2)}°N {activePoint.lng.toFixed(2)}°E
@@ -395,6 +426,15 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
         ) : (
           <span>{data.length} locations · 4 continents</span>
         )}
+        <span className="hidden items-center gap-1 text-ink/35 sm:inline-flex">
+          <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" aria-hidden>
+            <path
+              d="M12 1.3l2.98 6.6 7.27.9-5.44 4.94 1.6 7.16L12 17.24l-6.41 3.66 1.6-7.16-5.44-4.94 7.27-.9L12 1.3z"
+              fill="currentColor"
+            />
+          </svg>
+          Headquarters
+        </span>
       </div>
       {selected ? (
         <button

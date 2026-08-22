@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { footprint } from "@/lib/companies";
-import { WorldMap } from "@/components/world-map";
+import { WorldMap, HQ_CITY } from "@/components/world-map";
 import { Reveal } from "@/components/reveal";
 
 export const Route = createFileRoute("/footprint")({
@@ -126,15 +126,27 @@ function FootprintPage() {
                     }`}
                   >
                     <div
-                      className={`col-span-3 font-display text-xl transition-all duration-300 md:text-2xl ${
+                      className={`col-span-3 flex items-center gap-2 font-display text-xl transition-all duration-300 md:text-2xl ${
                         isActive ? "translate-x-1 text-paper" : "text-ink"
                       }`}
                     >
+                      {row.city === HQ_CITY ? (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-3.5 w-3.5 shrink-0 text-crimson"
+                          aria-hidden
+                        >
+                          <path
+                            d="M12 1.3l2.98 6.6 7.27.9-5.44 4.94 1.6 7.16L12 17.24l-6.41 3.66 1.6-7.16-5.44-4.94 7.27-.9L12 1.3z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      ) : null}
                       {row.city}
                       {selected === row.city ? (
                         <span
                           aria-hidden
-                          className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-crimson align-middle"
+                          className="inline-block h-1.5 w-1.5 rounded-full bg-crimson align-middle"
                         />
                       ) : null}
                     </div>
