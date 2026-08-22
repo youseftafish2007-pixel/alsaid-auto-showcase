@@ -197,8 +197,14 @@ function AboutPage() {
     <>
       {/* HERO — blueprint identity: dark ground, drafting grid, huge type */}
       <section className="relative overflow-hidden border-b border-paper/10 bg-ink text-paper">
-        <div aria-hidden className="pointer-events-none absolute inset-0 pattern-grid opacity-[0.07]" />
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.5]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 pattern-grid opacity-[0.07]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.5]"
+        >
           <span className="anim-scan absolute inset-x-0 h-32 bg-gradient-to-b from-transparent via-paper/[0.04] to-transparent" />
         </div>
 
@@ -229,8 +235,8 @@ function AboutPage() {
             1999.
           </h1>
           <p className="anim-rise d-3 mt-8 max-w-xl text-base leading-relaxed text-paper/70 md:text-lg">
-            A group built around long-term partnerships, disciplined growth and a belief
-            in building businesses that endure.
+            A group built around long-term partnerships, disciplined growth and a belief in building
+            businesses that endure.
           </p>
         </div>
 
@@ -258,7 +264,10 @@ function AboutPage() {
 
       {/* TIMELINE — the history, drawn as a blueprint spine */}
       <section className="relative border-b border-ink/15 bg-paper">
-        <div aria-hidden className="pointer-events-none absolute inset-0 pattern-dots opacity-[0.35]" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 pattern-dots opacity-[0.35]"
+        />
         <div className="relative container-editorial py-16 md:py-24">
           <Reveal className="max-w-2xl">
             <div className="eyebrow text-crimson">History</div>
@@ -268,9 +277,8 @@ function AboutPage() {
               <span className="text-crimson">The beginning.</span>
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-ink/65 md:text-base">
-              Twenty-six years of continuous operating history, told through the moments
-              that shaped the Group — from a single automotive business to a diversified,
-              four-sector platform.
+              Twenty-six years of continuous operating history, told through the moments that shaped
+              the Group — from a single automotive business to a diversified, four-sector platform.
             </p>
           </Reveal>
 
