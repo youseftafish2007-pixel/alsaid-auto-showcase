@@ -128,11 +128,11 @@ function CompanyPage() {
                   style={{ background: company.accent }}
                 />
                 {company.logo ? (
-                  <span className="absolute left-4 top-4 inline-flex items-center border border-paper/60 bg-paper/80 px-3 py-2 backdrop-blur-md transition-transform duration-500 hover:scale-105">
+                  <span className="absolute left-4 top-4 flex h-16 w-44 items-center justify-center border border-ink/10 bg-paper px-4 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:scale-105">
                     <img
                       src={company.logo}
                       alt={`${company.name} logo`}
-                      className="h-8 w-auto object-contain"
+                      className="h-full w-full object-contain"
                     />
                   </span>
                 ) : null}
@@ -188,8 +188,8 @@ function CompanyPage() {
                 In the group
               </div>
               <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                {company.name} is one of eight operating companies within Alsaid Group,
-                working in {company.sector.toLowerCase()}.
+                {company.name} is one of eight operating companies within Alsaid Group, working in{" "}
+                {company.sector.toLowerCase()}.
               </p>
               <div className="mt-6 border-t border-rule pt-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                 Location · <span className="text-ink">{company.location}</span>

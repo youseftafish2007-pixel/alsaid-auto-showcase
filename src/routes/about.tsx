@@ -13,13 +13,13 @@ import heroSpeed from "@/assets/hero-speed-travel.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Built Since 1999 | Alsaid Group" },
+      { title: "Established Since 1999 | Alsaid Group" },
       {
         name: "description",
         content:
           "A group built around long-term partnerships, disciplined growth and a belief in building businesses that endure. The history of Alsaid Group, from 1999 to today.",
       },
-      { property: "og:title", content: "Built Since 1999 | Alsaid Group" },
+      { property: "og:title", content: "Established Since 1999 | Alsaid Group" },
       {
         property: "og:description",
         content:
@@ -260,7 +260,7 @@ function AboutPage() {
 
         <div className="relative container-editorial py-14 md:py-24">
           <h1 className="anim-rise d-1 max-w-5xl font-display text-[3.2rem] uppercase leading-[0.92] tracking-tight sm:text-8xl md:text-[7rem] lg:text-[8.5rem]">
-            Built <span className="text-crimson">since</span>
+            Established <span className="text-crimson">since</span>
             <br />
             1999.
           </h1>
