@@ -403,10 +403,10 @@ function ExpandedProfile({ company, onClose }: { company: Company; onClose: () =
             />
             {company.logo ? (
               <span
-                className="absolute left-3 top-3 inline-flex items-center border px-2.5 py-1.5 backdrop-blur-sm"
-                style={{ borderColor: `${CREAM}40`, background: `${VOID}b3` }}
+                className="absolute left-3 top-3 flex h-10 w-28 items-center justify-center border px-2.5 py-1.5"
+                style={{ borderColor: `${CREAM}30`, background: CREAM }}
               >
-                <img src={company.logo} alt="" className="h-5 w-auto object-contain" />
+                <img src={company.logo} alt="" className="h-full w-full object-contain" />
               </span>
             ) : null}
           </div>

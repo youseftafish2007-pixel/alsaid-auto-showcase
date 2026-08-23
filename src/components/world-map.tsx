@@ -368,9 +368,13 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                   />
                 </button>
 
-                {/* label */}
+                {/* label — hidden for idle pins on phones to avoid the dense
+                    MENA cluster overlapping into an unreadable mess; the
+                    active pin's label always shows */}
                 <span
-                  className="pointer-events-none absolute whitespace-nowrap font-sans uppercase transition-all duration-300"
+                  className={`pointer-events-none absolute whitespace-nowrap font-sans uppercase transition-all duration-300 ${
+                    isActive ? "block" : "hidden sm:block"
+                  }`}
                   style={{
                     left: offset.dx,
                     top: offset.dy,
@@ -391,12 +395,13 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                 {/* info treatment — reads as part of the map, not a floating card */}
                 {isActive ? (
                   <div
-                    className="anim-rise pointer-events-none absolute z-20 w-56 border border-ink/15 bg-paper/95 px-4 py-3 backdrop-blur-sm"
+                    className="anim-rise pointer-events-none absolute z-20 w-44 border border-ink/15 bg-paper/95 px-3 py-2.5 backdrop-blur-sm sm:w-56 sm:px-4 sm:py-3"
                     style={{
-                      left: offset.anchor === "end" ? "auto" : 20,
-                      right: offset.anchor === "end" ? 20 : "auto",
-                      top: inLowerHalf ? "auto" : 20,
-                      bottom: inLowerHalf ? 20 : "auto",
+                      left: offset.anchor === "end" ? "auto" : 14,
+                      right: offset.anchor === "end" ? 14 : "auto",
+                      top: inLowerHalf ? "auto" : 14,
+                      bottom: inLowerHalf ? 14 : "auto",
+                      maxWidth: "calc(100vw - 2rem)",
                       animationDuration: "0.35s",
                     }}
                   >
@@ -406,15 +411,19 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                       style={{ display: offset.anchor === "end" ? "none" : "block" }}
                     />
                     <div className="flex items-baseline justify-between gap-2">
-                      <div className="font-display text-base leading-tight text-ink">{p.city}</div>
-                      <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink/40">
+                      <div className="font-display text-sm leading-tight text-ink sm:text-base">
+                        {p.city}
+                      </div>
+                      <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-ink/40 sm:text-[9px]">
                         {p.since}
                       </div>
                     </div>
-                    <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-crimson">
+                    <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-crimson sm:text-[10px]">
                       {p.region}
                     </div>
-                    <p className="mt-2 text-[12px] leading-snug text-ink/70">{p.role}</p>
+                    <p className="mt-2 text-[11px] leading-snug text-ink/70 sm:text-[12px]">
+                      {p.role}
+                    </p>
                   </div>
                 ) : null}
               </div>

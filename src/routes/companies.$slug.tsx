@@ -128,7 +128,7 @@ function CompanyPage() {
                   style={{ background: company.accent }}
                 />
                 {company.logo ? (
-                  <span className="absolute left-4 top-4 flex h-16 w-44 items-center justify-center border border-ink/10 bg-paper px-4 py-3 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:scale-105">
+                  <span className="absolute left-3 top-3 flex h-12 w-32 items-center justify-center border border-ink/10 bg-paper px-3 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:scale-105 sm:left-4 sm:top-4 sm:h-16 sm:w-44 sm:px-4 sm:py-3">
                     <img
                       src={company.logo}
                       alt={`${company.name} logo`}
