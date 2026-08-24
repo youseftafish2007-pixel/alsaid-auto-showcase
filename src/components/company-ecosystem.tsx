@@ -630,8 +630,16 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           {companies.map((c, i) => {
             const angle = mobileAngles[i];
             const rad = ((angle - 90) * Math.PI) / 180;
-            const x = 160 * Math.cos(rad);
-            const y = 160 * Math.sin(rad);
+            // The SVG ring is drawn at rx/ry=160 within a -190..190 viewBox,
+            // which scales correctly with the container via percentage
+            // sizing. These buttons used to sit at a hardcoded 160px radius,
+            // which only matched the ring on an exact 380px-wide screen —
+            // on every real phone (320-380px) the buttons drifted away from
+            // the drawn ring. Expressing the same radius as a percentage of
+            // the container keeps them locked to the ring at any size.
+            const RADIUS_PCT = (160 / 190) * 50;
+            const xPct = RADIUS_PCT * Math.cos(rad);
+            const yPct = RADIUS_PCT * Math.sin(rad);
             const isLocked = i === lockedIndex;
             return (
               <button
@@ -640,14 +648,12 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
                 onClick={() => select(i)}
                 aria-current={isLocked}
                 aria-label={`Focus ${c.name}`}
-                className="absolute grid place-items-center rounded-full"
+                className="absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full"
                 style={{
-                  left: "50%",
-                  top: "50%",
+                  left: `calc(50% + ${xPct}%)`,
+                  top: `calc(50% + ${yPct}%)`,
                   width: 64,
                   height: 64,
-                  marginLeft: x - 32,
-                  marginTop: y - 32,
                   zIndex: isLocked ? 60 : 10,
                 }}
               >

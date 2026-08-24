@@ -13,13 +13,13 @@ import heroSpeed from "@/assets/hero-speed-travel.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Established Since 1999 | Alsaid Group" },
+      { title: "Established In 1999 | Alsaid Group" },
       {
         name: "description",
         content:
           "A group built around long-term partnerships, disciplined growth and a belief in building businesses that endure. The history of Alsaid Group, from 1999 to today.",
       },
-      { property: "og:title", content: "Established Since 1999 | Alsaid Group" },
+      { property: "og:title", content: "Established In 1999 | Alsaid Group" },
       {
         property: "og:description",
         content:
@@ -210,7 +210,7 @@ function SectorBlock({ sector }: { sector: Sector }) {
               {sector.sub}
             </span>
           </div>
-          <h3 className="mt-4 font-display text-6xl uppercase leading-[0.92] tracking-tight text-paper sm:text-7xl md:text-8xl lg:text-[7.5rem]">
+          <h3 className="mt-4 break-words font-display text-4xl uppercase leading-[0.95] tracking-tight text-paper sm:text-6xl md:text-8xl lg:text-[7.5rem]">
             {sector.name}
           </h3>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-paper/60 md:text-base">
@@ -238,10 +238,12 @@ function AboutPage() {
           <span className="anim-scan absolute inset-x-0 h-32 bg-gradient-to-b from-transparent via-paper/[0.04] to-transparent" />
         </div>
 
-        {/* Watermark year — reads like a drawing's revision number */}
+        {/* Watermark year — reads like a drawing's revision number. Hidden on
+            phones: at this size it visually dominated the whole hero instead
+            of sitting quietly in the corner. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 select-none font-display text-[16rem] font-light leading-none text-paper/[0.035] sm:text-[22rem] md:-right-16 md:-top-24 md:text-[30rem]"
+          className="pointer-events-none absolute -right-16 -top-24 hidden select-none font-display text-[22rem] font-light leading-none text-paper/[0.035] sm:block md:text-[30rem]"
         >
           99
         </div>
@@ -259,8 +261,8 @@ function AboutPage() {
         </div>
 
         <div className="relative container-editorial py-14 md:py-24">
-          <h1 className="anim-rise d-1 max-w-5xl font-display text-[3.2rem] uppercase leading-[0.92] tracking-tight sm:text-8xl md:text-[7rem] lg:text-[8.5rem]">
-            Established <span className="text-crimson">since</span>
+          <h1 className="anim-rise d-1 max-w-5xl break-words font-display text-[2.5rem] uppercase leading-[0.95] tracking-tight sm:text-8xl md:text-[7rem] lg:text-[8.5rem]">
+            Established <span className="text-crimson">in</span>
             <br />
             1999.
           </h1>

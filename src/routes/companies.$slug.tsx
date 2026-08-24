@@ -183,7 +183,7 @@ function CompanyPage() {
             </div>
           </Reveal>
           <Reveal from="right" delay={120} className="md:col-span-4 md:col-start-9">
-            <aside className="sticky top-24 border border-ink/15 bg-paper-2/60 p-6 transition-shadow duration-500 hover:shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)]">
+            <aside className="border border-ink/15 bg-paper-2/60 p-6 transition-shadow duration-500 hover:shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)] md:sticky md:top-24">
               <div className="eyebrow" style={{ color: company.accent }}>
                 In the group
               </div>
