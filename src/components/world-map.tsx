@@ -62,11 +62,19 @@ export type WorldMapProps = {
   data: FootprintRow[];
   active: string | null;
   selected: string | null;
+  isCompact?: boolean;
   onHover: (city: string | null) => void;
   onSelect: (city: string | null) => void;
 };
 
-export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMapProps) {
+export function WorldMap({
+  data,
+  active,
+  selected,
+  isCompact = false,
+  onHover,
+  onSelect,
+}: WorldMapProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [entered, setEntered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -137,7 +145,10 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
   // info card and dims the rest without yanking the whole map around,
   // which is what made hovering a second city while one was selected feel
   // broken (the view would jump, but the HQ connection arc stayed put).
-  const zoomed = Boolean(selected) && !reducedMotion;
+  // On phones the zoom is skipped entirely: scaling into a ~340px-wide map
+  // pushes other pins outside the visible (clipped) area, which reads as
+  // "companies disappearing" rather than a helpful focus effect.
+  const zoomed = Boolean(selected) && !reducedMotion && !isCompact;
   const zoomPoint = selected ? (points.find((p) => p.city === selected) ?? null) : null;
   const originPct = zoomPoint
     ? { x: (zoomPoint.x / WIDTH) * 100, y: (zoomPoint.y / HEIGHT) * 100 }
@@ -286,7 +297,7 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                 <button
                   type="button"
                   className={`group pointer-events-auto absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full outline-none ${
-                    isHQ ? "h-11 w-11" : "h-8 w-8"
+                    isHQ ? "h-12 w-12 sm:h-11 sm:w-11" : "h-10 w-10 sm:h-8 sm:w-8"
                   }`}
                   aria-label={`${p.city}${isHQ ? " — Group headquarters" : ""}, ${p.region} — ${p.role}, since ${p.since}`}
                   aria-pressed={isSelected}

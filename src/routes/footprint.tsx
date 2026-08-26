@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { footprint } from "@/lib/companies";
 import { WorldMap, HQ_CITY } from "@/components/world-map";
 import { Reveal } from "@/components/reveal";
@@ -36,7 +36,23 @@ const continents = [
 function FootprintPage() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
-  const active = hovered ?? selected;
+
+  // On touch devices, "hover" (mouseenter) fires on tap but "mouseleave"
+  // often never fires afterwards — there's no pointer to actually leave.
+  // Without this, the first pin or row you tap gets permanently stuck as
+  // "active" underneath whatever you select next. Below md:, active is
+  // driven by the tap-to-select state alone.
+  const [isCompact, setIsCompact] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsCompact(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsCompact(e.matches);
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+
+  const active = isCompact ? selected : (hovered ?? selected);
 
   return (
     <>
@@ -67,6 +83,7 @@ function FootprintPage() {
               data={footprint}
               active={active}
               selected={selected}
+              isCompact={isCompact}
               onHover={setHovered}
               onSelect={setSelected}
             />

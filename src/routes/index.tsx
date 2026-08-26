@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { companies } from "@/lib/companies";
 import { Reveal } from "@/components/reveal";
 import { HeroCarousel, type Slide } from "@/components/hero-carousel";
@@ -84,6 +85,19 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  // Arriving from another page via the header's "Contact Us" link lands here
+  // with a #contact hash — smoothly scroll to the section instead of relying
+  // on the browser's instant native hash-jump.
+  useEffect(() => {
+    if (window.location.hash === "#contact") {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    }
+  }, []);
+
   return (
     <>
       <HeroCarousel slides={slides} />
@@ -333,8 +347,11 @@ function Index() {
         </div>
       </section>
 
-      {/* Call to action */}
-      <section className="relative overflow-hidden border-b border-ink/15 bg-crimson text-paper">
+      {/* Call to action / Contact */}
+      <section
+        id="contact"
+        className="relative overflow-hidden border-b border-ink/15 bg-crimson text-paper scroll-mt-20"
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-[0.18]"
@@ -346,7 +363,7 @@ function Index() {
         <div className="relative container-editorial grid gap-8 py-14 md:grid-cols-12 md:items-end md:py-20">
           <Reveal from="left" className="md:col-span-7">
             <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-paper/70">
-              Partnerships & enquiries
+              Contact Us · Partnerships &amp; Enquiries
             </div>
             <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-tight md:text-6xl">
               Build something that outlasts the cycle.
@@ -357,7 +374,7 @@ function Index() {
               We work with manufacturers, distributors, and institutional partners across thirteen
               markets and four continents.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
                 href="mailto:partnerships@alsaidgroup.com"
                 className="inline-flex items-center gap-2 border border-paper bg-paper px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:text-paper"
@@ -371,6 +388,12 @@ function Index() {
                 See the footprint
               </Link>
             </div>
+            <a
+              href="mailto:partnerships@alsaidgroup.com"
+              className="mt-5 inline-block font-mono text-sm tracking-tight text-paper underline decoration-paper/40 underline-offset-4 transition-colors hover:decoration-paper"
+            >
+              partnerships@alsaidgroup.com
+            </a>
           </Reveal>
         </div>
       </section>
