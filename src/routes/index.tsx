@@ -74,7 +74,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Eight operating companies across nine markets and four continents, built and led across two generations.",
+          "Eight operating companies across thirteen markets and four continents, built and led across two generations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -354,7 +354,7 @@ function Index() {
           </Reveal>
           <Reveal from="right" delay={120} className="md:col-span-5">
             <p className="max-w-md text-base leading-relaxed text-paper/85">
-              We work with manufacturers, distributors, and institutional partners across nine
+              We work with manufacturers, distributors, and institutional partners across thirteen
               markets and four continents.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">

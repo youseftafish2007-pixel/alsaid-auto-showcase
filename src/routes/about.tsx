@@ -7,20 +7,19 @@ import heroGroup from "@/assets/hero-group.jpg";
 import heroAlsaidAuto from "@/assets/hero-alsaid-automotive.jpg";
 import heroGreenviro from "@/assets/hero-greenviro.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
-import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Built Since 1999 | Alsaid Group" },
+      { title: "Established In 1999 | Alsaid Group" },
       {
         name: "description",
         content:
           "A group built around long-term partnerships, disciplined growth and a belief in building businesses that endure. The history of Alsaid Group, from 1999 to today.",
       },
-      { property: "og:title", content: "Built Since 1999 | Alsaid Group" },
+      { property: "og:title", content: "Established In 1999 | Alsaid Group" },
       {
         property: "og:description",
         content:
@@ -51,7 +50,7 @@ const timeline: TimelineItem[] = [
     title: "A gateway to Dubai",
     description:
       "The Group opens in Dubai, UAE — establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
-    plaque: { heading: "25.2048° N, 55.2708° E", sub: "Dubai, UAE — Sourcing & Trade" },
+    plaque: { heading: "DUBAI, UAE", sub: "Sourcing & Trade Gateway" },
     accent: "#A6192E",
   },
   {
@@ -80,8 +79,7 @@ const timeline: TimelineItem[] = [
     title: "Alsaid Foundation is established",
     description:
       "A 501(c)(3) non-profit is founded in Washington, D.C., driven by the belief that meaningful progress begins through opportunity and access — education, sustainability, and youth empowerment.",
-    image: heroFoundation,
-    imageAlt: "Alsaid Foundation community work",
+    plaque: { heading: "WASHINGTON, D.C.", sub: "501(c)(3) · Foundation HQ" },
     accent: "#334155",
   },
   {
@@ -108,7 +106,16 @@ const timeline: TimelineItem[] = [
 
 /** Mirrors the Group's real sector structure — same four disciplines
  * shown on the homepage, given their own full-bleed moment here. */
-const sectors = [
+type Sector = {
+  index: string;
+  name: string;
+  sub: string;
+  note: string;
+  accent: string;
+  image?: string;
+};
+
+const sectors: Sector[] = [
   {
     index: "01",
     name: "Automotive",
@@ -139,20 +146,43 @@ const sectors = [
     sub: "501(c)(3) · Washington, D.C.",
     note: "Alsaid Foundation · Education, sustainability, youth",
     accent: "#334155",
-    image: heroFoundation,
   },
 ];
 
-function SectorBlock({ sector }: { sector: (typeof sectors)[number] }) {
+function SectorBlock({ sector }: { sector: Sector }) {
   return (
     <Reveal from="scale" className="group relative overflow-hidden border-b border-paper/10">
       <div className="relative h-[70vh] min-h-[420px] w-full overflow-hidden md:h-[82vh]">
-        <img
-          src={sector.image}
-          alt={sector.name}
-          loading="lazy"
-          className="anim-drift absolute inset-0 h-full w-full object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
-        />
+        {sector.image ? (
+          <img
+            src={sector.image}
+            alt={sector.name}
+            loading="lazy"
+            className="anim-drift absolute inset-0 h-full w-full object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
+          />
+        ) : (
+          <div aria-hidden className="absolute inset-0 bg-ink">
+            {/* Original graphic treatment — an enlarged reading of the Foundation's
+                own ripple motif, standing in for a photo we won't reuse site-wide. */}
+            <svg viewBox="0 0 800 700" className="absolute inset-0 h-full w-full opacity-[0.5]">
+              {[90, 165, 240, 320, 405].map((r, i) => (
+                <circle
+                  key={r}
+                  cx="560"
+                  cy="330"
+                  r={r}
+                  fill="none"
+                  stroke={sector.accent}
+                  strokeWidth={1}
+                  className="motif-pulse"
+                  style={{ animationDelay: `${i * 0.5}s`, opacity: 0.55 - i * 0.08 }}
+                />
+              ))}
+              <circle cx="560" cy="330" r="7" fill={sector.accent} />
+            </svg>
+            <div aria-hidden className="pattern-dots absolute inset-0 opacity-[0.15]" />
+          </div>
+        )}
         <span
           aria-hidden
           className="absolute inset-0"
@@ -180,7 +210,7 @@ function SectorBlock({ sector }: { sector: (typeof sectors)[number] }) {
               {sector.sub}
             </span>
           </div>
-          <h3 className="mt-4 font-display text-6xl uppercase leading-[0.92] tracking-tight text-paper sm:text-7xl md:text-8xl lg:text-[7.5rem]">
+          <h3 className="mt-4 break-words font-display text-4xl uppercase leading-[0.95] tracking-tight text-paper sm:text-6xl md:text-8xl lg:text-[7.5rem]">
             {sector.name}
           </h3>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-paper/60 md:text-base">
@@ -208,10 +238,12 @@ function AboutPage() {
           <span className="anim-scan absolute inset-x-0 h-32 bg-gradient-to-b from-transparent via-paper/[0.04] to-transparent" />
         </div>
 
-        {/* Watermark year — reads like a drawing's revision number */}
+        {/* Watermark year — reads like a drawing's revision number. Hidden on
+            phones: at this size it visually dominated the whole hero instead
+            of sitting quietly in the corner. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 select-none font-display text-[16rem] font-light leading-none text-paper/[0.035] sm:text-[22rem] md:-right-16 md:-top-24 md:text-[30rem]"
+          className="pointer-events-none absolute -right-16 -top-24 hidden select-none font-display text-[22rem] font-light leading-none text-paper/[0.035] sm:block md:text-[30rem]"
         >
           99
         </div>
@@ -229,8 +261,8 @@ function AboutPage() {
         </div>
 
         <div className="relative container-editorial py-14 md:py-24">
-          <h1 className="anim-rise d-1 max-w-5xl font-display text-[3.2rem] uppercase leading-[0.92] tracking-tight sm:text-8xl md:text-[7rem] lg:text-[8.5rem]">
-            Built <span className="text-crimson">since</span>
+          <h1 className="anim-rise d-1 max-w-5xl break-words font-display text-[2.5rem] uppercase leading-[0.95] tracking-tight sm:text-8xl md:text-[7rem] lg:text-[8.5rem]">
+            Established <span className="text-crimson">in</span>
             <br />
             1999.
           </h1>
@@ -242,10 +274,9 @@ function AboutPage() {
 
         {/* Blueprint annotation strip — spec-sheet reading of the Group */}
         <div className="anim-rise d-5 relative border-t border-paper/10">
-          <div className="container-editorial grid grid-cols-2 divide-x divide-paper/10 sm:grid-cols-3 md:grid-cols-6">
+          <div className="container-editorial grid grid-cols-2 divide-x divide-paper/10 sm:grid-cols-3 md:grid-cols-5">
             {[
               { l: "Founded", v: "1999" },
-              { l: "Coordinates", v: "31.95°N 35.93°E" },
               { l: "Ownership", v: "Private" },
               { l: "Companies", v: "Eight" },
               { l: "Sectors", v: "Four" },

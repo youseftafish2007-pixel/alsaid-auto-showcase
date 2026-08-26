@@ -26,9 +26,6 @@ export function SiteHeader() {
             <span className="font-display text-[15px] font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-crimson">
               Alsaid Group
             </span>
-            <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.24em] text-muted-foreground">
-              Established 1999 · Amman
-            </span>
           </span>
         </Link>
 

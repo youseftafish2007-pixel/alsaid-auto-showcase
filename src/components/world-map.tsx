@@ -8,7 +8,7 @@ import type { FootprintRow } from "@/lib/companies";
 const WIDTH = 1100;
 const HEIGHT = 560;
 /** Founding city — every connection arc reads back to here. */
-const HQ_CITY = "Amman";
+export const HQ_CITY = "Amman";
 
 const world = feature(
   worldTopo as never,
@@ -38,6 +38,10 @@ const labelOffsets: Record<string, { dx: number; dy: number; anchor: "start" | "
   Abidjan: { dx: 12, dy: 4, anchor: "start" },
   Washington: { dx: -12, dy: -2, anchor: "end" },
   Everett: { dx: 12, dy: 4, anchor: "start" },
+  Seoul: { dx: 12, dy: -8, anchor: "start" },
+  Guangzhou: { dx: -12, dy: 11, anchor: "end" },
+  Shanghai: { dx: 12, dy: -8, anchor: "start" },
+  Johannesburg: { dx: 12, dy: 10, anchor: "start" },
 };
 
 function arcPath(x1: number, y1: number, x2: number, y2: number) {
@@ -66,7 +70,6 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [entered, setEntered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [pointer, setPointer] = useState<{ nx: number; ny: number } | null>(null);
 
   const points = useMemo(
@@ -114,15 +117,6 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const mq = window.matchMedia("(max-width: 767px)");
-    setIsMobile(mq.matches);
-    const onChange = () => setIsMobile(mq.matches);
-    mq.addEventListener?.("change", onChange);
-    return () => mq.removeEventListener?.("change", onChange);
-  }, []);
-
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onSelect(null);
     };
@@ -139,9 +133,14 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
     });
   };
 
-  const zoomed = Boolean(activePoint) && !reducedMotion;
-  const originPct = activePoint
-    ? { x: (activePoint.x / WIDTH) * 100, y: (activePoint.y / HEIGHT) * 100 }
+  // Camera zoom follows the committed selection only — hover previews the
+  // info card and dims the rest without yanking the whole map around,
+  // which is what made hovering a second city while one was selected feel
+  // broken (the view would jump, but the HQ connection arc stayed put).
+  const zoomed = Boolean(selected) && !reducedMotion;
+  const zoomPoint = selected ? (points.find((p) => p.city === selected) ?? null) : null;
+  const originPct = zoomPoint
+    ? { x: (zoomPoint.x / WIDTH) * 100, y: (zoomPoint.y / HEIGHT) * 100 }
     : { x: 50, y: 50 };
 
   const parallax =
@@ -149,173 +148,203 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
       ? { x: (pointer.nx - 0.5) * -10, y: (pointer.ny - 0.5) * -7 }
       : { x: 0, y: 0 };
 
-  const sceneTransform = `scale(${zoomed ? (isMobile ? 1.22 : 1.7) : 1}) translate(${parallax.x}px, ${parallax.y}px)`;
+  const sceneTransform = `scale(${zoomed ? 1.7 : 1}) translate(${parallax.x}px, ${parallax.y}px)`;
 
   const showArc = Boolean(selected) && selected !== HQ_CITY && hqPoint && !reducedMotion;
   const arcTarget = points.find((p) => p.city === selected) ?? null;
 
   return (
-    <>
+    <div
+      ref={rootRef}
+      className="group/map relative overflow-hidden border-y border-ink/12 bg-paper-2/60"
+      onMouseMove={handlePointerMove}
+      onMouseLeave={() => setPointer(null)}
+      onClick={() => onSelect(null)}
+      role="group"
+      aria-label="Interactive map of Alsaid Group's thirteen locations"
+    >
+      {/* Blueprint-style ground */}
       <div
-        ref={rootRef}
-        className="group/map relative overflow-hidden border-y border-ink/12 bg-paper-2/60"
-        onMouseMove={handlePointerMove}
-        onMouseLeave={() => setPointer(null)}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) onSelect(null);
+        aria-hidden
+        className="pointer-events-none absolute inset-0 pattern-grid opacity-[0.05]"
+      />
+
+      {/* Atmosphere — a slow, faint glow that drifts with the cursor */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-24 opacity-60 transition-transform duration-[1400ms] ease-out"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--crimson) 10%, transparent), transparent 70%)",
+          transform: `translate(${parallax.x * -2.2}px, ${parallax.y * -2.2}px)`,
         }}
-        role="group"
-        aria-label="Interactive map of Alsaid Group's nine locations"
+      />
+
+      {/* Cursor crosshair — subtle instrument-panel feel */}
+      {pointer && !reducedMotion ? (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 w-px bg-crimson/[0.14] opacity-0 transition-opacity duration-300 group-hover/map:opacity-100"
+            style={{ left: `${pointer.nx * 100}%` }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 h-px bg-crimson/[0.14] opacity-0 transition-opacity duration-300 group-hover/map:opacity-100"
+            style={{ top: `${pointer.ny * 100}%` }}
+          />
+        </>
+      ) : null}
+
+      <div
+        className="relative"
+        style={{
+          transform: sceneTransform,
+          transformOrigin: `${originPct.x}% ${originPct.y}%`,
+          transition: reducedMotion ? "none" : "transform 1.15s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
       >
-        {/* Blueprint-style ground */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 pattern-grid opacity-[0.05]"
-        />
-
-        {/* Atmosphere — a slow, faint glow that drifts with the cursor */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-24 opacity-60 transition-transform duration-[1400ms] ease-out"
-          style={{
-            background:
-              "radial-gradient(closest-side, color-mix(in oklab, var(--crimson) 10%, transparent), transparent 70%)",
-            transform: `translate(${parallax.x * -2.2}px, ${parallax.y * -2.2}px)`,
-          }}
-        />
-
-        {/* Cursor crosshair — subtle instrument-panel feel */}
-        {pointer && !reducedMotion ? (
-          <>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 w-px bg-crimson/[0.14] opacity-0 transition-opacity duration-300 group-hover/map:opacity-100"
-              style={{ left: `${pointer.nx * 100}%` }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 h-px bg-crimson/[0.14] opacity-0 transition-opacity duration-300 group-hover/map:opacity-100"
-              style={{ top: `${pointer.ny * 100}%` }}
-            />
-          </>
-        ) : null}
-
-        <div
-          className="relative"
-          style={{
-            transform: sceneTransform,
-            transformOrigin: `${originPct.x}% ${originPct.y}%`,
-            transition: reducedMotion ? "none" : "transform 1.15s cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
+        <svg
+          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+          className="block h-auto w-full"
+          role="img"
+          aria-label="Map of Alsaid Group locations across four continents"
         >
-          <svg
-            viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-            className="block h-auto w-full"
-            role="img"
-            aria-label="Map of Alsaid Group locations across four continents"
-          >
+          <path
+            d={graticulePath}
+            fill="none"
+            stroke="var(--ink)"
+            strokeWidth={0.6}
+            style={{
+              opacity: entered ? 0.07 : 0,
+              transition: reducedMotion ? "none" : "opacity 0.7s ease-out 0.15s",
+            }}
+          />
+          {countryPaths.map((c) => (
             <path
-              d={graticulePath}
-              fill="none"
-              stroke="var(--ink)"
-              strokeWidth={0.6}
+              key={c.id}
+              d={c.d}
+              fill="color-mix(in oklab, var(--ink) 8%, transparent)"
+              stroke="color-mix(in oklab, var(--ink) 22%, transparent)"
+              strokeWidth={0.5}
               style={{
-                opacity: entered ? 0.07 : 0,
-                transition: reducedMotion ? "none" : "opacity 0.7s ease-out 0.15s",
+                opacity: entered ? 1 : 0,
+                filter: entered ? "blur(0px)" : "blur(5px)",
+                transition: reducedMotion
+                  ? "none"
+                  : "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s, filter 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s",
               }}
             />
-            {countryPaths.map((c) => (
-              <path
-                key={c.id}
-                d={c.d}
-                fill="color-mix(in oklab, var(--ink) 8%, transparent)"
-                stroke="color-mix(in oklab, var(--ink) 22%, transparent)"
-                strokeWidth={0.5}
-                style={{
-                  opacity: entered ? 1 : 0,
-                  filter: entered ? "blur(0px)" : "blur(5px)",
-                  transition: reducedMotion
-                    ? "none"
-                    : "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s, filter 0.9s cubic-bezier(0.16,1,0.3,1) 0.25s",
-                }}
-              />
-            ))}
+          ))}
 
-            {showArc && arcTarget && hqPoint ? (
-              <path
-                d={arcPath(hqPoint.x, hqPoint.y, arcTarget.x, arcTarget.y)}
-                fill="none"
-                stroke="var(--crimson)"
-                strokeWidth={1.1}
-                strokeDasharray="6 5"
-                strokeLinecap="round"
-                className="opacity-70"
-                style={{
-                  strokeDashoffset: 0,
-                  animation: reducedMotion ? "none" : "arc-draw 1s cubic-bezier(0.16,1,0.3,1) both",
-                }}
-              />
-            ) : null}
-          </svg>
+          {showArc && arcTarget && hqPoint ? (
+            <path
+              d={arcPath(hqPoint.x, hqPoint.y, arcTarget.x, arcTarget.y)}
+              fill="none"
+              stroke="var(--crimson)"
+              strokeWidth={1.1}
+              strokeDasharray="6 5"
+              strokeLinecap="round"
+              className="opacity-70"
+              style={{
+                strokeDashoffset: 0,
+                animation: reducedMotion ? "none" : "arc-draw 1s cubic-bezier(0.16,1,0.3,1) both",
+              }}
+            />
+          ) : null}
+        </svg>
 
-          {/* Location pins — real HTML elements laid over the SVG for a11y + rich info treatment.
+        {/* Location pins — real HTML elements laid over the SVG for a11y + rich info treatment.
             Each point is a zero-size anchor div; every child measures its offset directly
             from that single anchor, so dx/dy in labelOffsets map exactly onto the geo point. */}
-          <div className="pointer-events-none absolute inset-0">
-            {points.map((p, i) => {
-              const isActive = active === p.city;
-              const isSelected = selected === p.city;
-              const dim = active !== null && !isActive;
-              const offset = labelOffsets[p.city] ?? { dx: 12, dy: 4, anchor: "start" as const };
-              const xPct = (p.x / WIDTH) * 100;
-              const yPct = (p.y / HEIGHT) * 100;
-              const inLowerHalf = p.y / HEIGHT > 0.55;
+        <div className="pointer-events-none absolute inset-0">
+          {points.map((p, i) => {
+            const isActive = active === p.city;
+            const isSelected = selected === p.city;
+            const dim = active !== null && !isActive;
+            const offset = labelOffsets[p.city] ?? { dx: 12, dy: 4, anchor: "start" as const };
+            const xPct = (p.x / WIDTH) * 100;
+            const yPct = (p.y / HEIGHT) * 100;
+            const inLowerHalf = p.y / HEIGHT > 0.55;
+            const isHQ = p.city === HQ_CITY;
 
-              return (
-                <div
-                  key={p.city}
-                  className="pointer-events-none absolute"
-                  style={{
-                    left: `${xPct}%`,
-                    top: `${yPct}%`,
-                    opacity: entered ? 1 : 0,
-                    transform: `scale(${entered ? 1 : 0.4})`,
-                    transition: reducedMotion
-                      ? "none"
-                      : `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${0.55 + i * 0.07}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.55 + i * 0.07}s`,
+            return (
+              <div
+                key={p.city}
+                className="pointer-events-none absolute"
+                style={{
+                  left: `${xPct}%`,
+                  top: `${yPct}%`,
+                  zIndex: isHQ ? 30 : isActive ? 20 : 10,
+                  opacity: entered ? 1 : 0,
+                  transform: `scale(${entered ? 1 : 0.4})`,
+                  transition: reducedMotion
+                    ? "none"
+                    : `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${0.55 + i * 0.07}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${0.55 + i * 0.07}s`,
+                }}
+              >
+                <button
+                  type="button"
+                  className={`group pointer-events-auto absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full outline-none ${
+                    isHQ ? "h-11 w-11" : "h-8 w-8"
+                  }`}
+                  aria-label={`${p.city}${isHQ ? " — Group headquarters" : ""}, ${p.region} — ${p.role}, since ${p.since}`}
+                  aria-pressed={isSelected}
+                  onMouseEnter={() => onHover(p.city)}
+                  onMouseLeave={() => onHover(null)}
+                  onFocus={() => onHover(p.city)}
+                  onBlur={() => onHover(null)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelect(isSelected ? null : p.city);
                   }}
                 >
-                  <button
-                    type="button"
-                    className="group pointer-events-auto absolute left-0 top-0 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full outline-none md:h-8 md:w-8"
-                    aria-label={`${p.city}, ${p.region} — ${p.role}, since ${p.since}`}
-                    aria-pressed={isSelected}
-                    onMouseEnter={() => onHover(p.city)}
-                    onMouseLeave={() => onHover(null)}
-                    onFocus={() => onHover(p.city)}
-                    onBlur={() => onHover(null)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelect(isSelected ? null : p.city);
+                  {/* idle ambient pulse */}
+                  <span
+                    aria-hidden
+                    className="map-ping absolute rounded-full bg-crimson"
+                    style={{
+                      width: isHQ ? 14 : 10,
+                      height: isHQ ? 14 : 10,
+                      opacity: dim ? 0.25 : 0.7,
                     }}
-                  >
-                    {/* idle ambient pulse */}
+                  />
+                  {/* active ripple */}
+                  {isActive ? (
                     <span
                       aria-hidden
-                      className="map-ping absolute h-2.5 w-2.5 rounded-full bg-crimson"
-                      style={{ opacity: dim ? 0.25 : 0.7 }}
+                      className="absolute rounded-full border border-crimson"
+                      style={{
+                        width: isHQ ? 14 : 10,
+                        height: isHQ ? 14 : 10,
+                        animation: reducedMotion ? "none" : "hover-ripple 1.4s ease-out infinite",
+                      }}
                     />
-                    {/* active ripple */}
-                    {isActive ? (
-                      <span
-                        aria-hidden
-                        className="absolute h-2.5 w-2.5 rounded-full border border-crimson"
-                        style={{
-                          animation: reducedMotion ? "none" : "hover-ripple 1.4s ease-out infinite",
-                        }}
+                  ) : null}
+                  {/* core mark — Amman gets a capital-city star, everyone else a dot */}
+                  {isHQ ? (
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      className="relative transition-all duration-300 ease-out"
+                      style={{
+                        width: isActive ? 23 : 16,
+                        height: isActive ? 23 : 16,
+                        opacity: dim ? 0.4 : 1,
+                        filter: isSelected
+                          ? "drop-shadow(0 0 2px color-mix(in oklab, var(--crimson) 75%, transparent)) drop-shadow(0 0 7px color-mix(in oklab, var(--crimson) 45%, transparent))"
+                          : "drop-shadow(0 1px 1.5px rgba(0,0,0,0.3))",
+                      }}
+                    >
+                      <path
+                        d="M12 1.3l2.98 6.6 7.27.9-5.44 4.94 1.6 7.16L12 17.24l-6.41 3.66 1.6-7.16-5.44-4.94 7.27-.9L12 1.3z"
+                        fill="var(--crimson)"
+                        stroke="var(--paper)"
+                        strokeWidth="1.1"
+                        strokeLinejoin="round"
                       />
-                    ) : null}
-                    {/* core dot */}
+                    </svg>
+                  ) : (
                     <span
                       aria-hidden
                       className="relative rounded-full border transition-all duration-300 ease-out"
@@ -331,116 +360,106 @@ export function WorldMap({ data, active, selected, onHover, onSelect }: WorldMap
                           : "none",
                       }}
                     />
-                    {/* keyboard focus ring */}
+                  )}
+                  {/* keyboard focus ring */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-full ring-0 ring-crimson/40 transition-all duration-150 group-focus-visible:ring-4"
+                  />
+                </button>
+
+                {/* label — hidden for idle pins on phones to avoid the dense
+                    MENA cluster overlapping into an unreadable mess; the
+                    active pin's label always shows */}
+                <span
+                  className={`pointer-events-none absolute whitespace-nowrap font-sans uppercase transition-all duration-300 ${
+                    isActive ? "block" : "hidden sm:block"
+                  }`}
+                  style={{
+                    left: offset.dx,
+                    top: offset.dy,
+                    textAlign: offset.anchor === "end" ? "right" : "left",
+                    transform: offset.anchor === "end" ? "translateX(-100%)" : undefined,
+                    fontSize: isActive ? 13 : 10.5,
+                    letterSpacing: "0.07em",
+                    fontWeight: isActive ? 600 : 500,
+                    color: isActive
+                      ? "var(--ink)"
+                      : "color-mix(in oklab, var(--ink) 62%, transparent)",
+                    opacity: dim ? 0.4 : 1,
+                  }}
+                >
+                  {p.city}
+                </span>
+
+                {/* info treatment — reads as part of the map, not a floating card */}
+                {isActive ? (
+                  <div
+                    className="anim-rise pointer-events-none absolute z-20 w-44 border border-ink/15 bg-paper/95 px-3 py-2.5 backdrop-blur-sm sm:w-56 sm:px-4 sm:py-3"
+                    style={{
+                      left: offset.anchor === "end" ? "auto" : 14,
+                      right: offset.anchor === "end" ? 14 : "auto",
+                      top: inLowerHalf ? "auto" : 14,
+                      bottom: inLowerHalf ? 14 : "auto",
+                      maxWidth: "calc(100vw - 2rem)",
+                      animationDuration: "0.35s",
+                    }}
+                  >
                     <span
                       aria-hidden
-                      className="absolute inset-0 rounded-full ring-0 ring-crimson/40 transition-all duration-150 group-focus-visible:ring-4"
+                      className="absolute -left-1 top-4 h-2 w-2 rotate-45 border-b border-l border-ink/15 bg-paper"
+                      style={{ display: offset.anchor === "end" ? "none" : "block" }}
                     />
-                  </button>
-
-                  {/* label — always on desktop; only the active one on mobile,
-                    so nine tiny labels don't collide on a narrow map */}
-                  {!isMobile || isActive ? (
-                    <span
-                      className="pointer-events-none absolute whitespace-nowrap font-sans uppercase transition-all duration-300"
-                      style={{
-                        left: offset.dx,
-                        top: offset.dy,
-                        textAlign: offset.anchor === "end" ? "right" : "left",
-                        transform: offset.anchor === "end" ? "translateX(-100%)" : undefined,
-                        fontSize: isActive ? 13 : 10.5,
-                        letterSpacing: "0.07em",
-                        fontWeight: isActive ? 600 : 500,
-                        color: isActive
-                          ? "var(--ink)"
-                          : "color-mix(in oklab, var(--ink) 62%, transparent)",
-                        opacity: dim ? 0.4 : 1,
-                      }}
-                    >
-                      {p.city}
-                    </span>
-                  ) : null}
-
-                  {/* info treatment — reads as part of the map, not a floating card.
-                    Desktop only: on mobile the map is too short for this to fit
-                    without overflowing, so the detail lives below the map instead. */}
-                  {isActive && !isMobile ? (
-                    <div
-                      className="anim-rise pointer-events-none absolute z-20 w-56 border border-ink/15 bg-paper/95 px-4 py-3 backdrop-blur-sm"
-                      style={{
-                        left: offset.anchor === "end" ? "auto" : 20,
-                        right: offset.anchor === "end" ? 20 : "auto",
-                        top: inLowerHalf ? "auto" : 20,
-                        bottom: inLowerHalf ? 20 : "auto",
-                        animationDuration: "0.35s",
-                      }}
-                    >
-                      <span
-                        aria-hidden
-                        className="absolute -left-1 top-4 h-2 w-2 rotate-45 border-b border-l border-ink/15 bg-paper"
-                        style={{ display: offset.anchor === "end" ? "none" : "block" }}
-                      />
-                      <div className="flex items-baseline justify-between gap-2">
-                        <div className="font-display text-base leading-tight text-ink">
-                          {p.city}
-                        </div>
-                        <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink/40">
-                          {p.since}
-                        </div>
+                    <div className="flex items-baseline justify-between gap-2">
+                      <div className="font-display text-sm leading-tight text-ink sm:text-base">
+                        {p.city}
                       </div>
-                      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-crimson">
-                        {p.region}
+                      <div className="font-mono text-[8px] uppercase tracking-[0.14em] text-ink/40 sm:text-[9px]">
+                        {p.since}
                       </div>
-                      <p className="mt-2 text-[12px] leading-snug text-ink/70">{p.role}</p>
                     </div>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
+                    <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-crimson sm:text-[10px]">
+                      {p.region}
+                    </div>
+                    <p className="mt-2 text-[11px] leading-snug text-ink/70 sm:text-[12px]">
+                      {p.role}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
-
-        {/* Blueprint coordinate readout */}
-        <div className="pointer-events-none absolute bottom-3 left-4 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 sm:bottom-4 sm:left-5">
-          {activePoint ? (
-            <span className="text-ink/70">
-              {activePoint.city} · {activePoint.lat.toFixed(2)}°N {activePoint.lng.toFixed(2)}°E
-            </span>
-          ) : (
-            <span>{data.length} locations · 4 continents</span>
-          )}
-        </div>
-        {selected ? (
-          <button
-            type="button"
-            onClick={() => onSelect(null)}
-            className="pointer-events-auto absolute bottom-3 right-4 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 underline decoration-dotted underline-offset-2 transition-colors hover:text-crimson sm:bottom-4 sm:right-5"
-          >
-            Reset view ×
-          </button>
-        ) : null}
       </div>
 
-      {/* Mobile detail card — lives in normal document flow below the map
-        (never absolutely positioned inside it), so it can never overflow
-        or get clipped by the map's short aspect ratio on a phone screen. */}
-      {isMobile && activePoint ? (
-        <div
-          className="anim-rise border-t border-ink/12 bg-paper px-5 py-4"
-          style={{ animationDuration: "0.3s" }}
+      {/* Blueprint coordinate readout */}
+      <div className="pointer-events-none absolute bottom-3 left-4 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 sm:bottom-4 sm:left-5">
+        {activePoint ? (
+          <span className="text-ink/70">
+            {activePoint.city} · {activePoint.lat.toFixed(2)}°N {activePoint.lng.toFixed(2)}°E
+          </span>
+        ) : (
+          <span>{data.length} locations · 4 continents</span>
+        )}
+        <span className="hidden items-center gap-1 text-ink/35 sm:inline-flex">
+          <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" aria-hidden>
+            <path
+              d="M12 1.3l2.98 6.6 7.27.9-5.44 4.94 1.6 7.16L12 17.24l-6.41 3.66 1.6-7.16-5.44-4.94 7.27-.9L12 1.3z"
+              fill="currentColor"
+            />
+          </svg>
+          Headquarters
+        </span>
+      </div>
+      {selected ? (
+        <button
+          type="button"
+          onClick={() => onSelect(null)}
+          className="pointer-events-auto absolute bottom-3 right-4 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/40 underline decoration-dotted underline-offset-2 transition-colors hover:text-crimson sm:bottom-4 sm:right-5"
         >
-          <div className="flex items-baseline justify-between gap-2">
-            <div className="font-display text-lg leading-tight text-ink">{activePoint.city}</div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink/40">
-              {activePoint.since}
-            </div>
-          </div>
-          <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-crimson">
-            {activePoint.region}
-          </div>
-          <p className="mt-2 text-[13px] leading-relaxed text-ink/70">{activePoint.role}</p>
-        </div>
+          Reset view ×
+        </button>
       ) : null}
-    </>
+    </div>
   );
 }
