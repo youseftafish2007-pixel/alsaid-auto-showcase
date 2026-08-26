@@ -299,7 +299,7 @@ export function WorldMap({
                   className={`group pointer-events-auto absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full outline-none ${
                     isHQ ? "h-12 w-12 sm:h-11 sm:w-11" : "h-10 w-10 sm:h-8 sm:w-8"
                   }`}
-                  aria-label={`${p.city}${isHQ ? " — Group headquarters" : ""}, ${p.region} — ${p.role}, since ${p.since}`}
+                  aria-label={`${p.city}${isHQ ? ", Group headquarters" : ""}, ${p.region}, ${p.role}, since ${p.since}`}
                   aria-pressed={isSelected}
                   onMouseEnter={() => onHover(p.city)}
                   onMouseLeave={() => onHover(null)}

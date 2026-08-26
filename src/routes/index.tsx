@@ -21,7 +21,7 @@ const slides: Slide[] = [
     cta: "Explore the companies",
   },
   {
-    image: bySlug("alsaid-automotive").hero,
+    image: bySlug("alsaid-automotive").hero ?? heroGroup,
     eyebrow: "Automotive · Mobility",
     title: "The founding",
     emphasis: "pillar.",
@@ -41,7 +41,7 @@ const slides: Slide[] = [
     cta: "Greenviro Energy",
   },
   {
-    image: bySlug("speed-travel").hero,
+    image: bySlug("speed-travel").hero ?? heroGroup,
     eyebrow: "Travel & Hospitality",
     title: "Moving people",
     emphasis: "across borders.",
@@ -51,7 +51,7 @@ const slides: Slide[] = [
     cta: "Speed Travel",
   },
   {
-    image: bySlug("alsaid-foundation").hero,
+    image: bySlug("alsaid-foundation").hero ?? heroGroup,
     eyebrow: "Social Impact",
     title: "Giving back, by",
     emphasis: "design.",
@@ -301,7 +301,7 @@ function Index() {
                   >
                     <div className={wide ? "aspect-[16/9]" : "aspect-[4/3]"}>
                       <img
-                        src={c.hero}
+                        src={c.hero ?? heroGroup}
                         alt={c.name}
                         loading="lazy"
                         className="h-full w-full object-cover opacity-80 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100"

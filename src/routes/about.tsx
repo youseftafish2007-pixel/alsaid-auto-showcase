@@ -39,7 +39,7 @@ const timeline: TimelineItem[] = [
     label: "The Beginning",
     title: "Alsaid Group is established in Amman",
     description:
-      "Founded on a belief in accessibility and regional mobility, Alsaid Automotive becomes the founding pillar of the Group — the start of twenty-six years of continuous operating history.",
+      "Founded on a belief in accessibility and regional mobility, Alsaid Automotive becomes the founding pillar of the Group, marking the start of twenty-six years of continuous operating history.",
     image: heroAlsaidAuto,
     imageAlt: "Alsaid Automotive, the Group's founding company",
     accent: "#A6192E",
@@ -49,7 +49,7 @@ const timeline: TimelineItem[] = [
     label: "Expansion",
     title: "A gateway to Dubai",
     description:
-      "The Group opens in Dubai, UAE — establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
+      "The Group opens in Dubai, UAE, establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
     plaque: { heading: "DUBAI, UAE", sub: "Sourcing & Trade Gateway" },
     accent: "#A6192E",
   },
@@ -58,7 +58,7 @@ const timeline: TimelineItem[] = [
     label: "New Sector",
     title: "Greenviro Energy is founded",
     description:
-      "An early recognition of the region's changing energy landscape. Greenviro Energy is established to build solar and renewable infrastructure — the Group's first move beyond automotive.",
+      "An early recognition of the region's changing energy landscape. Greenviro Energy is established to build solar and renewable infrastructure, the Group's first move beyond automotive.",
     image: heroGreenviro,
     imageAlt: "Greenviro Energy solar infrastructure",
     accent: "#2F7D4F",
@@ -68,7 +68,7 @@ const timeline: TimelineItem[] = [
     label: "New Sector",
     title: "Zain Farm opens its doors",
     description:
-      "A premier events venue for weddings and formal gatherings opens in Jordan, complete with in-house culinary operations — the Group's entry into hospitality and event production.",
+      "A premier events venue for weddings and formal gatherings opens in Jordan, complete with in-house culinary operations, marking the Group's entry into hospitality and event production.",
     image: heroZain,
     imageAlt: "Zain Farm events venue",
     accent: "#8A6A2E",
@@ -78,7 +78,7 @@ const timeline: TimelineItem[] = [
     label: "Social Impact",
     title: "Alsaid Foundation is established",
     description:
-      "A 501(c)(3) non-profit is founded in Washington, D.C., driven by the belief that meaningful progress begins through opportunity and access — education, sustainability, and youth empowerment.",
+      "A 501(c)(3) non-profit is founded in Washington, D.C., driven by the belief that meaningful progress begins through opportunity and access: education, sustainability, and youth empowerment.",
     plaque: { heading: "WASHINGTON, D.C.", sub: "501(c)(3) · Foundation HQ" },
     accent: "#334155",
   },
@@ -87,7 +87,7 @@ const timeline: TimelineItem[] = [
     label: "New Territory",
     title: "An exclusive partnership with GAC Motor",
     description:
-      "The Group signs an exclusive partnership with GAC Motor across Amman, Libya, and Syria — continuing a long engagement with leading Asian manufacturers into a new generation of vehicles.",
+      "The Group signs an exclusive partnership with GAC Motor across Amman, Libya, and Syria, continuing a long engagement with leading Asian manufacturers into a new generation of vehicles.",
     image: heroGac,
     imageAlt: "GAC Motor partnership vehicles",
     accent: "#111827",
@@ -97,7 +97,7 @@ const timeline: TimelineItem[] = [
     label: "The Group Now",
     title: "Eight companies. Four sectors. Four continents.",
     description:
-      "What began as a single automotive business in Amman now operates across mobility, energy, travel & hospitality, and social impact — privately held, and governed for the long term.",
+      "What began as a single automotive business in Amman now operates across mobility, energy, travel & hospitality, and social impact. Privately held, and governed for the long term.",
     image: heroGroup,
     imageAlt: "Alsaid Group today",
     accent: "#A6192E",
@@ -309,7 +309,7 @@ function AboutPage() {
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-ink/65 md:text-base">
               Twenty-six years of continuous operating history, told through the moments that shaped
-              the Group — from a single automotive business to a diversified, four-sector platform.
+              the Group, from a single automotive business to a diversified, four-sector platform.
             </p>
           </Reveal>
 

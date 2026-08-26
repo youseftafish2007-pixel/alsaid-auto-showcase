@@ -17,7 +17,7 @@ export type Company = {
   /** Imported logo asset URL. */
   logo?: string;
   /** Editorial hero photograph. */
-  hero: string;
+  hero?: string;
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
@@ -40,7 +40,6 @@ import heroRiver from "@/assets/hero-river-auto.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
-import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 export const companies: Company[] = [
   {
@@ -237,7 +236,7 @@ export const companies: Company[] = [
     accent: "#334155",
     accentSoft: "#EEF1F5",
     logo: foundationLogo,
-    hero: heroFoundation,
+    // No hero photo — see companies.$slug.tsx for the fallback treatment.
     motif: "impact",
     monogram: "AF",
   },
@@ -336,7 +335,7 @@ export const footprint: FootprintRow[] = [
   {
     city: "Guangzhou",
     region: "China · Asia",
-    role: "Automotive and retail — GAC Motor home market",
+    role: "Automotive and retail, GAC Motor home market",
     since: "2012",
     lat: 23.13,
     lng: 113.26,
