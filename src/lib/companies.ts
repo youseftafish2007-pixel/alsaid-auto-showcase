@@ -17,21 +17,21 @@ export type Company = {
   /** Imported logo asset URL. */
   logo?: string;
   /** Editorial hero photograph. */
-  hero: string;
+  hero?: string;
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
   monogram: string;
 };
 
-import alsaidAutoLogo from "@/assets/alsaid-auto-logo.png";
-import gacLogo from "@/assets/gac-motor-logo.png";
-import greenviroLogo from "@/assets/greenviro-logo.png";
-import riverLogo from "@/assets/river-auto-logo.png";
-import speedLogo from "@/assets/speed-travel-logo.png";
-import gmaLogo from "@/assets/gma-everett-logo.png";
-import zainLogo from "@/assets/zain-farm-logo.png";
-import foundationLogo from "@/assets/alsaid-foundation-logo.png";
+import alsaidAutoLogo from "@/assets/alsaid-auto.png";
+import gacLogo from "@/assets/gac-motor.png";
+import greenviroLogo from "@/assets/greenviro.png";
+import riverLogo from "@/assets/river-auto.png";
+import speedLogo from "@/assets/speed-travel.png";
+import gmaLogo from "@/assets/gma-everett.png";
+import zainLogo from "@/assets/zain-farm.png";
+import foundationLogo from "@/assets/alsaid-foundation.png";
 
 import heroAlsaidAuto from "@/assets/hero-alsaid-automotive.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
@@ -40,7 +40,6 @@ import heroRiver from "@/assets/hero-river-auto.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
-import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 export const companies: Company[] = [
   {
@@ -237,7 +236,7 @@ export const companies: Company[] = [
     accent: "#334155",
     accentSoft: "#EEF1F5",
     logo: foundationLogo,
-    hero: heroFoundation,
+    // No hero photo — see companies.$slug.tsx for the fallback treatment.
     motif: "impact",
     monogram: "AF",
   },
@@ -336,7 +335,7 @@ export const footprint: FootprintRow[] = [
   {
     city: "Guangzhou",
     region: "China · Asia",
-    role: "Automotive and retail — GAC Motor home market",
+    role: "Automotive and retail, GAC Motor home market",
     since: "2012",
     lat: 23.13,
     lng: 113.26,

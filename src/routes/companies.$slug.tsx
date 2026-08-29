@@ -115,13 +115,45 @@ function CompanyPage() {
             </div>
             <div className="md:col-span-5">
               <div className="image-frame anim-rise d-3 aspect-[4/3]">
-                <img
-                  src={company.hero}
-                  alt={`${company.name}`}
-                  width={1400}
-                  height={900}
-                  loading="eager"
-                />
+                {company.hero ? (
+                  <img
+                    src={company.hero}
+                    alt={`${company.name}`}
+                    width={1400}
+                    height={900}
+                    loading="eager"
+                  />
+                ) : (
+                  <div
+                    aria-hidden
+                    className="absolute inset-0"
+                    style={{ background: "var(--ink)" }}
+                  >
+                    {/* No photo for this company — an original graphic built from
+                        its own ripple/impact motif, rather than reusing another
+                        company's imagery. */}
+                    <svg
+                      viewBox="0 0 800 700"
+                      className="absolute inset-0 h-full w-full opacity-[0.5]"
+                    >
+                      {[90, 165, 240, 320, 405].map((r, i) => (
+                        <circle
+                          key={r}
+                          cx="560"
+                          cy="330"
+                          r={r}
+                          fill="none"
+                          stroke={company.accent}
+                          strokeWidth={1}
+                          className="motif-pulse"
+                          style={{ animationDelay: `${i * 0.5}s`, opacity: 0.55 - i * 0.08 }}
+                        />
+                      ))}
+                      <circle cx="560" cy="330" r="7" fill={company.accent} />
+                    </svg>
+                    <div aria-hidden className="pattern-dots absolute inset-0 opacity-[0.15]" />
+                  </div>
+                )}
                 <span
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-[3px]"

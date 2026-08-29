@@ -395,12 +395,33 @@ function ExpandedProfile({ company, onClose }: { company: Company; onClose: () =
             className="relative aspect-[4/3] overflow-hidden border"
             style={{ borderColor: `${CREAM}1f` }}
           >
-            <img
-              src={company.hero}
-              alt={company.name}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+            {company.hero ? (
+              <img
+                src={company.hero}
+                alt={company.name}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <div aria-hidden className="absolute inset-0" style={{ background: VOID }}>
+                <svg viewBox="0 0 800 700" className="absolute inset-0 h-full w-full opacity-[0.5]">
+                  {[90, 165, 240, 320, 405].map((r, i) => (
+                    <circle
+                      key={r}
+                      cx="560"
+                      cy="330"
+                      r={r}
+                      fill="none"
+                      stroke={company.accent}
+                      strokeWidth={1}
+                      className="motif-pulse"
+                      style={{ animationDelay: `${i * 0.5}s`, opacity: 0.55 - i * 0.08 }}
+                    />
+                  ))}
+                  <circle cx="560" cy="330" r="7" fill={company.accent} />
+                </svg>
+              </div>
+            )}
             {company.logo ? (
               <span
                 className="absolute left-3 top-3 flex h-10 w-28 items-center justify-center border px-2.5 py-1.5"
