@@ -24,14 +24,14 @@ export type Company = {
   monogram: string;
 };
 
-import alsaidAutoLogo from "@/assets/alsaid-auto.png.asset.json";
-import gacLogo from "@/assets/gac-motor.png.asset.json";
-import greenviroLogo from "@/assets/greenviro.png.asset.json";
-import riverLogo from "@/assets/river-auto.png.asset.json";
-import speedLogo from "@/assets/speed-travel.png.asset.json";
-import gmaLogo from "@/assets/gma-everett.png.asset.json";
-import zainLogo from "@/assets/zain-farm.png.asset.json";
-import foundationLogo from "@/assets/alsaid-foundation.png.asset.json";
+import alsaidAutoLogo from "@/assets/alsaid-auto-logo.png";
+import gacLogo from "@/assets/gac-motor-logo.png";
+import greenviroLogo from "@/assets/greenviro-logo.png";
+import riverLogo from "@/assets/river-auto-logo.png";
+import speedLogo from "@/assets/speed-travel-logo.png";
+import gmaLogo from "@/assets/gma-everett-logo.png";
+import zainLogo from "@/assets/zain-farm-logo.png";
+import foundationLogo from "@/assets/alsaid-foundation-logo.png";
 
 import heroAlsaidAuto from "@/assets/hero-alsaid-automotive.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
@@ -64,7 +64,7 @@ export const companies: Company[] = [
     ],
     accent: "#A6192E",
     accentSoft: "#FDECEE",
-    logo: alsaidAutoLogo.url,
+    logo: alsaidAutoLogo,
     hero: heroAlsaidAuto,
     motif: "fleet",
     monogram: "AA",
@@ -89,7 +89,7 @@ export const companies: Company[] = [
     ],
     accent: "#111827",
     accentSoft: "#F3F4F6",
-    logo: gacLogo.url,
+    logo: gacLogo,
     hero: heroGac,
     motif: "pickup",
     monogram: "GAC",
@@ -113,7 +113,7 @@ export const companies: Company[] = [
     ],
     accent: "#7A1F2B",
     accentSoft: "#F5EBED",
-    logo: gmaLogo.url,
+    logo: gmaLogo,
     hero: heroGma,
     motif: "showroom",
     monogram: "GMA",
@@ -137,7 +137,7 @@ export const companies: Company[] = [
     ],
     accent: "#1E4E8C",
     accentSoft: "#EAF1F9",
-    logo: riverLogo.url,
+    logo: riverLogo,
     hero: heroRiver,
     motif: "carrier",
     monogram: "RA",
@@ -162,7 +162,7 @@ export const companies: Company[] = [
     ],
     accent: "#2F7D4F",
     accentSoft: "#ECF5EF",
-    logo: greenviroLogo.url,
+    logo: greenviroLogo,
     hero: heroGreenviro,
     motif: "solar",
     monogram: "GV",
@@ -186,7 +186,7 @@ export const companies: Company[] = [
     ],
     accent: "#0B7C86",
     accentSoft: "#E8F4F5",
-    logo: speedLogo.url,
+    logo: speedLogo,
     hero: heroSpeed,
     motif: "plane",
     monogram: "ST",
@@ -211,7 +211,7 @@ export const companies: Company[] = [
     ],
     accent: "#8A6A2E",
     accentSoft: "#F5EFE1",
-    logo: zainLogo.url,
+    logo: zainLogo,
     hero: heroZain,
     motif: "lights",
     monogram: "ZF",
@@ -236,7 +236,7 @@ export const companies: Company[] = [
     ],
     accent: "#334155",
     accentSoft: "#EEF1F5",
-    logo: foundationLogo.url,
+    logo: foundationLogo,
     hero: heroFoundation,
     motif: "impact",
     monogram: "AF",
