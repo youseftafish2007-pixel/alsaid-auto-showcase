@@ -300,7 +300,7 @@ function Index() {
                     className="group relative block h-full overflow-hidden bg-ink"
                   >
                     <div
-                      className={`relative grid place-items-center ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
+                      className={`relative grid place-items-center p-6 ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
                     >
                       <span
                         aria-hidden
@@ -310,12 +310,14 @@ function Index() {
                         }}
                       />
                       {c.logo ? (
-                        <img
-                          src={c.logo}
-                          alt={c.name}
-                          loading="lazy"
-                          className="relative h-14 w-auto max-w-[55%] object-contain opacity-85 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:opacity-100 md:h-20"
-                        />
+                        <span className="eco-logo-card relative flex max-w-[85%] items-center justify-center rounded-sm bg-paper px-7 py-5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.65)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
+                          <img
+                            src={c.logo}
+                            alt={c.name}
+                            loading="lazy"
+                            className={`w-auto max-w-full object-contain ${wide ? "h-16 md:h-24" : "h-12 md:h-16"}`}
+                          />
+                        </span>
                       ) : (
                         <span
                           className="relative font-display text-3xl text-paper/40 md:text-4xl"
