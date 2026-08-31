@@ -24,7 +24,7 @@ export type Company = {
   monogram: string;
 };
 
-import alsaidAutoLogo from "@/assets/alsaid-auto.png";
+import alsaidAutoLogo from "@/assets/alsaid-automotive-site-logo.png";
 import gacLogo from "@/assets/gac-motor.png";
 import greenviroLogo from "@/assets/greenviro.png";
 import riverLogo from "@/assets/river-auto.png";
