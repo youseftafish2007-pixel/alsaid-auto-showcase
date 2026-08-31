@@ -40,6 +40,7 @@ import heroRiver from "@/assets/hero-river-auto.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
+import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 export const companies: Company[] = [
   {
@@ -236,7 +237,7 @@ export const companies: Company[] = [
     accent: "#334155",
     accentSoft: "#EEF1F5",
     logo: foundationLogo,
-    // No hero photo — see companies.$slug.tsx for the fallback treatment.
+    hero: heroFoundation,
     motif: "impact",
     monogram: "AF",
   },

@@ -299,22 +299,32 @@ function Index() {
                     params={{ slug: c.slug }}
                     className="group relative block h-full overflow-hidden bg-ink"
                   >
-                    <div className={wide ? "aspect-[16/9]" : "aspect-[4/3]"}>
-                      <img
-                        src={c.hero ?? heroGroup}
-                        alt={c.name}
-                        loading="lazy"
-                        className="h-full w-full object-cover opacity-80 transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100"
+                    <div
+                      className={`relative grid place-items-center ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
+                    >
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
+                        style={{
+                          background: `radial-gradient(circle at 50% 42%, ${c.accent}2e 0%, transparent 68%)`,
+                        }}
                       />
+                      {c.logo ? (
+                        <img
+                          src={c.logo}
+                          alt={c.name}
+                          loading="lazy"
+                          className="relative h-14 w-auto max-w-[55%] object-contain opacity-85 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:opacity-100 md:h-20"
+                        />
+                      ) : (
+                        <span
+                          className="relative font-display text-3xl text-paper/40 md:text-4xl"
+                          aria-hidden
+                        >
+                          {c.monogram}
+                        </span>
+                      )}
                     </div>
-                    <span
-                      aria-hidden
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(14,12,12,0.05) 30%, rgba(14,12,12,0.82) 100%)",
-                      }}
-                    />
                     <span
                       aria-hidden
                       className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"

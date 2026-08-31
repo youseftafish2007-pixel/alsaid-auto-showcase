@@ -9,6 +9,7 @@ import heroGreenviro from "@/assets/hero-greenviro.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
+import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -146,6 +147,7 @@ const sectors: Sector[] = [
     sub: "501(c)(3) · Washington, D.C.",
     note: "Alsaid Foundation · Education, sustainability, youth",
     accent: "#334155",
+    image: heroFoundation,
   },
 ];
 
