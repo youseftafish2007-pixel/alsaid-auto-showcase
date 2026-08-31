@@ -9,6 +9,7 @@ import heroGreenviro from "@/assets/hero-greenviro.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
 import heroGac from "@/assets/hero-gac-motor.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
+import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -46,6 +47,15 @@ const timeline: TimelineItem[] = [
     accent: "#A6192E",
   },
   {
+    year: "2008",
+    label: "New Territory",
+    title: "Alsaid expands to the United States",
+    description:
+      "The Group establishes its first foothold in the United States, laying the groundwork for a dedicated American automotive presence in the years that follow.",
+    plaque: { heading: "UNITED STATES", sub: "First American Foothold" },
+    accent: "#A6192E",
+  },
+  {
     year: "2009",
     label: "Expansion",
     title: "A gateway to Dubai",
@@ -53,6 +63,26 @@ const timeline: TimelineItem[] = [
       "The Group opens in Dubai, UAE, establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
     plaque: { heading: "DUBAI, UAE", sub: "Sourcing & Trade Gateway" },
     accent: "#A6192E",
+  },
+  {
+    year: "2010",
+    label: "New Sector",
+    title: "Speed Travel & Tourism is founded",
+    description:
+      "A shipping, travel, and tourism business is established in Jordan, opening the Group's first line of work outside automotive and setting the stage for later hospitality ventures.",
+    image: heroSpeed,
+    imageAlt: "Speed Travel & Tourism operations",
+    accent: "#0B7C86",
+  },
+  {
+    year: "2013",
+    label: "New Territory",
+    title: "GMA of Everett opens",
+    description:
+      "A dedicated used-auto dealership opens in Everett, Washington, giving the Group a permanent operating base in the United States automotive market.",
+    image: heroGma,
+    imageAlt: "GMA of Everett dealership",
+    accent: "#1D4ED8",
   },
   {
     year: "2013",
@@ -63,6 +93,15 @@ const timeline: TimelineItem[] = [
     image: heroGreenviro,
     imageAlt: "Greenviro Energy solar infrastructure",
     accent: "#2F7D4F",
+  },
+  {
+    year: "2017",
+    label: "Expansion",
+    title: "Sharjah becomes an automotive hub",
+    description:
+      "The Group establishes an automotive sourcing and ecosystem presence in Sharjah, UAE, deepening its footprint in the Gulf alongside Dubai.",
+    plaque: { heading: "SHARJAH, UAE", sub: "Automotive Ecosystem & Sourcing" },
+    accent: "#A6192E",
   },
   {
     year: "2018",
