@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type MouseEvent as ReactMouseEvent } from "react";
-import asMonogram from "@/assets/as-monogram-ink.png";
+import alsaidAutoLogo from "@/assets/alsaid-automotive-site-logo.png";
 
 const nav = [
   { to: "/", label: "Group" },
@@ -26,11 +26,11 @@ export function SiteHeader() {
       <div className="container-editorial flex h-16 items-center justify-between gap-6">
         <Link to="/" className="group flex items-center gap-3">
           <img
-            src={asMonogram}
+            src={alsaidAutoLogo}
             alt="Alsaid Group"
-            width={40}
-            height={40}
-            className="h-9 w-auto object-contain transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110"
+            width={112}
+            height={84}
+            className="h-11 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
           />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[15px] font-medium tracking-tight text-ink transition-colors duration-300 group-hover:text-crimson">
