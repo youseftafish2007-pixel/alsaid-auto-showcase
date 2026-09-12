@@ -75,6 +75,15 @@ const timeline: TimelineItem[] = [
     accent: "#0B7C86",
   },
   {
+    year: "2010",
+    label: "New Territory",
+    title: "A first step into Africa",
+    description:
+      "The Group establishes an automotive presence in Abidjan, Côte d'Ivoire, extending its reach into West Africa for the first time.",
+    plaque: { heading: "ABIDJAN, CÔTE D'IVOIRE", sub: "West African Automotive Expansion" },
+    accent: "#8A6A2E",
+  },
+  {
     year: "2013",
     label: "New Territory",
     title: "GMA of Everett opens",

@@ -297,7 +297,7 @@ export const footprint: FootprintRow[] = [
     city: "Abidjan",
     region: "Côte d'Ivoire",
     role: "West African automotive expansion",
-    since: "In operation",
+    since: "2010",
     lat: 5.36,
     lng: -4.01,
   },
