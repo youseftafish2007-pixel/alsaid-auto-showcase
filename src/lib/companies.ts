@@ -18,6 +18,8 @@ export type Company = {
   logo?: string;
   /** Editorial hero photograph. */
   hero?: string;
+  /** Optional embeddable video URL (e.g. a public Facebook video/reel link). */
+  video?: string;
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
@@ -164,6 +166,7 @@ export const companies: Company[] = [
     accentSoft: "#ECF5EF",
     logo: greenviroLogo,
     hero: heroGreenviro,
+    video: "https://www.facebook.com/reel/1385161228488039",
     motif: "solar",
     monogram: "GV",
   },

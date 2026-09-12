@@ -177,6 +177,38 @@ function CompanyPage() {
       {/* Motion motif */}
       <CompanyMotif motif={company.motif} accent={company.accent} />
 
+      {/* Video */}
+      {company.video ? (
+        <section className="border-b border-ink/15 bg-paper-2/40">
+          <div className="container-editorial py-10 md:py-14">
+            <Reveal>
+              <div
+                className="text-[10px] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: company.accent }}
+              >
+                Watch
+              </div>
+              <div className="mt-5 mx-auto max-w-md overflow-hidden border border-ink/15 bg-ink shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)]">
+                <div className="relative aspect-[9/16] w-full">
+                  <iframe
+                    src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
+                      company.video
+                    )}&show_text=false&width=560`}
+                    className="absolute inset-0 h-full w-full"
+                    style={{ border: "none", overflow: "hidden" }}
+                    scrolling="no"
+                    frameBorder="0"
+                    allowFullScreen
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    title={`${company.name} video`}
+                  />
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
       {/* Fact ticker */}
       <section className="border-b border-ink/15 bg-ink text-paper">
         <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
