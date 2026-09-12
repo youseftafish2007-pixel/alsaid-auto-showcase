@@ -426,10 +426,11 @@ function AboutPage() {
                   <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Chairman, Alsaid Group
                   </div>
-                  <div className="image-frame relative mt-6 aspect-[3/4] w-full max-w-[280px] border border-ink/10">
+                  <div className="image-frame relative mt-6 aspect-[3/4] w-full max-w-[320px] border border-ink/10">
                     <img
                       src={chairmanPortrait}
                       alt="Osama Alsaid, Chairman of Alsaid Group"
+                      className="object-top"
                       loading="lazy"
                     />
                   </div>
