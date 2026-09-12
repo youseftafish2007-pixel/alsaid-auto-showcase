@@ -22,8 +22,10 @@ export type Company = {
   video?: string;
   /** Optional extra photographs shown in a gallery strip on the company page. */
   gallery?: string[];
-  /** Optional external showcase links (e.g. a Behance case study). */
+  /** Optional external showcase links (e.g. a Behance case study) shown as an outbound link. */
   externalLinks?: { label: string; url: string }[];
+  /** Optional Behance project ID to embed inline on the company page (not just a link). */
+  behanceProjectId?: string;
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
@@ -40,8 +42,6 @@ import zainLogo from "@/assets/zain-farm.png";
 import foundationLogo from "@/assets/alsaid-foundation.png";
 
 import heroAlsaidAuto from "@/assets/hero-alsaid-automotive.jpg";
-import heroGac from "@/assets/hero-gac-motor.jpg";
-import heroGreenviro from "@/assets/hero-greenviro.jpg";
 import heroRiver from "@/assets/hero-river-auto.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
@@ -49,6 +49,7 @@ import heroZain from "@/assets/hero-zain-farm.jpg";
 import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 import greenviroRooftopSolar from "@/assets/greenviro-rooftop-solar.jpg";
+import gacPickupConcept from "@/assets/gac-pickup-concept.jpg";
 
 export const companies: Company[] = [
   {
@@ -98,10 +99,8 @@ export const companies: Company[] = [
     accent: "#111827",
     accentSoft: "#F3F4F6",
     logo: gacLogo,
-    hero: heroGac,
-    externalLinks: [
-      { label: "GAC Pickup — Behance case study", url: "https://www.behance.net/gallery/231738469/GAC-PICKUP-01" },
-    ],
+    hero: gacPickupConcept,
+    behanceProjectId: "231738469",
     motif: "pickup",
     monogram: "GAC",
   },
@@ -174,9 +173,8 @@ export const companies: Company[] = [
     accent: "#2F7D4F",
     accentSoft: "#ECF5EF",
     logo: greenviroLogo,
-    hero: heroGreenviro,
+    hero: greenviroRooftopSolar,
     video: "https://www.facebook.com/reel/1385161228488039",
-    gallery: [greenviroRooftopSolar],
     motif: "solar",
     monogram: "GV",
   },
