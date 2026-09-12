@@ -389,6 +389,97 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* CHAIRMAN'S LETTER */}
+      <section className="relative border-b border-ink/15 bg-paper">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 pattern-dots opacity-[0.3]"
+        />
+        <div className="relative container-editorial py-16 md:py-24">
+          <div className="grid gap-10 md:grid-cols-12 md:gap-14">
+            <div className="md:col-span-4">
+              <Reveal from="left">
+                <div className="eyebrow">A word from leadership</div>
+                <h2 className="mt-4 font-display text-4xl leading-[0.98] tracking-tight text-ink md:text-5xl">
+                  The
+                  <br />
+                  Chairman.
+                </h2>
+                <span aria-hidden className="anim-rule mt-6 block h-[3px] w-16 bg-crimson" />
+                <blockquote className="mt-8 border-l-2 border-crimson/30 pl-5 font-display text-xl italic leading-snug text-ink/80 md:text-2xl">
+                  “The strength of a successful business is measured not only by its performance,
+                  but also by the value it creates around it.”
+                </blockquote>
+                <div className="mt-10 hidden md:block">
+                  <div className="font-display text-2xl text-ink">Osama Alsaid</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    Chairman, Alsaid Group
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            <div className="md:col-span-7 md:col-start-6">
+              <Reveal from="right" delay={100} className="space-y-5 text-base leading-relaxed text-ink/80 md:text-[17px]">
+                <p className="drop-cap text-lg">
+                  It is my pleasure to begin by expressing my sincere appreciation to the people
+                  who have contributed to the growth and success of Alsaid Group. Our achievements
+                  are the result of their dedication, commitment, and belief in the long-term
+                  vision of the Group.
+                </p>
+                <p>
+                  Over the years, Alsaid Group has continued to evolve, expanding its activities,
+                  strengthening strategic partnerships, and pursuing new opportunities across
+                  diverse sectors. Our journey has been guided by a commitment to excellence,
+                  responsible growth, and the creation of lasting value for our partners,
+                  customers, and communities.
+                </p>
+                <p>
+                  As we look toward the future, our ambition is clear: to build upon our
+                  achievements while continuing to expand into new markets, develop strategic
+                  partnerships, and pursue opportunities that contribute to sustainable economic
+                  and industrial development.
+                </p>
+                <p>
+                  We recognize that the business environment is constantly evolving. New markets,
+                  technologies, regulations, and opportunities require organizations to remain
+                  adaptable and forward-looking. Alsaid Group continues to strengthen its
+                  capabilities and organizational structure to ensure that we are positioned to
+                  respond effectively to these changes and pursue opportunities for long-term
+                  growth.
+                </p>
+                <p>
+                  We believe that the strength of a successful business is measured not only by
+                  its performance, but also by the value it creates around it. Through investment,
+                  innovation, international partnerships, and a long-term approach to development,
+                  we seek to make a meaningful contribution to the communities and economies in
+                  which we operate.
+                </p>
+                <p>
+                  I am proud of what Alsaid Group has accomplished to date, and even more
+                  confident about what lies ahead. Our future will be guided by the principles
+                  that have shaped our journey: vision, integrity, partnership, and a commitment
+                  to sustainable growth.
+                </p>
+                <p>
+                  On behalf of Alsaid Group, I thank our employees, partners, customers, and
+                  stakeholders for their continued trust and support. We look forward to the
+                  opportunities ahead and to building an even stronger and more prosperous future
+                  together.
+                </p>
+
+                <div className="mt-8 border-t border-rule pt-6 md:hidden">
+                  <div className="font-display text-2xl text-ink">Osama Alsaid</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    Chairman, Alsaid Group
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ENDING — today, and a quiet echo of the companies universe */}
       <section className="relative overflow-hidden border-b border-ink/15 bg-ink py-20 text-paper md:py-32">
         {/* Subtle orbit motif — same visual grammar as the Companies universe,
