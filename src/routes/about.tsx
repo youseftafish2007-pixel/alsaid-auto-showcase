@@ -11,6 +11,7 @@ import heroGac from "@/assets/hero-gac-motor.jpg";
 import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
+import chairmanPortrait from "@/assets/chairman-osama-alsaid.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -415,6 +416,13 @@ function AboutPage() {
                   <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Chairman, Alsaid Group
                   </div>
+                  <div className="image-frame relative mt-6 aspect-[3/4] w-40 border border-ink/10">
+                    <img
+                      src={chairmanPortrait}
+                      alt="Osama Alsaid, Chairman of Alsaid Group"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </Reveal>
             </div>
@@ -469,9 +477,20 @@ function AboutPage() {
                 </p>
 
                 <div className="mt-8 border-t border-rule pt-6 md:hidden">
-                  <div className="font-display text-2xl text-ink">Osama Alsaid</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                    Chairman, Alsaid Group
+                  <div className="flex items-center gap-4">
+                    <div className="image-frame relative aspect-[3/4] w-16 shrink-0 border border-ink/10">
+                      <img
+                        src={chairmanPortrait}
+                        alt="Osama Alsaid, Chairman of Alsaid Group"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div>
+                      <div className="font-display text-2xl text-ink">Osama Alsaid</div>
+                      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                        Chairman, Alsaid Group
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Reveal>
