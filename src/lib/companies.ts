@@ -20,6 +20,10 @@ export type Company = {
   hero?: string;
   /** Optional embeddable video URL (e.g. a public Facebook video/reel link). */
   video?: string;
+  /** Optional extra photographs shown in a gallery strip on the company page. */
+  gallery?: string[];
+  /** Optional external showcase links (e.g. a Behance case study). */
+  externalLinks?: { label: string; url: string }[];
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
@@ -43,6 +47,8 @@ import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroZain from "@/assets/hero-zain-farm.jpg";
 import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
+
+import greenviroRooftopSolar from "@/assets/greenviro-rooftop-solar.jpg";
 
 export const companies: Company[] = [
   {
@@ -93,6 +99,9 @@ export const companies: Company[] = [
     accentSoft: "#F3F4F6",
     logo: gacLogo,
     hero: heroGac,
+    externalLinks: [
+      { label: "GAC Pickup — Behance case study", url: "https://www.behance.net/gallery/231738469/GAC-PICKUP-01" },
+    ],
     motif: "pickup",
     monogram: "GAC",
   },
@@ -167,6 +176,7 @@ export const companies: Company[] = [
     logo: greenviroLogo,
     hero: heroGreenviro,
     video: "https://www.facebook.com/reel/1385161228488039",
+    gallery: [greenviroRooftopSolar],
     motif: "solar",
     monogram: "GV",
   },

@@ -297,7 +297,7 @@ function Index() {
                   <Link
                     to="/companies/$slug"
                     params={{ slug: c.slug }}
-                    className="group relative block h-full overflow-hidden bg-ink"
+                    className="group relative block h-full overflow-hidden border border-ink/10 bg-paper"
                   >
                     <div
                       className={`relative grid place-items-center p-6 ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
@@ -310,7 +310,7 @@ function Index() {
                         }}
                       />
                       {c.logo ? (
-                        <span className="eco-logo-card relative flex max-w-[85%] items-center justify-center rounded-sm bg-paper px-7 py-5 shadow-[0_20px_44px_-18px_rgba(0,0,0,0.65)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
+                        <span className="eco-logo-card relative flex max-w-[85%] items-center justify-center rounded-sm border border-ink/10 bg-paper px-7 py-5 shadow-[0_16px_36px_-20px_rgba(0,0,0,0.35)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
                           <img
                             src={c.logo}
                             alt={c.name}
@@ -320,7 +320,7 @@ function Index() {
                         </span>
                       ) : (
                         <span
-                          className="relative font-display text-3xl text-paper/40 md:text-4xl"
+                          className="relative font-display text-3xl text-ink/25 md:text-4xl"
                           aria-hidden
                         >
                           {c.monogram}
@@ -340,12 +340,12 @@ function Index() {
                         {c.sector}
                       </div>
                       <div className="mt-2 flex items-end justify-between gap-4">
-                        <h3 className="font-display text-2xl leading-tight text-paper transition-transform duration-500 group-hover:-translate-y-0.5 md:text-3xl">
+                        <h3 className="font-display text-2xl leading-tight text-ink transition-transform duration-500 group-hover:-translate-y-0.5 md:text-3xl">
                           {c.name}
                         </h3>
                         <span
                           aria-hidden
-                          className="text-paper/70 transition-transform duration-500 group-hover:translate-x-1"
+                          className="text-ink/60 transition-transform duration-500 group-hover:translate-x-1"
                         >
                           →
                         </span>

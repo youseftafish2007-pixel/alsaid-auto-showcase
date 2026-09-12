@@ -177,6 +177,59 @@ function CompanyPage() {
       {/* Motion motif */}
       <CompanyMotif motif={company.motif} accent={company.accent} />
 
+      {/* Gallery */}
+      {company.gallery && company.gallery.length > 0 ? (
+        <section className="border-b border-ink/15">
+          <div className="container-editorial py-10 md:py-14">
+            <Reveal>
+              <div
+                className="text-[10px] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: company.accent }}
+              >
+                On site
+              </div>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                {company.gallery.map((src, i) => (
+                  <div
+                    key={src + i}
+                    className="image-frame aspect-[4/3] overflow-hidden border border-ink/10"
+                  >
+                    <img
+                      src={src}
+                      alt={`${company.name} photo ${i + 1}`}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {/* External links */}
+      {company.externalLinks && company.externalLinks.length > 0 ? (
+        <section className="border-b border-ink/15 bg-paper-2/40">
+          <div className="container-editorial py-8 md:py-10">
+            <div className="flex flex-wrap items-center gap-4">
+              {company.externalLinks.map((l) => (
+                <a
+                  key={l.url}
+                  href={l.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-underline pb-1 text-[11px] font-semibold uppercase tracking-[0.22em]"
+                  style={{ color: company.accent }}
+                >
+                  {l.label} ↗
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* Video */}
       {company.video ? (
         <section className="border-b border-ink/15 bg-paper-2/40">
