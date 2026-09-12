@@ -12,6 +12,11 @@ import heroSpeed from "@/assets/hero-speed-travel.jpg";
 import heroGma from "@/assets/hero-gma-everett.jpg";
 import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 import chairmanPortrait from "@/assets/chairman-osama-alsaid.jpg";
+import timelineDubai from "@/assets/timeline-dubai.jpg";
+import timelineAbidjan from "@/assets/timeline-abidjan.jpg";
+import timelineSharjah from "@/assets/timeline-sharjah.jpg";
+import timelineWashington from "@/assets/timeline-washington.jpg";
+import timelineUsa from "@/assets/timeline-usa.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -53,7 +58,8 @@ const timeline: TimelineItem[] = [
     title: "Alsaid expands to the United States",
     description:
       "The Group establishes its first foothold in the United States, laying the groundwork for a dedicated American automotive presence in the years that follow.",
-    plaque: { heading: "UNITED STATES", sub: "First American Foothold" },
+    image: timelineUsa,
+    imageAlt: "The Group's first foothold in the United States",
     accent: "#A6192E",
   },
   {
@@ -62,7 +68,8 @@ const timeline: TimelineItem[] = [
     title: "A gateway to Dubai",
     description:
       "The Group opens in Dubai, UAE, establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
-    plaque: { heading: "DUBAI, UAE", sub: "Sourcing & Trade Gateway" },
+    image: timelineDubai,
+    imageAlt: "Dubai, UAE skyline",
     accent: "#A6192E",
   },
   {
@@ -81,7 +88,8 @@ const timeline: TimelineItem[] = [
     title: "A first step into Africa",
     description:
       "The Group establishes an automotive presence in Abidjan, Côte d'Ivoire, extending its reach into West Africa for the first time.",
-    plaque: { heading: "ABIDJAN, CÔTE D'IVOIRE", sub: "West African Automotive Expansion" },
+    image: timelineAbidjan,
+    imageAlt: "Abidjan, Côte d'Ivoire skyline",
     accent: "#8A6A2E",
   },
   {
@@ -110,7 +118,8 @@ const timeline: TimelineItem[] = [
     title: "Sharjah becomes an automotive hub",
     description:
       "The Group establishes an automotive sourcing and ecosystem presence in Sharjah, UAE, deepening its footprint in the Gulf alongside Dubai.",
-    plaque: { heading: "SHARJAH, UAE", sub: "Automotive Ecosystem & Sourcing" },
+    image: timelineSharjah,
+    imageAlt: "Sharjah, UAE waterfront",
     accent: "#A6192E",
   },
   {
@@ -129,7 +138,8 @@ const timeline: TimelineItem[] = [
     title: "Alsaid Foundation is established",
     description:
       "A 501(c)(3) non-profit is founded in Washington, D.C., driven by the belief that meaningful progress begins through opportunity and access: education, sustainability, and youth empowerment.",
-    plaque: { heading: "WASHINGTON, D.C.", sub: "501(c)(3) · Foundation HQ" },
+    image: timelineWashington,
+    imageAlt: "Washington, D.C. — the U.S. Capitol",
     accent: "#334155",
   },
   {
@@ -416,7 +426,7 @@ function AboutPage() {
                   <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                     Chairman, Alsaid Group
                   </div>
-                  <div className="image-frame relative mt-6 aspect-[3/4] w-40 border border-ink/10">
+                  <div className="image-frame relative mt-6 aspect-[3/4] w-full max-w-[280px] border border-ink/10">
                     <img
                       src={chairmanPortrait}
                       alt="Osama Alsaid, Chairman of Alsaid Group"
