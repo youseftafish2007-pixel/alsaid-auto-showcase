@@ -3,6 +3,17 @@ import { companies, type Company } from "@/lib/companies";
 import { CompanyMotif } from "@/components/company-motif";
 import { Reveal } from "@/components/reveal";
 
+/** Build an autoplaying, muted embed URL for a Facebook or YouTube video link. */
+function videoEmbedSrc(url: string): string {
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]+)/);
+  if (yt) {
+    return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&mute=1&playsinline=1&rel=0`;
+  }
+  return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
+    url
+  )}&show_text=false&autoplay=true&mute=1`;
+}
+
 export const Route = createFileRoute("/companies/$slug")({
   loader: ({ params }) => {
     const company = companies.find((c) => c.slug === params.slug);
@@ -243,9 +254,7 @@ function CompanyPage() {
               <div className="mt-5 overflow-hidden border border-ink/15 bg-ink shadow-[0_24px_60px_-40px_rgba(0,0,0,0.7)]">
                 <div className="relative aspect-video w-full">
                   <iframe
-                    src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-                      company.video
-                    )}&show_text=false`}
+                    src={videoEmbedSrc(company.video)}
                     className="absolute inset-0 h-full w-full"
                     style={{ border: "none", overflow: "hidden" }}
                     scrolling="no"

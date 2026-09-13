@@ -106,7 +106,7 @@ export const companies: Company[] = [
     accentSoft: "#F3F4F6",
     logo: gacLogo,
     hero: gacPickupConcept,
-    behanceProjectId: "231738469",
+    video: "https://www.youtube.com/watch?v=_daJDcNm7jI",
     motif: "pickup",
     monogram: "GAC",
   },
