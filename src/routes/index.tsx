@@ -75,7 +75,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Eight operating companies across thirteen markets and four continents, built and led across two generations.",
+          "Ten operating companies across thirteen markets and four continents, built and led across two generations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -272,7 +272,7 @@ function Index() {
             <div>
               <div className="eyebrow text-crimson">The Companies</div>
               <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
-                Eight operating companies, each with its own{" "}
+                Ten operating companies, each with its own{" "}
                 <em className="text-crimson">mandate.</em>
               </h2>
             </div>

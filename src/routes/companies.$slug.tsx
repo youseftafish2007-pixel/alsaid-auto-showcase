@@ -307,7 +307,7 @@ function CompanyPage() {
                 In the group
               </div>
               <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                {company.name} is one of eight operating companies within Alsaid Group, working in{" "}
+                {company.name} is one of ten operating companies within Alsaid Group, working in{" "}
                 {company.sector.toLowerCase()}.
               </p>
               <div className="mt-6 border-t border-rule pt-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">

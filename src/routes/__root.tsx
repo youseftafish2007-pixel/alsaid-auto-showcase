@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Alsaid Group is a privately held international conglomerate of eight operating companies across mobility, energy, travel, hospitality, and social impact. Established 1999, Amman.",
+          "Alsaid Group is a privately held international conglomerate of ten operating companies across mobility, energy, travel, hospitality, and social impact. Established 1999, Amman.",
       },
       { name: "author", content: "Alsaid Group" },
       { property: "og:title", content: "Alsaid Group | Where legacy leads." },

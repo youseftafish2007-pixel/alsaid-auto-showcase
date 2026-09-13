@@ -52,6 +52,10 @@ import heroFoundation from "@/assets/hero-alsaid-foundation.jpg";
 
 import greenviroRooftopSolar from "@/assets/greenviro-rooftop-solar.jpg";
 import gacPickupConcept from "@/assets/gac-pickup-concept.jpg";
+import greenviroEnergyLogo from "@/assets/greenviro-energy-logo.png";
+import heroGreenviroEnergy from "@/assets/hero-greenviro-energy.jpg";
+import zxautoLogo from "@/assets/zxauto-logo.png";
+import heroZxauto from "@/assets/hero-zxauto.jpg";
 
 export const companies: Company[] = [
   {
@@ -79,19 +83,10 @@ export const companies: Company[] = [
     hero: heroAlsaidAuto,
     motif: "fleet",
     monogram: "AA",
-    initiative: {
-      title: "Strategic Vehicle Manufacturing Project",
-      paragraphs: [
-        "Building on Alsaid Group's strategic partnership with ZXAUTO (Hebei Zhongxing Automobile Co., Ltd.), Alsaid Automotive is advancing plans to establish a phased vehicle assembly and manufacturing facility in Syria.",
-        "The project represents a significant step in the Group's expansion into the automotive and industrial sectors, with a focus on the assembly and progressive local production of pickup trucks and light commercial vehicles designed to serve commercial, infrastructure, reconstruction, logistics, and municipal requirements.",
-        "The development is structured as a scalable industrial platform, with the potential to progress from initial vehicle assembly and localization toward expanded production capabilities, supply-chain development, technical capacity building, and greater local value creation.",
-        "Through its partnership with ZXAUTO, Alsaid Automotive is positioned to leverage an established international automotive brand with a long history in pickup and commercial vehicle manufacturing, established production capabilities, international distribution experience, and a presence across multiple global markets.",
-      ],
-    },
   },
   {
     slug: "gac-motor",
-    name: "GAC Motor Partnership",
+    name: "GAC Motor",
     sector: "Exclusive Partnership",
     established: "2025",
     location: "Amman · Libya · Syria",
@@ -183,11 +178,61 @@ export const companies: Company[] = [
     ],
     accent: "#2F7D4F",
     accentSoft: "#ECF5EF",
-    logo: greenviroLogo,
-    hero: greenviroRooftopSolar,
+    logo: greenviroEnergyLogo,
+    hero: heroGreenviroEnergy,
     video: "https://www.facebook.com/reel/1385161228488039",
     motif: "solar",
     monogram: "GV",
+  },
+  {
+    slug: "greenviro-solutions",
+    name: "Greenviro Solutions",
+    sector: "Renewable Energy",
+    established: "2013",
+    location: "Jordan · MENA",
+    tagline:
+      "The Group's strategic expansion into renewable energy. An early commitment to solar, clean technologies, and sustainable infrastructure.",
+    facts: [
+      { label: "Established", value: "2013" },
+      { label: "Sector", value: "Energy" },
+      { label: "Focus", value: "Solar" },
+      { label: "Recognition", value: "UN Global Compact" },
+    ],
+    paragraphs: [
+      "Established in 2013, Greenviro Solutions reflects an early recognition of the region's evolving energy landscape and the global transition toward sustainable infrastructure. The company was developed with a long-term vision centred on sustainability, operational efficiency, and future-oriented investment.",
+      "Focused on solar energy, renewable technologies, and energy development, Greenviro Solutions has advanced renewable accessibility through solar solutions and environmentally conscious infrastructure, work recognised through its mention within the United Nations Global Compact framework.",
+    ],
+    accent: "#2F9D5C",
+    accentSoft: "#ECF5EF",
+    logo: greenviroLogo,
+    hero: greenviroRooftopSolar,
+    motif: "solar",
+    monogram: "GS",
+  },
+  {
+    slug: "zxauto",
+    name: "ZXAUTO",
+    sector: "Automotive Manufacturing",
+    location: "Syria",
+    tagline:
+      "Alsaid Automotive's strategic partner for a phased vehicle assembly and manufacturing facility in Syria, producing pickup trucks and light commercial vehicles.",
+    facts: [
+      { label: "Sector", value: "Vehicle manufacturing" },
+      { label: "Partner", value: "Hebei Zhongxing Automobile Co." },
+      { label: "Location", value: "Syria" },
+      { label: "Status", value: "In development" },
+    ],
+    paragraphs: [
+      "Building on Alsaid Group's strategic partnership with ZXAUTO (Hebei Zhongxing Automobile Co., Ltd.), Alsaid Automotive is advancing plans to establish a phased vehicle assembly and manufacturing facility in Syria.",
+      "The project represents a significant step in the Group's expansion into the automotive and industrial sectors, with a focus on the assembly and progressive local production of pickup trucks and light commercial vehicles designed to serve commercial, infrastructure, reconstruction, logistics, and municipal requirements.",
+      "The development is structured as a scalable industrial platform, with the potential to progress from initial vehicle assembly and localization toward expanded production capabilities, supply-chain development, technical capacity building, and greater local value creation. Through this partnership, Alsaid Automotive leverages an established international automotive brand with a long history in pickup and commercial vehicle manufacturing.",
+    ],
+    accent: "#0F7A3D",
+    accentSoft: "#EAF6EE",
+    logo: zxautoLogo,
+    hero: heroZxauto,
+    motif: "fleet",
+    monogram: "ZX",
   },
   {
     slug: "speed-travel",

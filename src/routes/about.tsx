@@ -155,7 +155,7 @@ const timeline: TimelineItem[] = [
   {
     year: "Today",
     label: "The Group Now",
-    title: "Eight companies. Four sectors. Four continents.",
+    title: "Ten companies. Four sectors. Four continents.",
     description:
       "What began as a single automotive business in Amman now operates across mobility, energy, travel & hospitality, and social impact. Privately held, and governed for the long term.",
     image: heroGroup,
@@ -339,7 +339,7 @@ function AboutPage() {
             {[
               { l: "Founded", v: "1999" },
               { l: "Ownership", v: "Private" },
-              { l: "Companies", v: "Eight" },
+              { l: "Companies", v: "Ten" },
               { l: "Sectors", v: "Four" },
               { l: "Continents", v: "Four" },
             ].map((s) => (
