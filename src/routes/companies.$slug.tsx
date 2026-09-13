@@ -177,6 +177,32 @@ function CompanyPage() {
       {/* Motion motif */}
       <CompanyMotif motif={company.motif} accent={company.accent} />
 
+      {/* Strategic initiative */}
+      {company.initiative ? (
+        <section className="border-b border-ink/15">
+          <div className="container-editorial py-10 md:py-14">
+            <Reveal>
+              <div
+                className="text-[10px] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: company.accent }}
+              >
+                In development
+              </div>
+              <h2 className="mt-3 font-display text-2xl text-ink md:text-3xl">
+                {company.initiative.title}
+              </h2>
+              <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-ink/80">
+                {company.initiative.paragraphs.map((p, i) => (
+                  <p key={i} className={i === 0 ? "drop-cap text-lg" : undefined}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
       {/* Behance embed */}
       {company.behanceProjectId ? (
         <section className="border-b border-ink/15 bg-paper-2/40">

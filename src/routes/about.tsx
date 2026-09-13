@@ -107,9 +107,9 @@ const timeline: TimelineItem[] = [
     label: "New Sector",
     title: "Greenviro Energy is founded",
     description:
-      "An early recognition of the region's changing energy landscape. Greenviro Energy is established to build solar and renewable infrastructure, the Group's first move beyond automotive.",
+      "An early recognition of the region's waste-management gap. Greenviro Energy is established to turn end-of-life tires into pyrolysis oil, recovered carbon black, and steel, the Group's first move beyond automotive.",
     image: heroGreenviro,
-    imageAlt: "Greenviro Energy solar infrastructure",
+    imageAlt: "Greenviro Energy pyrolysis facility",
     accent: "#2F7D4F",
   },
   {
@@ -188,7 +188,7 @@ const sectors: Sector[] = [
     index: "02",
     name: "Energy",
     sub: "Renewables · One company",
-    note: "Greenviro Energy · Solar & sustainable infrastructure",
+    note: "Greenviro Energy · Waste-to-energy & pyrolysis",
     accent: "#2F7D4F",
     image: heroGreenviro,
   },

@@ -26,6 +26,8 @@ export type Company = {
   externalLinks?: { label: string; url: string }[];
   /** Optional Behance project ID to embed inline on the company page (not just a link). */
   behanceProjectId?: string;
+  /** Optional strategic initiative/project spotlight shown on the company page. */
+  initiative?: { title: string; paragraphs: string[] };
   /** Animated motif shown on the company page. */
   motif: Motif;
   /** Short monogram used when no logo is available. */
@@ -77,6 +79,15 @@ export const companies: Company[] = [
     hero: heroAlsaidAuto,
     motif: "fleet",
     monogram: "AA",
+    initiative: {
+      title: "Strategic Vehicle Manufacturing Project",
+      paragraphs: [
+        "Building on Alsaid Group's strategic partnership with ZXAUTO (Hebei Zhongxing Automobile Co., Ltd.), Alsaid Automotive is advancing plans to establish a phased vehicle assembly and manufacturing facility in Syria.",
+        "The project represents a significant step in the Group's expansion into the automotive and industrial sectors, with a focus on the assembly and progressive local production of pickup trucks and light commercial vehicles designed to serve commercial, infrastructure, reconstruction, logistics, and municipal requirements.",
+        "The development is structured as a scalable industrial platform, with the potential to progress from initial vehicle assembly and localization toward expanded production capabilities, supply-chain development, technical capacity building, and greater local value creation.",
+        "Through its partnership with ZXAUTO, Alsaid Automotive is positioned to leverage an established international automotive brand with a long history in pickup and commercial vehicle manufacturing, established production capabilities, international distribution experience, and a presence across multiple global markets.",
+      ],
+    },
   },
   {
     slug: "gac-motor",
@@ -155,20 +166,20 @@ export const companies: Company[] = [
   {
     slug: "greenviro-energy",
     name: "Greenviro Energy",
-    sector: "Renewable Energy",
+    sector: "Waste-to-Energy",
     established: "2013",
-    location: "Jordan · MENA",
+    location: "Al-Jezah, Jordan · MENA",
     tagline:
-      "The Group's strategic expansion into renewable energy. An early commitment to solar, clean technologies, and sustainable infrastructure.",
+      "A pioneer in environmental engineering and waste-to-energy solutions, turning end-of-life tires into pyrolysis oil, recovered carbon black, and steel.",
     facts: [
       { label: "Established", value: "2013" },
-      { label: "Sector", value: "Energy" },
-      { label: "Focus", value: "Solar" },
-      { label: "Recognition", value: "UN Global Compact" },
+      { label: "Sector", value: "Waste-to-Energy" },
+      { label: "Technology", value: "Advanced pyrolysis" },
+      { label: "Facility", value: "Al-Jezah Province" },
     ],
     paragraphs: [
-      "Established in 2013, Greenviro Energy reflects an early recognition of the region's evolving energy landscape and the global transition toward sustainable infrastructure. The company was developed with a long-term vision centred on sustainability, operational efficiency, and future-oriented investment.",
-      "Focused on solar energy, renewable technologies, and energy development, Greenviro has advanced renewable accessibility through solar solutions and environmentally conscious infrastructure, work recognised through its mention within the United Nations Global Compact framework.",
+      "Established in Jordan in 2013, Greenviro Energy is a pioneer in environmental engineering and waste-to-energy solutions. It bridges the gap between waste management and industrial innovation by transforming difficult-to-recycle materials, principally end-of-life tires, into high-value energy and commercial resources through advanced pyrolysis technology.",
+      "Guided by the principles of the circular economy, its operations reduce environmental pollution, decrease dependence on fossil fuels, and produce vital alternative commodities like pyrolysis oil, recovered carbon black, and steel. From its facility in Al-Jezah Province, Greenviro Energy is scaling sustainable industrial development across Jordan and the wider MENA region.",
     ],
     accent: "#2F7D4F",
     accentSoft: "#ECF5EF",

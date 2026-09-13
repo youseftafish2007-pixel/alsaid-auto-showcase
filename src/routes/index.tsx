@@ -223,7 +223,7 @@ function Index() {
               {
                 name: "Energy",
                 count: "One company",
-                note: "Greenviro Energy · Solar",
+                note: "Greenviro Energy · Waste-to-energy",
                 color: "#2F7D4F",
               },
               {
