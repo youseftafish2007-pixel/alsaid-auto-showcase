@@ -100,6 +100,13 @@ function CompanyPage() {
 
           <div className="mt-5 grid gap-8 md:grid-cols-12 md:items-center">
             <div className="md:col-span-7">
+              {company.logo ? (
+                <img
+                  src={company.logo}
+                  alt={`${company.name} logo`}
+                  className="anim-rise mb-4 h-12 w-auto max-w-[180px] object-contain object-left md:h-14"
+                />
+              ) : null}
               <h1 className="anim-rise d-1 max-w-4xl font-display text-5xl leading-[0.98] tracking-[-0.025em] text-ink md:text-7xl">
                 {nameLead ? <>{nameLead} </> : null}
                 <em style={{ color: company.accent, fontStyle: "italic" }}>{nameTail}.</em>
@@ -159,15 +166,6 @@ function CompanyPage() {
                   className="absolute inset-x-0 bottom-0 h-[3px]"
                   style={{ background: company.accent }}
                 />
-                {company.logo ? (
-                  <span className="absolute left-3 top-3 flex h-14 w-28 items-center justify-center border border-ink/10 bg-paper px-1.5 py-1 shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-transform duration-500 hover:scale-105 sm:left-4 sm:top-4 sm:h-20 sm:w-40 sm:px-2 sm:py-1.5">
-                    <img
-                      src={company.logo}
-                      alt={`${company.name} logo`}
-                      className="h-full w-full object-contain"
-                    />
-                  </span>
-                ) : null}
               </div>
             </div>
           </div>
