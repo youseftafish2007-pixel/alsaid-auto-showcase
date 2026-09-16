@@ -297,7 +297,8 @@ function Index() {
                   <Link
                     to="/companies/$slug"
                     params={{ slug: c.slug }}
-                    className="group relative block h-full overflow-hidden border border-ink/10 bg-paper"
+                    className="group relative block h-full overflow-hidden border border-ink/10"
+                    style={{ background: c.accentSoft }}
                   >
                     <div
                       className={`relative grid place-items-center p-6 ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
@@ -310,14 +311,12 @@ function Index() {
                         }}
                       />
                       {c.logo ? (
-                        <span className="eco-logo-card relative flex max-w-[85%] items-center justify-center rounded-sm border border-ink/10 bg-paper px-7 py-5 shadow-[0_16px_36px_-20px_rgba(0,0,0,0.35)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
-                          <img
-                            src={c.logo}
-                            alt={c.name}
-                            loading="lazy"
-                            className={`w-auto max-w-full object-contain ${wide ? "h-16 md:h-24" : "h-12 md:h-16"}`}
-                          />
-                        </span>
+                        <img
+                          src={c.logo}
+                          alt={c.name}
+                          loading="lazy"
+                          className={`relative w-auto max-w-[78%] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] ${wide ? "h-20 md:h-28" : "h-14 md:h-20"}`}
+                        />
                       ) : (
                         <span
                           className="relative font-display text-3xl text-ink/25 md:text-4xl"

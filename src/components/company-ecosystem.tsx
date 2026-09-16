@@ -5,8 +5,6 @@ import type { Company } from "@/lib/companies";
 import asMonogram from "@/assets/as-monogram.png";
 
 const CREAM = "#f0ede8";
-/** Companies whose logo art already reads cleanly on dark — skip the cream card behind it. */
-const NO_LOGO_CARD = new Set(["zxauto", "greenviro-solutions"]);
 const VOID = "#0a0a0a";
 
 type RingConfig = { rx: number; ry: number; duration: number; tilt: number; z: "back" | "front" };
@@ -433,22 +431,6 @@ function ExpandedProfile({ company, onClose }: { company: Company; onClose: () =
                 </svg>
               </div>
             )}
-            {company.logo ? (
-              <span
-                className="absolute left-3 top-3 flex h-10 w-28 items-center justify-center border px-2.5 py-1.5"
-                style={
-                  NO_LOGO_CARD.has(company.slug)
-                    ? { borderColor: "transparent" }
-                    : { borderColor: `${CREAM}30`, background: CREAM }
-                }
-              >
-                <img
-                  src={company.logo}
-                  alt=""
-                  className={`h-full w-full object-contain ${NO_LOGO_CARD.has(company.slug) ? "drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]" : ""}`}
-                />
-              </span>
-            ) : null}
           </div>
           <div
             className="mt-5 grid grid-cols-2 gap-px overflow-hidden border"

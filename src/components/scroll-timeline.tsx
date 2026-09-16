@@ -95,7 +95,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
         <div className="md:col-span-8">
           {item.image ? (
             <div
-              className="image-frame aspect-[16/8] transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="image-frame aspect-[3/2] transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
               style={{
                 opacity: shown ? 1 : 0,
                 transform: shown ? "scale(1)" : "scale(0.94)",
@@ -115,7 +115,7 @@ function TimelineRow({ item, index }: { item: TimelineItem; index: number }) {
             </div>
           ) : item.plaque ? (
             <div
-              className="relative flex aspect-[16/8] flex-col justify-between overflow-hidden border border-dashed p-6 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:p-8"
+              className="relative flex aspect-[3/2] flex-col justify-between overflow-hidden border border-dashed p-6 transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:p-8"
               style={{
                 borderColor: "color-mix(in oklab, var(--ink) 22%, transparent)",
                 background: "var(--paper-2)",
