@@ -16,10 +16,11 @@ const RINGS: RingConfig[] = [
   { rx: 300, ry: 130, duration: 165, tilt: -14, z: "front" },
   { rx: 380, ry: 164, duration: 200, tilt: 20, z: "back" },
   { rx: 458, ry: 196, duration: 240, tilt: -7, z: "front" },
+  { rx: 530, ry: 226, duration: 275, tilt: 15, z: "back" },
 ];
 
 /** Subtle size variance only — reads as depth, not decoration. */
-const NODE_SIZES = [70, 78, 68, 76, 72, 66, 80, 69];
+const NODE_SIZES = [70, 78, 68, 76, 72, 66, 80, 69, 74, 71];
 
 function ellipsePath(rx: number, ry: number, tiltDeg: number) {
   const rad = (tiltDeg * Math.PI) / 180;
@@ -256,7 +257,7 @@ function OrbitRing({
   return (
     <div className="absolute inset-0">
       <svg
-        viewBox="-500 -320 1000 640"
+        viewBox="-560 -360 1120 720"
         className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
         aria-hidden
       >

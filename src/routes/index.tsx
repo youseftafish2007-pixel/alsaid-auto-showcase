@@ -284,25 +284,17 @@ function Index() {
             </Link>
           </Reveal>
 
-          <div className="mt-9 grid gap-px bg-rule md:grid-cols-6">
+          <div className="mt-9 grid gap-px bg-rule sm:grid-cols-2 md:grid-cols-5">
             {companies.map((c, i) => {
-              const wide = i < 2;
               return (
-                <Reveal
-                  key={c.slug}
-                  delay={Math.min(i, 5) * 70}
-                  from="up"
-                  className={wide ? "md:col-span-3" : "md:col-span-2"}
-                >
+                <Reveal key={c.slug} delay={Math.min(i, 9) * 60} from="up">
                   <Link
                     to="/companies/$slug"
                     params={{ slug: c.slug }}
                     className="group relative block h-full overflow-hidden border border-ink/10"
                     style={{ background: c.accentSoft }}
                   >
-                    <div
-                      className={`relative grid place-items-center p-6 ${wide ? "aspect-[16/9]" : "aspect-[4/3]"}`}
-                    >
+                    <div className="relative grid aspect-[4/3] place-items-center p-6">
                       <span
                         aria-hidden
                         className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
@@ -315,7 +307,7 @@ function Index() {
                           src={c.logo}
                           alt={c.name}
                           loading="lazy"
-                          className={`relative w-auto max-w-[78%] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] ${wide ? "h-20 md:h-28" : "h-14 md:h-20"}`}
+                          className="relative h-14 w-auto max-w-[78%] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] md:h-20"
                         />
                       ) : (
                         <span
