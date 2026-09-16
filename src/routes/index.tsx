@@ -284,17 +284,28 @@ function Index() {
             </Link>
           </Reveal>
 
-          <div className="mt-9 grid gap-px bg-rule sm:grid-cols-2 md:grid-cols-5">
+          <div className="mt-9 grid gap-px bg-rule md:grid-cols-6">
             {companies.map((c, i) => {
+              // Hand-tuned so every row's spans sum to 6 — no dangling cells, still varied widths.
+              const span = [4, 2, 2, 2, 2, 3, 3, 2, 2, 2][i % 10];
+              const spanClass = { 2: "md:col-span-2", 3: "md:col-span-3", 4: "md:col-span-4" }[
+                span
+              ];
+              const big = span === 4;
               return (
-                <Reveal key={c.slug} delay={Math.min(i, 9) * 60} from="up">
+                <Reveal
+                  key={c.slug}
+                  delay={Math.min(i, 9) * 60}
+                  from="up"
+                  className={spanClass}
+                >
                   <Link
                     to="/companies/$slug"
                     params={{ slug: c.slug }}
                     className="group relative block h-full overflow-hidden border border-ink/10"
                     style={{ background: c.accentSoft }}
                   >
-                    <div className="relative grid aspect-[4/3] place-items-center p-6">
+                    <div className="relative grid h-56 place-items-center p-6 sm:h-64 md:h-72">
                       <span
                         aria-hidden
                         className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
@@ -307,7 +318,7 @@ function Index() {
                           src={c.logo}
                           alt={c.name}
                           loading="lazy"
-                          className="relative h-14 w-auto max-w-[78%] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] md:h-20"
+                          className={`relative w-auto max-w-[78%] object-contain drop-shadow-[0_6px_14px_rgba(0,0,0,0.16)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] ${big ? "h-16 md:h-24" : "h-14 md:h-20"}`}
                         />
                       ) : (
                         <span
