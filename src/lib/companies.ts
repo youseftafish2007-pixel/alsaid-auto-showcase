@@ -56,6 +56,10 @@ import greenviroEnergyLogo from "@/assets/greenviro-energy-logo.png";
 import heroGreenviroEnergy from "@/assets/hero-greenviro-energy.jpg";
 import zxautoLogo from "@/assets/zxauto-logo.png";
 import heroZxauto from "@/assets/hero-zxauto.jpg";
+import gacAssembly from "@/assets/gac-assembly.jpg";
+import zxautoPlant from "@/assets/zxauto-plant.jpg";
+import zxautoBodyshop from "@/assets/zxauto-bodyshop.jpg";
+import heroGreenviroSolutions from "@/assets/hero-greenviro-solutions.jpg";
 
 export const companies: Company[] = [
   {
@@ -107,6 +111,7 @@ export const companies: Company[] = [
     logo: gacLogo,
     hero: gacPickupConcept,
     video: "https://www.youtube.com/watch?v=_daJDcNm7jI",
+    gallery: [gacAssembly],
     motif: "pickup",
     monogram: "GAC",
   },
@@ -204,7 +209,7 @@ export const companies: Company[] = [
     accent: "#2F9D5C",
     accentSoft: "#ECF5EF",
     logo: greenviroLogo,
-    hero: greenviroRooftopSolar,
+    hero: heroGreenviroSolutions,
     video: "https://www.facebook.com/reel/1385161228488039",
     motif: "solar",
     monogram: "GS",
@@ -231,6 +236,7 @@ export const companies: Company[] = [
     accentSoft: "#EAF6EE",
     logo: zxautoLogo,
     hero: heroZxauto,
+    gallery: [zxautoPlant, zxautoBodyshop],
     motif: "fleet",
     monogram: "ZX",
   },

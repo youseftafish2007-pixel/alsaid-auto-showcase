@@ -154,7 +154,7 @@ function Index() {
                   <img
                     src={c.logo}
                     alt={`${c.name} logo`}
-                    className="max-h-12 w-auto object-contain opacity-55 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                    className="max-h-12 w-auto object-contain opacity-100 transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
                 </Link>

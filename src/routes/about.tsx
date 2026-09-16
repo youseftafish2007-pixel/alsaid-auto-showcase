@@ -17,6 +17,7 @@ import timelineAbidjan from "@/assets/timeline-abidjan.jpg";
 import timelineSharjah from "@/assets/timeline-sharjah.jpg";
 import timelineWashington from "@/assets/timeline-washington.jpg";
 import timelineUsa from "@/assets/timeline-usa.jpg";
+import zxautoBodyshopImg from "@/assets/zxauto-bodyshop.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -59,7 +60,7 @@ const timeline: TimelineItem[] = [
     description:
       "The Group establishes its first foothold in the United States, laying the groundwork for a dedicated American automotive presence in the years that follow.",
     image: timelineUsa,
-    imageAlt: "The Group's first foothold in the United States",
+    imageAlt: "Vehicles for the Group's US market entry",
     accent: "#A6192E",
   },
   {
@@ -69,7 +70,7 @@ const timeline: TimelineItem[] = [
     description:
       "The Group opens in Dubai, UAE, establishing a gateway for international sourcing and trade that extends its automotive reach beyond Jordan for the first time.",
     image: timelineDubai,
-    imageAlt: "Dubai, UAE skyline",
+    imageAlt: "Vehicle logistics yard serving the Dubai gateway",
     accent: "#A6192E",
   },
   {
@@ -89,7 +90,7 @@ const timeline: TimelineItem[] = [
     description:
       "The Group establishes an automotive presence in Abidjan, Côte d'Ivoire, extending its reach into West Africa for the first time.",
     image: timelineAbidjan,
-    imageAlt: "Abidjan, Côte d'Ivoire skyline",
+    imageAlt: "Container port handling West African vehicle trade",
     accent: "#8A6A2E",
   },
   {
@@ -151,6 +152,16 @@ const timeline: TimelineItem[] = [
     image: heroGac,
     imageAlt: "GAC Motor partnership vehicles",
     accent: "#111827",
+  },
+  {
+    year: "2026",
+    label: "Into Manufacturing",
+    title: "A vehicle manufacturing project with ZXAUTO",
+    description:
+      "Partnering with ZXAUTO (Hebei Zhongxing Automobile), the Group advances a phased vehicle assembly and manufacturing facility in Syria, moving from distribution into industrial production.",
+    image: zxautoBodyshopImg,
+    imageAlt: "Vehicle body assembly line",
+    accent: "#0F7A3D",
   },
   {
     year: "Today",

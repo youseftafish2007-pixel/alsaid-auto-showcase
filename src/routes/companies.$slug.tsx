@@ -240,6 +240,33 @@ function CompanyPage() {
         </section>
       ) : null}
 
+      {/* Gallery */}
+      {company.gallery && company.gallery.length > 0 ? (
+        <section className="border-b border-ink/15">
+          <div className="container-editorial py-10 md:py-14">
+            <Reveal>
+              <div
+                className="text-[10px] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: company.accent }}
+              >
+                Inside the operation
+              </div>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {company.gallery.map((src, i) => (
+                  <div key={src + i} className="image-frame aspect-[16/10]">
+                    <img
+                      src={src}
+                      alt={`${company.name} facility ${i + 1}`}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
       {/* Video */}
       {company.video ? (
         <section className="border-b border-ink/15 bg-paper-2/40">
