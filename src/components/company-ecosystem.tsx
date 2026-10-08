@@ -572,7 +572,7 @@ export function CompanyEcosystem({ companies }: { companies: Company[] }) {
           className="mx-auto mt-5 max-w-xl text-lg leading-relaxed"
           style={{ color: `${CREAM}99` }}
         >
-          One group, eight companies orbiting a shared center of gravity.
+          One group, ten companies orbiting a shared center of gravity.
         </p>
       </div>
 

@@ -166,7 +166,7 @@ const timeline: TimelineItem[] = [
   {
     year: "Today",
     label: "The Group Now",
-    title: "Ten companies. Four sectors. Four continents.",
+    title: "Ten companies. Four sectors. Four regions.",
     description:
       "What began as a single automotive business in Amman now operates across mobility, energy, travel & hospitality, and social impact. Privately held, and governed for the long term.",
     image: heroGroup,
@@ -190,16 +190,16 @@ const sectors: Sector[] = [
   {
     index: "01",
     name: "Automotive",
-    sub: "Mobility · Four companies",
-    note: "Alsaid Automotive · GAC Motor · GMA of Everett · River Auto",
+    sub: "Mobility · Five companies",
+    note: "Alsaid Automotive · GAC Motor · GMA of Everett · River Auto · ZXAUTO",
     accent: "#A6192E",
     image: heroAlsaidAuto,
   },
   {
     index: "02",
     name: "Energy",
-    sub: "Renewables · One company",
-    note: "Greenviro Energy · Waste-to-energy & pyrolysis",
+    sub: "Renewables · Two companies",
+    note: "Greenviro Energy · Greenviro Solutions",
     accent: "#2F7D4F",
     image: heroGreenviro,
   },
@@ -352,7 +352,7 @@ function AboutPage() {
               { l: "Ownership", v: "Private" },
               { l: "Companies", v: "Ten" },
               { l: "Sectors", v: "Four" },
-              { l: "Continents", v: "Four" },
+              { l: "Regions", v: "Four" },
             ].map((s) => (
               <div key={s.l} className="border-b border-paper/10 px-4 py-5 sm:border-b-0 md:px-6">
                 <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/40">

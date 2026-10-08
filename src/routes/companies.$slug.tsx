@@ -401,7 +401,7 @@ function CompanyPage() {
             to="/companies"
             className="link-underline pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-ink"
           >
-            All eight companies
+            All ten companies
           </Link>
         </div>
       </section>

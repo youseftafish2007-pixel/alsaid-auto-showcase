@@ -11,13 +11,13 @@ export const Route = createFileRoute("/footprint")({
       {
         name: "description",
         content:
-          "Thirteen markets across four continents: Amman, Dubai, Sharjah, Damascus, Tripoli, Abidjan, Washington D.C., Everett, Mecca, Seoul, Guangzhou, Shanghai, and Johannesburg.",
+          "Thirteen markets across four regions: Amman, Dubai, Sharjah, Damascus, Tripoli, Abidjan, Washington D.C., Everett, Mecca, Seoul, Guangzhou, Shanghai, and Johannesburg.",
       },
       { property: "og:title", content: "Global Footprint | Alsaid Group" },
       {
         property: "og:description",
         content:
-          "Thirteen international markets across four continents, from Amman to Johannesburg, Seoul to Washington.",
+          "Thirteen markets across four regions, from Amman to Johannesburg, Seoul to Washington.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -70,7 +70,7 @@ function FootprintPage() {
             Global <em className="not-italic text-crimson">footprint.</em>
           </h1>
           <p className="anim-rise d-3 mt-5 max-w-2xl text-lg leading-relaxed text-paper/70">
-            Thirteen markets, four continents, one group.
+            Thirteen markets, four regions, one group.
           </p>
         </div>
       </section>

@@ -16,7 +16,7 @@ const slides: Slide[] = [
     eyebrow: "Alsaid Group · Established 1999 · Amman",
     title: "Where legacy",
     emphasis: "leads.",
-    copy: "A privately held international group of eight companies across automotive, energy, logistics, travel, hospitality, and social impact, built and led across two generations.",
+    copy: "A privately held international group of ten companies across automotive, energy, logistics, travel, hospitality, and social impact, built and led across two generations.",
     to: "/companies",
     cta: "Explore the companies",
   },
@@ -69,13 +69,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A privately held international group of eight companies across automotive, energy, logistics, travel, hospitality, and social impact. Founded in Amman, 1999.",
+          "A privately held international group of ten companies across automotive, energy, logistics, travel, hospitality, and social impact. Founded in Amman, 1999.",
       },
       { property: "og:title", content: "Alsaid Group | Where Legacy Leads" },
       {
         property: "og:description",
         content:
-          "Ten operating companies across thirteen markets and four continents, built and led across two generations.",
+          "Ten operating companies across thirteen markets and four regions, built and led across two generations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -106,9 +106,9 @@ function Index() {
         <div className="container-editorial grid grid-cols-2 gap-px bg-paper/10 md:grid-cols-4">
           {[
             { n: "1999", l: "Founded in Amman" },
-            { n: "8", l: "Operating companies" },
-            { n: "9", l: "International markets" },
-            { n: "4", l: "Continents of operation" },
+            { n: "10", l: "Operating companies" },
+            { n: "13", l: "Markets" },
+            { n: "4", l: "Regions of operation" },
           ].map((s, i) => (
             <Reveal
               key={s.l}
@@ -139,7 +139,7 @@ function Index() {
               to="/companies"
               className="link-underline pb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-crimson"
             >
-              All eight →
+              All ten →
             </Link>
           </div>
           <div className="mt-6 grid grid-cols-2 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-8">
@@ -185,7 +185,7 @@ function Index() {
             </p>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink/70">
               What began as a single automotive business in Amman has grown, over twenty-six years,
-              into a diversified platform of eight companies across four continents. Held privately,
+              into a diversified platform of ten companies across four regions. Held privately,
               governed for the long term, and built to endure beyond any single market or cycle.
             </p>
             <Link
@@ -216,14 +216,14 @@ function Index() {
             {[
               {
                 name: "Mobility",
-                count: "Four companies",
-                note: "Alsaid Auto · GAC · GMA · River Auto",
+                count: "Five companies",
+                note: "Alsaid Auto · GAC · GMA · River Auto · ZXAUTO",
                 color: "#A6192E",
               },
               {
                 name: "Energy",
-                count: "One company",
-                note: "Greenviro Energy · Waste-to-energy",
+                count: "Two companies",
+                note: "Greenviro Energy · Greenviro Solutions",
                 color: "#2F7D4F",
               },
               {
@@ -386,7 +386,7 @@ function Index() {
           <Reveal from="right" delay={120} className="md:col-span-5">
             <p className="max-w-md text-base leading-relaxed text-paper/85">
               We work with manufacturers, distributors, and institutional partners across thirteen
-              markets and four continents.
+              markets and four regions.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a

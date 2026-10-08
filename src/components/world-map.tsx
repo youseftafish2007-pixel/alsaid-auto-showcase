@@ -219,7 +219,7 @@ export function WorldMap({
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           className="block h-auto w-full"
           role="img"
-          aria-label="Map of Alsaid Group locations across four continents"
+          aria-label="Map of Alsaid Group locations across four regions"
         >
           <path
             d={graticulePath}
@@ -450,7 +450,7 @@ export function WorldMap({
             {activePoint.city} · {activePoint.lat.toFixed(2)}°N {activePoint.lng.toFixed(2)}°E
           </span>
         ) : (
-          <span>{data.length} locations · 4 continents</span>
+          <span>{data.length} locations · 4 regions</span>
         )}
         <span className="hidden items-center gap-1 text-ink/35 sm:inline-flex">
           <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" aria-hidden>
